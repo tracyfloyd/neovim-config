@@ -1,17 +1,14 @@
 require("tflo.core")
-
 require("tflo.lazy")
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- Apply colorscheme
-function ColorMyPencils(color)
-  color = color or "rose-pine"
-  vim.cmd.colorscheme(color)
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-  -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-end
-ColorMyPencils("catppuccin")
+
+-- Trim trailing whitespace on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  command = ":%s/\\s\\+$//e",
+})
 
 
 -- Configure LSP

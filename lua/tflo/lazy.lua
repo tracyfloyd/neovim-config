@@ -1,3 +1,4 @@
+-- Setup lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -14,20 +15,25 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
+-- Configure Plugins
 require('lazy').setup({
 
   { -- colorscheme: Rose Pine
     'rose-pine/neovim',
     name = 'rose-pine',
+    enabled = false,
+    priority = 1000,
     config = function()
       vim.cmd.colorscheme "rose-pine"
     end
   },
 
   { -- colorscheme: Catppuccin
-    "catppuccin/nvim", 
-    name = "catppuccin", 
-    priority = 1000, 
+    "catppuccin/nvim",
+    name = "catppuccin",
+    -- enabled = false,
+    priority = 1000,
     config = function()
       require('catppuccin').setup {
         flavour = "macchiato", -- latte, frappe, macchiato, mocha
@@ -37,22 +43,21 @@ require('lazy').setup({
 
   },
 
-
-  { -- fugitive
+  -- Fugitive (GIT tools)
+  {
     "tpope/vim-fugitive",
     config = function()
       vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
     end
   },
 
-  { -- harpoon
+  -- Harpoon (File switcher)
+  {
     "theprimeagen/harpoon",
     config = function()
         require('harpoon').setup({})
-
         local mark = require("harpoon.mark")
         local ui = require("harpoon.ui")
-
         vim.keymap.set("n", "<leader>a", mark.add_file)
         vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
         vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end)
@@ -62,26 +67,30 @@ require('lazy').setup({
     end
   },
 
-  { -- indent-blankline
-    'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
-  },
-
-  { -- lualine
-    'nvim-lualine/lualine.nvim',
+  -- Indent Blankline (Indentation guides)
+  {
+    "lukas-reineke/indent-blankline.nvim",
     config = function()
-      require('lualine').setup {
-        options = {
-          icons_enabled = false,
-          theme = onedark,
-          component_separators = '|',
-          section_separators = '',
-        }
-      }
+      require("ibl").setup()
     end
   },
 
-  { -- LSP
+  -- Lualine (Fancy status bar)
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
+    opts = {
+      icons_enabled = false,
+      theme = 'gruvbox-material',
+      component_separators = '|',
+      section_separators = '',
+    }
+  },
+
+  -- LSP (Langua Server)
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
@@ -172,7 +181,8 @@ require('lazy').setup({
     end
   },
 
-  { -- telescope
+  -- Telescope (Fuzzy file search)
+  {
     'nvim-telescope/telescope.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim'
@@ -180,7 +190,6 @@ require('lazy').setup({
     tag = '0.1.8',
     config = function()
       require('telescope').setup({})
-
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find files' })
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Telescope find git files' })
@@ -190,48 +199,65 @@ require('lazy').setup({
     end
   },
 
-  { -- treesitter
+  -- Treesitter (Syntax highlighting)
+  {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     build = ":TSUpdate",
-    opts = {
-      ensure_installed = {
-        "c",
-        "html",
-        "javascript",
-        "jsdoc",
-        "json",
-        "jsonc",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "php",
-        "query",
-        "regex",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "yaml",
-      },
-      sync_install = false,
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-    }
+    config = function()
+      local configs = require("nvim-treesitter.configs")
+      configs.setup({
+        ensure_installed = {
+          "css",
+          "html",
+          "javascript",
+          "jsdoc",
+          "json",
+          "jsonc",
+          "php",
+          "regex",
+          "scss",
+          "tsx",
+          "typescript",
+          "yaml",
+        },
+        highlight = { enable = true },
+        indent = { enable = true },
+        sync_install = false,
+      })
+
+      --[[
+      vim.filetype.add({
+        pattern = {
+          [".*%.blade%.php"] = "blade",
+        },
+      })
+
+      require('nvim-treesitter').setup()
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+      parser_config.blade = {
+        install_info = {
+          url = "https://github.com/EmranMR/tree-sitter-blade",
+          files = {"src/parser.c"},
+          branch = "main",
+        },
+        filetype = "blade"
+      }
+      ]]--
+    end
   },
 
-  { -- undotree
+  -- Undotree (Undo history vislualizer)
+  {
     "mbbill/undotree",
     config = function()
       vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
     end
   },
 
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/nvim-cmp",
-  "neovim/nvim-lspconfig",
+  --"hrsh7th/cmp-nvim-lsp",
+  --"hrsh7th/nvim-cmp",
+  --"neovim/nvim-lspconfig",
   "nvim-lua/plenary.nvim",
   "theprimeagen/vim-be-good",
 
