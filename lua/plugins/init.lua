@@ -8,12 +8,15 @@ return {
     end
   },
 
-  -- Indent Blankline (Indentation guides)
+  -- Indent Blankline
+  -- Add indentation guides even on blank lines
   {
     "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("ibl").setup()
-    end
+    main = 'ibl',
+    opts = {}
+    --config = function()
+      --require("ibl").setup()
+    --end
   },
 
   -- Lualine (Fancy status bar)
