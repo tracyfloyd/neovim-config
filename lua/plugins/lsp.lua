@@ -198,6 +198,7 @@ return {
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         ts_ls = {},
+        emmet_language_server = {},
         jsonls = {},
         css_variables = {},
         cssls = {},
