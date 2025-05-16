@@ -203,7 +203,15 @@ return {
         css_variables = {},
         cssls = {},
         html = {},
-        intelephense = {},
+        intelephense = {
+          settings = {
+            intelephense = {
+              format = {
+                braces = "k&r",
+              },
+            },
+          },
+        },
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
