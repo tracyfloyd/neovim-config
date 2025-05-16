@@ -4,6 +4,19 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+
+-- Disable arrow keys in insert mode with a styled message
+--vim.keymap.set('i', '<Up>', "'Use k'<CR>")
+--vim.keymap.set('i', '<Down>', "'Use j'<CR>")
+--vim.keymap.set('i', '<Left>', "'Use h'<CR>")
+--vim.keymap.set('i', '<Right>', "'Use l'<CR>")
+-- Disable arrow keys in normal mode with a styled message
+--vim.keymap.set('n', '<Up>', ":echoe 'Use k'<CR>")
+--vim.keymap.set('n', '<Down>', ":echoe 'Use j'<CR>")
+--vim.keymap.set('n', '<Left>', ":echoe 'Use h'<CR>")
+--vim.keymap.set('n', '<Right>', ":echoe 'Use l'<CR>")
+
+
 vim.opt.mouse = 'a'
 vim.opt.scrolloff = 10
 
