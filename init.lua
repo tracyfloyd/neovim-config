@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 
+-- Go to file listing
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -59,7 +60,29 @@ vim.opt.splitbelow = true -- split horizontal window to the bottom
 -- turn off swapfile
 --vim.opt.swapfile = false
 
+-- Code folding
+-- vim.opt.foldcolumn = "0"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldmethod = "expr"
+-- vim.opt.foldnestmax = 4
+-- vim.opt.foldtext = ""
+vim.opt.foldenable = true
+-- vim.opt.foldcolumn = 1
 
+-- Enable rounded corners in floating windows
+vim.o.winborder = "rounded"
+
+vim.lsp.enable({
+  'antlersls',
+  'cssls',
+  'intelephense',
+  'lua-language-server',
+})
+
+-- Add noselect to completeopt, otherwise autocompletion is annoying
+vim.cmd("set completeopt+=noselect")
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -81,43 +104,16 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   command = ":%s/\\s\\+$//e",
 })
 
-
---[[
---
--- Hey!! Review these keymaps before removing
--- Need to decide if we want these or what came in default
--- setup from kickstart. Settings in lsp.lua file
---
--- Configure
--- Add cmp_nvim_lsp capabilities settings to lspconfig
--- This should be executed before you configure any language server
-local lspconfig_defaults = require('lspconfig').util.default_config
-lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lspconfig_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
-)
-
--- This is where you enable features that only work
--- if there is a language server active in the file
+-- Configure the LSP
 vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions',
-  callback = function(event)
-    local opts = {buffer = event.buf}
-
-    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-    vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-  end
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client:supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    end
+  end,
 })
-]]--
+
 
 require("config.lazy")
 

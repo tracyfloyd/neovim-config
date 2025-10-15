@@ -9,6 +9,7 @@ return {
       local configs = require("nvim-treesitter.configs")
       configs.setup({
         ensure_installed = {
+          "blade",
           "css",
           "html",
           "javascript",
@@ -16,6 +17,7 @@ return {
           "json",
           "jsonc",
           "php",
+          "php_only",
           "regex",
           "scss",
           "tsx",
@@ -27,7 +29,6 @@ return {
         sync_install = false,
       })
 
-      --[[
       vim.filetype.add({
         pattern = {
           [".*%.blade%.php"] = "blade",
@@ -44,7 +45,6 @@ return {
         },
         filetype = "blade"
       }
-      ]]--
     end
   },
 
