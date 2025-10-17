@@ -74,13 +74,6 @@ vim.opt.foldcolumn = "1"
 -- Enable rounded corners in floating windows
 vim.opt.winborder = "rounded"
 
-vim.lsp.enable({
-  'antlersls',
-  'cssls',
-  'intelephense',
-  'lua-language-server',
-})
-
 -- Add noselect to completeopt, otherwise autocompletion is annoying
 vim.cmd("set completeopt+=noselect")
 
@@ -104,7 +97,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   command = ":%s/\\s\\+$//e",
 })
 
+
 -- Configure the LSP
+vim.lsp.enable({
+  'antlersls',
+  'cssls',
+  'intelephense',
+  'lua-language-server',
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)

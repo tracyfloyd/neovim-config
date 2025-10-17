@@ -5,9 +5,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = ":TSUpdate",
+
     config = function()
-      local configs = require("nvim-treesitter.configs")
-      configs.setup({
+      require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "blade",
           "css",
@@ -45,7 +45,7 @@ return {
         },
         filetype = "blade"
       }
-    end
+    end, -- end config
   },
 
 }
