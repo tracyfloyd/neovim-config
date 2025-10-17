@@ -62,17 +62,17 @@ vim.opt.splitbelow = true -- split horizontal window to the bottom
 
 -- Code folding
 -- vim.opt.foldcolumn = "0"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "expr"
 -- vim.opt.foldnestmax = 4
 -- vim.opt.foldtext = ""
 vim.opt.foldenable = true
--- vim.opt.foldcolumn = 1
+vim.opt.foldcolumn = "1"
 
 -- Enable rounded corners in floating windows
-vim.o.winborder = "rounded"
+vim.opt.winborder = "rounded"
 
 vim.lsp.enable({
   'antlersls',
