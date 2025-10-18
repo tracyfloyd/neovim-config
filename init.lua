@@ -99,11 +99,24 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 
 -- Configure the LSP
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Capabilities required for the visualstudio lsps (css, html, etc)
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- For all configs
+-- vim.lsp.config('*', {
+--  root_markers = { '.git' },
+--  capabilities = capabilities
+-- })
+
 vim.lsp.enable({
   'antlersls',
   'cssls',
+  'html',
   'intelephense',
+  'jsonls',
   'lua-language-server',
+  'typescript-language-server'
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
