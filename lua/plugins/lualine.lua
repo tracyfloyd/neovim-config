@@ -7,7 +7,7 @@ return {
 	},
 	opts = {
 		icons_enabled = false,
-		theme = "gruvbox-material",
+		--		theme = "gruvbox-material",
 		component_separators = "|",
 		section_separators = "",
 	},
