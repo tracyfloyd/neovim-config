@@ -1,3 +1,7 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+
 -- Add noselect to completeopt, otherwise autocompletion is annoying
 vim.cmd("set completeopt+=noselect")
 

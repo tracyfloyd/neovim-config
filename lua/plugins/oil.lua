@@ -1,5 +1,7 @@
 return {
+	-- Oil (Manage files like text)
 	"stevearc/oil.nvim",
+
 	---@module 'oil'
 	---@type oil.SetupOpts
 	opts = {},

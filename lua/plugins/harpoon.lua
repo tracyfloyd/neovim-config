@@ -1,7 +1,7 @@
 return {
-
   -- Harpoon (File switcher)
   "theprimeagen/harpoon",
+
   config = function()
     require('harpoon').setup({})
     local mark = require("harpoon.mark")

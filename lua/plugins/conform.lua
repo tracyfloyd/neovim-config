@@ -2,6 +2,7 @@ return {
 	-- Conform (Code formatter)
 	-- https://github.com/stevearc/conform.nvim
 	"stevearc/conform.nvim",
+
 	-- optional = true,
 	opts = {
 		-- formatters by filetype
