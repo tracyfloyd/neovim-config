@@ -31,6 +31,48 @@ local bubbles_theme = {
 	},
 }
 
+-- Function to get the current mode indicator as a single character
+local function mode()
+	-- Map of modes to their respective shorthand indicators
+	local mode_map = {
+		n = "N", -- Normal mode
+		i = "I", -- Insert mode
+		v = "V", -- Visual mode
+		[""] = "V", -- Visual block mode
+		V = "V", -- Visual line mode
+		c = "C", -- Command-line mode
+		no = "N", -- NInsert mode
+		s = "S", -- Select mode
+		S = "S", -- Select line mode
+		ic = "I", -- Insert mode (completion)
+		R = "R", -- Replace mode
+		Rv = "R", -- Virtual Replace mode
+		cv = "C", -- Command-line mode
+		ce = "C", -- Ex mode
+		r = "R", -- Prompt mode
+		rm = "M", -- More mode
+		["r?"] = "?", -- Confirm mode
+		["!"] = "!", -- Shell mode
+		t = "T", -- Terminal mode
+	}
+	-- Return the mode shorthand or [UNKNOWN] if no match
+	return mode_map[vim.fn.mode()] or "[UNKNOWN]"
+end
+
+-- Setup lazy.nvim
+require("lazy").setup({
+	"nvim-lua/plenary.nvim",
+	spec = {
+		-- Import plugins
+		{ import = "plugins" },
+	},
+	-- change_detection = { notify = false }
+})
+
+require("config.keymaps")
+
+-- require("config.lualine-bubbles")
+
 require("lualine").setup({
 	options = {
 		theme = bubbles_theme,

@@ -32,7 +32,7 @@ require("lazy").setup({
 
 require("config.keymaps")
 
--- require("config.lualine-bubbles")
+require("config.lualine-bubbles")
 
 -- Add noselect to completeopt, otherwise autocompletion is annoying
 vim.cmd("set completeopt+=noselect")
