@@ -6,7 +6,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
+			{ out,                            "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -24,7 +24,6 @@ require("config.options")
 require("lazy").setup({
 	"nvim-lua/plenary.nvim",
 	spec = {
-		-- Import plugins
 		{ import = "plugins" },
 	},
 	-- change_detection = { notify = false }
@@ -34,16 +33,20 @@ require("config.keymaps")
 
 require("config.lualine-bubbles")
 
--- Add noselect to completeopt, otherwise autocompletion is annoying
-vim.cmd("set completeopt+=noselect")
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+-- Autocommands
+-- See `:help lua-guide-autocommands`
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	desc = "Trim trailiong whitespace on save",
+	pattern = "*",
+	command = ":%s/\\s\\+$//e",
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
+	--  Try it with `yap` in normal mode
+	--  See `:help vim.highlight.on_yank()`
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
@@ -51,22 +54,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Trim trailing whitespace on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	command = ":%s/\\s\\+$//e",
-})
 
--- Configure the LSP
--- local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Capabilities required for the visualstudio lsps (css, html, etc)
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- For all configs
--- vim.lsp.config('*', {
---  root_markers = { '.git' },
---  capabilities = capabilities
--- })
+
+-- Setup the LSP
+
+-- Add noselect to completeopt, otherwise autocompletion is annoying
+vim.cmd("set completeopt+=noselect")
 
 vim.lsp.enable({
 	"antlersls",
