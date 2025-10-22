@@ -16,6 +16,8 @@ return {
 					"jsdoc",
 					"json",
 					"jsonc",
+					"markdown",
+					"markdown_inline",
 					"php",
 					"php_only",
 					"regex",
