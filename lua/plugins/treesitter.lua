@@ -3,11 +3,21 @@ return {
 		-- Treesitter (Syntax highlighting)
 		"nvim-treesitter/nvim-treesitter",
 
+    version = false,
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
 		lazy = false,
-		build = ":TSUpdate",
+
+		dependencies = {
+		    "nvim-treesitter/nvim-treesitter-textobjects",
+		},
 
 		config = function()
 			require("nvim-treesitter.configs").setup({
+				indent = { enable = true },
+				sync_install = false,
+				auto_install = true,
+
 				ensure_installed = {
 					"blade",
 					"css",
@@ -26,12 +36,12 @@ return {
 					"typescript",
 					"yaml",
 				},
+
 				highlight = {
 					enable = true,
 					additional_vim_regex_hihghlighting = false,
 				},
-				indent = { enable = true },
-				sync_install = false,
+
 				incremental_selection = {
 					enable = true,
 					keymaps = {
@@ -41,26 +51,71 @@ return {
 						node_decremental = "<Backspace>",
 					},
 				},
+
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+						include_surrounding_whitespace = true,
+
+						keymaps = {
+							-- You can use the capture groups defined in textobjects.scm
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ac"] = "@class.outer",
+							["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+							["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+						},
+
+						selection_modes = {
+							["@parameter.outer"] = "v", -- charwise
+							["@function.outer"] = "V", -- linewise
+							["@class.outer"] = "<c-v>", -- blockwise
+						},
+					},
+
+					swap = {
+						enable = true,
+						swap_next = {
+							["<leader>a"] = { query = "@parameter.inner", desc = "Swap with next parameter" },
+						},
+						swap_previous = {
+							["<leader>A"] = { query = "@parameter.inner", desc = "Swap with previous parameter" },
+						},
+					},
+
+					move = {
+						enable = true,
+						set_jumps = true, -- whether to set jumps in the jumplist
+						goto_next_start = {
+							["]m"] = "@function.outer",
+							["]]"] = { query = "@class.outer", desc = "Next class start" },
+							["]o"] = "@loop.*",
+							["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
+							["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+						},
+						goto_next_end = {
+							["]M"] = "@function.outer",
+							["]["] = "@class.outer",
+						},
+						goto_previous_start = {
+							["[m"] = "@function.outer",
+							["[["] = "@class.outer",
+						},
+						goto_previous_end = {
+							["[M"] = "@function.outer",
+							["[]"] = "@class.outer",
+						},
+						goto_next = {
+							["]d"] = "@conditional.outer",
+						},
+						goto_previous = {
+							["[d"] = "@conditional.outer",
+						},
+					},
+				}
 			})
 
-			--[[
-      vim.filetype.add({
-        pattern = {
-          [".*%.blade%.php"] = "blade",
-        },
-      })
-
-      require("nvim-treesitter").setup()
-      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-      parser_config.blade = {
-        install_info = {
-          url = "https://github.com/EmranMR/tree-sitter-blade",
-          files = { "src/parser.c" },
-          branch = "main",
-        },
-        filetype = "blade",
-      }
-      ]]
-		end, -- end config
+		end,
 	},
 }
