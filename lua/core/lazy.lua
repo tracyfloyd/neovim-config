@@ -5,7 +5,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
+			{ out, "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -14,12 +14,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
-
 require("lazy").setup({ import = "plugins" }, {
 	install = {
 		missing = true,
-		colorscheme = { "habamax" }
+		colorscheme = { "habamax" },
 	},
 	checker = {
 		enabled = true,
@@ -30,7 +28,7 @@ require("lazy").setup({ import = "plugins" }, {
 		notify = false,
 	},
 	ui = {
-		-- border = "rounded"
+		border = "rounded",
 	},
 	performance = {
 		rtp = {
@@ -45,7 +43,6 @@ require("lazy").setup({ import = "plugins" }, {
 	},
 })
 
-
 -- Setup lazy.nvim
 -- require("lazy").setup({
 -- 	"nvim-lua/plenary.nvim",
@@ -54,7 +51,6 @@ require("lazy").setup({ import = "plugins" }, {
 -- 	},
 -- 	-- change_detection = { notify = false }
 -- })
-
 
 -- Add noselect to completeopt, otherwise autocompletion is annoying
 vim.cmd("set completeopt+=noselect")
