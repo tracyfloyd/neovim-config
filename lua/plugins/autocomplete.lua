@@ -14,10 +14,10 @@ return {
 				end)(),
 				dependencies = {
 					{
-						'rafamadriz/friendly-snippets',
+						"rafamadriz/friendly-snippets",
 						config = function()
-							require('luasnip.loaders.from_vscode').lazy_load()
-							require('luasnip').filetype_extend("scss", { "css" })
+							require("luasnip.loaders.from_vscode").lazy_load()
+							require("luasnip").filetype_extend("scss", { "css" })
 						end,
 					},
 				},
@@ -39,10 +39,10 @@ return {
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0
-						and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
-			require('render-markdown').setup({
+			require("render-markdown").setup({
 				completions = { lsp = { enabled = true } },
 			})
 
@@ -133,19 +133,18 @@ return {
 					{ name = "path" },
 				},
 
-
 				formatting = {
 					format = lspkind.cmp_format({
-						mode = "text_symbol", -- options: "text", "text_symbol", "symbol_text", "symbol"
+						mode = "symbol_text", -- options: "text", "text_symbol", "symbol_text", "symbol"
 						preset = "default", -- option: "default", "material", "devicons"
 						maxwidth = {
 							-- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 							-- can also be a function to dynamically calculate max width such as
 							-- menu = function() return math.floor(0.45 * vim.o.columns) end,
-							menu = 50,        -- leading text (labelDetails)
-							abbr = 50,        -- actual suggestion item
+							menu = 50, -- leading text (labelDetails)
+							abbr = 50, -- actual suggestion item
 						},
-						ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 
 						-- The function below will be called before any actual modifications from lspkind
@@ -153,16 +152,13 @@ return {
 						before = function(entry, vim_item)
 							-- ...
 							return vim_item
-						end
-					})
+						end,
+					}),
 				},
-
 
 				completion = {
-					completeopt = "menu,menuone,noinsert"
+					completeopt = "menu,menuone,noinsert",
 				},
-
-
 			}) -- end cmp.setup()
 		end,
 	},
