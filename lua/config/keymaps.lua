@@ -6,13 +6,13 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
 vim.keymap.set("n", "<leader>cf", function()
-	require("conform").format({
-		lsp_format = "fallback",
-	})
+    require("conform").format({
+        lsp_format = "fallback",
+    })
 end, { desc = "Conform - Format current file" })
 
 vim.keymap.set("n", "-", "<cmd>Oil --float<CR>", { desc = "Oil - Open current file's parent directory" })
 
 vim.keymap.set("n", "gl", function()
-	vim.diagnostic.open_float()
+    vim.diagnostic.open_float()
 end, { desc = "Open Diagnostics in Float" })

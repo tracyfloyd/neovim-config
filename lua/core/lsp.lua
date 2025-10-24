@@ -1,9 +1,9 @@
 vim.lsp.enable({
-  "antlersls",
-  "cssls",
-  "html",
-  "intelephense",
-  "jsonls",
-  "lua-language-server",
-  "typescript-language-server",
+    "antlersls",
+    "cssls",
+    "html",
+    "intelephense",
+    "jsonls",
+    "lua-language-server",
+    "typescript-language-server",
 })

@@ -1,11 +1,21 @@
+-- which-key.nvim
+--
+-- Assistant that shows key binds on key presses.
+--
+-- Lazy loading: The plugin gets loaded with the `VeryLazy` event because it
+--               is not critical for the main UI.
+--
+-- @link https://github.com/folke/which-key.nvim
+
+
 return {
-	"folke/which-key.nvim",
-	event = "VeryLazy",
-	opts = {
-		-- your configuration comes here
-		-- or leave it empty to use the default settings
-		-- refer to the configuration section below
-	},
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    opts = {
+        win = {
+            padding = { 1, 1 }
+        }
+    },
 	keys = {
 		{
 			"<leader>?",

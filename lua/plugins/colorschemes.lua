@@ -1,6 +1,15 @@
+-- colorschemes
+--
+-- Color schemes for Neovim.
+--
+-- Lazy loading: The colorscheme is not lazy loaded and has priority 1000 set
+--               so it can be available right after start. This is suggested
+--               in the lazy.nvim readme.
+
+
 return {
 
-  "catppuccin/nvim",
+  "catppuccin/nvim", -- https://github.com/catppuccin/nvim
   name = "catppuccin",
   lazy = false,
   priority = 1000,
