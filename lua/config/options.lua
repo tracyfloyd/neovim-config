@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
@@ -63,7 +62,7 @@ vim.opt.autoindent = true
 --
 vim.opt.smarttab = true
 
---
+-- Do smart autoindenting when starting a new line
 vim.opt.smartindent = true
 
 -- Keep indentation from previous line
@@ -77,8 +76,6 @@ vim.opt.breakindent = true
 
 -- Search =====================================================================
 
--- Case-insensitive searching UNLESS \C or capital letters in search term
-vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Appearance =================================================================

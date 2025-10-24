@@ -1,47 +1,56 @@
 return {
-  {
-    -- Telescope (Fuzzy file search)
-    'nvim-telescope/telescope.nvim',
+	{
+		"nvim-telescope/telescope.nvim",
 
-    dependencies = {
-      'nvim-lua/plenary.nvim'
-    },
-    tag = '0.1.8',
-    config = function()
-      require('telescope').setup({})
-      local builtin = require('telescope.builtin')
+		dependencies = {
 
-      --[[
-      vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find files' })
-      vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Telescope find git files' })
-      vim.keymap.set('n', '<leader>ps', function()
-        builtin.grep_string({ search = vim.fn.input("grep > ") });
-      end)
-      ]]
+			tag = "0.1.8",
+			"nvim-lua/plenary.nvim",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+			},
+		},
 
-      vim.keymap.set("n", "<leader>fg", builtin.git_files,
-        { desc = "Telescope find git files" })
+		keys = {
+			{ "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Telescope - Buffer search" },
+			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Telescope - Buffers" },
+			{ "<leader>fc", "<cmd>Telescope git_commits<cr>", desc = "Telescope - Commits" },
+			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Telescope - Find All Files" },
+			{ "<C-p>", "<cmd>Telescope git_files<cr>", desc = "Telescope - Git files" },
+			{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Telescope - Help" },
+			{ "<leader>fj", "<cmd>Telescope command_history<cr>", desc = "Telescope - History" },
+			{ "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Telescope - Keymaps" },
+			{ "<leader>fl", "<cmd>Telescope lsp_references<cr>", desc = "Telescope - Lsp References" },
+			{ "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Telescope - Old files" },
+			{ "<leader>fr", "<cmd>Telescope live_grep<cr>", desc = "Telescope - Ripgrep" },
+			{ "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Telescope - Grep String" },
+			{ "<leader>ft", "<cmd>Telescope treesitter<cr>", desc = "Telescope - Treesitter" },
+		},
 
-      vim.keymap.set("n", "<leader>fr", builtin.live_grep, {})
+		config = function()
+			local actions = require("telescope.actions")
 
-      vim.keymap.set("n", "<leader>ff", builtin.find_files,
-        { desc = "Telescope find files" })
+			require("telescope").setup({
+				pickers = {
+					buffers = {
+						mappings = {
+							i = {
+								-- Remove an item from the buffer list
+								["<C-d>"] = actions.delete_buffer + actions.move_to_top,
+							},
+						},
+					},
+				},
+			})
 
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+			vim.keymap.set("n", "<leader>ps", function()
+				require("telescope.builtin").grep_string({ search = vim.fn.input("grep > ") })
+			end, { desc = "Open grep search command line" })
 
-      vim.keymap.set("n", "<leader>fh", ":Telescope find_files hidden=true <CR>",
-        { desc = "Telescope find hidden files" })
-
-      vim.keymap.set('n', '<leader>pws', function()
-        local word = vim.fn.expand("<cword>")
-        builtin.grep_string({ search = word })
-      end)
-
-      vim.keymap.set('n', '<leader>pWs', function()
-        local word = vim.fn.expand("<cWORD>")
-        builtin.grep_string({ search = word })
-      end)
-    end
-  },
-
+			vim.keymap.set("n", "<leader>fnv", function()
+				require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
+			end, { desc = "Telescope - Find in Neovim config" })
+		end,
+	},
 }
