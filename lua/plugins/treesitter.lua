@@ -10,50 +10,50 @@
 
 
 return {
-    {
-        "nvim-treesitter/nvim-treesitter",
+  {
+    "nvim-treesitter/nvim-treesitter",
 
-        lazy = false,
-        build = ":TSUpdate",
-        event = { 'BufRead' },
+    lazy = false,
+    build = ":TSUpdate",
+    event = { 'BufRead' },
 
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                highlight = { enable = true, additional_vim_regex_hihghlighting = false },
-                indent = { enable = true },
-                sync_install = false,
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        highlight = { enable = true, additional_vim_regex_hihghlighting = false },
+        indent = { enable = true },
+        sync_install = false,
 
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "<Enter>", -- set to `false` to disable one of the mappings
-                        node_incremental = "<Enter>",
-                        scope_incremental = false,
-                        node_decremental = "<Backspace>",
-                    },
-                },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<Enter>", -- set to `false` to disable one of the mappings
+            node_incremental = "<Enter>",
+            scope_incremental = false,
+            node_decremental = "<Backspace>",
+          },
+        },
 
-                ensure_installed = {
-                    "blade",
-                    "css",
-                    "html",
-                    "javascript",
-                    "jsdoc",
-                    "json",
-                    "jsonc",
-                    "markdown",
-                    "markdown_inline",
-                    "php",
-                    "php_only",
-                    "regex",
-                    "scss",
-                    "tsx",
-                    "typescript",
-                    "yaml",
-                },
+        ensure_installed = {
+          "blade",
+          "css",
+          "html",
+          "javascript",
+          "jsdoc",
+          "json",
+          "jsonc",
+          "markdown",
+          "markdown_inline",
+          "php",
+          "php_only",
+          "regex",
+          "scss",
+          "tsx",
+          "typescript",
+          "yaml",
+        },
 
-            })
+      })
 
-        end,
-    },
+    end,
+  },
 }

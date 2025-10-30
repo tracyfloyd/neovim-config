@@ -4,6 +4,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     command = ":%s/\\s\\+$//e",
 })
 
+-- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
     --  Try it with `yap` in normal mode
     --  See `:help vim.highlight.on_yank()`
