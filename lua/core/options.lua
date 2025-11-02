@@ -21,6 +21,8 @@ vim.opt.splitbelow = true -- Split horizontal window to the bottom
 
 vim.opt.undofile = true -- Store undos between sessions
 
+vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- Line Numbers ===============================================================
 vim.opt.number = true -- Shows absolute line number on cursor line (when relative number is on)
 vim.opt.relativenumber = true -- Show relative line numbers

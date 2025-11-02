@@ -23,7 +23,7 @@ return {
         -- formatters by filetype
         formatters_by_ft = {
             lua = { "stylua" },
-            php = { "pint", "php_cs_fixer", stop_after_first = true },
+            php = { "pint" },
             javascript = { "prettierd", "prettier", stop_after_first = true },
         },
         --format_on_save = {
