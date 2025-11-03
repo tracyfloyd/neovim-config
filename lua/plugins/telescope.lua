@@ -1,12 +1,6 @@
--- nvim-treesitter
+-- Telescope
 --
--- Easy to use interface to tree-sitter for code parsing (used for highlighting
--- and other things).
---
--- Lazy loading: The plugin is loaded on the `BufRead` event to be available
---               as soon as possible when needed.
---
--- @link https://github.com/nvim-treesitter/nvim-treesitter
+-- @link https://github.com/nvim-telescope/telescope.nvim
 
 return {
     {
@@ -41,13 +35,16 @@ return {
             local keymap = vim.keymap
 
             keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Telescope - Fuzzy find files in cwd" })
+
             keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "Telescope - Fuzzy find recent files" })
+
             keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Telescope - Show previous search state" })
 
             keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Telescope - Find string in cwd" })
             keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Telescope - Find string under cursor in cwd" })
             keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Telescope - Find todos" })
 
+            keymap.set("n", "<leader>fd", "<cmd>Telescope lsp_document_diagnostics<cr>", { desc = "Telescope - Document diagnostics" })
             keymap.set("n", "<leader><leader>", "<cmd>Telescope buffers<cr>", { desc = "Telescope - Buffer file name search" })
             keymap.set("n", "<leader>/",  "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Telescope - Current buffer fuzzy search" })
 
