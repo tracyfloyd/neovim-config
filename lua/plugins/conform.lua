@@ -1,6 +1,8 @@
+-- Conform (Code formatter)
+--
+-- @link https://github.com/stevearc/conform.nvim
+
 return {
-    -- Conform (Code formatter)
-    -- https://github.com/stevearc/conform.nvim
     "stevearc/conform.nvim",
 
     event = { "BufWritePre" },
@@ -24,12 +26,14 @@ return {
         formatters_by_ft = {
             lua = { "stylua" },
             php = { "pint" },
-            javascript = { "prettierd", "prettier", stop_after_first = true },
+            javascript = { "eslint_d", "prettierd", "prettier", stop_after_first = true },
+            typescript = { "eslint_d", stop_after_first = true },
+            typescriptreact = { "eslint_d", stop_after_first = true },
         },
-        --format_on_save = {
-        --  -- These options will be passed to conform.format()
-        --  timeout_ms = 1000,
-        --  lsp_format = "fallback",
-        --},
+        format_on_save = {
+          -- These options will be passed to conform.format()
+          timeout_ms = 1000,
+          -- lsp_format = "fallback",
+        },
     },
 }
