@@ -8,84 +8,139 @@
 --
 -- @link https://github.com/nvim-treesitter/nvim-treesitter
 
+-- Syntax highlighting
 
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-
-    lazy = false,
-    build = ":TSUpdate",
-    event = { 'BufRead' },
-
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = { "php" },
+  'nvim-treesitter/nvim-treesitter',
+  event = 'VeryLazy',
+  build = function()
+    require('nvim-treesitter.install').update({ with_sync = true })
+  end,
+  dependencies = {
+    {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      opts = {
+        languages = {
+          php_only = '// %s',
+          php = '// %s',
+          -- blade = '{{-- %s --}}',
+          -- blade = {
+          --   __default = '{{-- %s --}}',
+          --   html = '{{-- %s --}}',
+          --   blade = '{{-- %s --}}',
+          --   php = '// %s',
+          --   php_only = '// %s',
+          -- }
         },
-        indent = {
-          enable = false
-        },
-
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<Enter>", -- set to `false` to disable one of the mappings
-            node_incremental = "<Enter>",
-            scope_incremental = false,
-            node_decremental = "<Backspace>",
-          },
-        },
-
-        sync_install = false,
-        ensure_installed = {
-          "blade",
-          "css",
-          "html",
-          "javascript",
-          "jsdoc",
-          "json",
-          "jsonc",
-          "markdown",
-          "markdown_inline",
-          "php",
-          "regex",
-          "scss",
-          "tsx",
-          "typescript",
-          "vim",
-          "yaml",
-        },
-
-      })
-
-      -- ======================================================================
-      -- Configure Laravel blade template support
-      local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-      parser_configs.blade = {
-        install_info = {
-          url = "https://github.com/EmranMR/tree-sitter-blade",
-          files = { "src/parser.c" },
-          branch = "main",
-        },
-        filetype = "blade"
-      }
-      vim.filetype.add({
-        pattern = {
-          ['.*%.blade%.php'] = "blade",
-        }
-      })
-      local bladeGrp
-      vim.api.nvim_create_augroup("BladeFiltypeRelated", { clear = true })
-      vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-        pattern = "*.blade.php",
-        group = bladeGrp,
-        callback = function()
-          vim.opt.filetype = "blade"
+        custom_calculation = function(node, language_tree)
+          -- print(language_tree:lang())
+          -- print(node:type())
+          print(vim.bo.filetype)
+          print(language_tree._lang)
+          print('----')
+          if vim.bo.filetype == 'blade' then
+            if language_tree._lang == 'html' then
+              return '{{-- %s --}}'
+            else
+              return '// %s'
+            end
+          end
+          -- if vim.bo.filetype == 'blade' and language_tree._lang ~= 'javascript' and language_tree._lang ~= 'php' then
+          --   return '{{-- %s --}}'
+          -- end
         end,
-      })
-      -- ======================================================================
-
-    end,
+      },
+    },
+    'nvim-treesitter/nvim-treesitter-textobjects',
   },
+  main = 'nvim-treesitter.configs',
+  opts = {
+    ensure_installed = {
+      'bash',
+      'blade',
+      'comment',
+      'css',
+      'diff',
+      'git_config',
+      'git_rebase',
+      'gitattributes',
+      'gitcommit',
+      'gitignore',
+      'html',
+      'http',
+      'ini',
+      'javascript',
+      'jsdoc',
+      'json',
+      'jsonc',
+      'lua',
+      'markdown',
+      'php',
+      'php_only',
+      'phpdoc',
+      'regex',
+      'scss',
+      'sql',
+      'svelte',
+      'tsx',
+      'typescript',
+      'vim',
+      'vue',
+      'xml',
+      'yaml',
+    },
+    auto_install = true,
+    highlight = {
+      enable = true,
+    },
+    indent = {
+      enable = true,
+      disable = { 'yaml' },
+    },
+    rainbow = {
+      enable = true,
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = '<Enter>', -- set to `false` to disable one of the mappings
+        node_incremental = '<Enter>',
+        scope_incremental = false,
+        node_decremental = '<Backspace>',
+      },
+    },
+
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          ['if'] = '@function.inner',
+          ['af'] = '@function.outer',
+          ['ia'] = '@parameter.inner',
+          ['aa'] = '@parameter.outer',
+        },
+      },
+    },
+  },
+  config = function(_, opts)
+    local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+
+    parser_config.blade = {
+      install_info = {
+        url = 'https://github.com/EmranMR/tree-sitter-blade',
+        files = { 'src/parser.c' },
+        branch = 'main',
+      },
+      filetype = 'blade',
+    }
+
+    vim.filetype.add({
+      pattern = {
+        ['.*%.blade%.php'] = 'blade',
+      },
+    })
+
+    require('nvim-treesitter.configs').setup(opts)
+  end,
 }
