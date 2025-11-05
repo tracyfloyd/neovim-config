@@ -48,7 +48,7 @@ vim.opt.cursorline = true -- Highlight the current cursor line
 vim.opt.list = true -- Show whitespace characters
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" } -- Show whitespace characters as
 vim.opt.showmode = false -- Don't show the mode, since it's already in the status line
-vim.opt.signcolumn = "yes" -- Reserve a space in the gutter to avoid layout shift
+vim.opt.signcolumn = "yes:2" -- Reserve a space in the gutter to avoid layout shift
 vim.opt.termguicolors = true -- Turn on termguicolors for nightfly colorscheme to work
 vim.opt.winborder = "rounded" -- Enable rounded corners in floating windows
 
@@ -61,3 +61,9 @@ vim.opt.foldlevel = 99
 vim.opt.foldmethod = "expr"
 -- vim.opt.foldnestmax = 4
 -- vim.opt.foldtext = ""
+--
+
+-- from https://github.com/jessarcher/dotfiles/blob/master/nvim/lua/user/options.lua
+vim.opt.updatetime = 100   -- Decrease update time
+vim.opt.redrawtime = 10000 -- Allow more time for loading syntax on large files
+vim.opt.mousemoveevent = true           -- Allow hovering in bufferline

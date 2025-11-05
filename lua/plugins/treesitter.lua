@@ -19,9 +19,13 @@ return {
 
     config = function()
       require("nvim-treesitter.configs").setup({
-        highlight = { enable = true, additional_vim_regex_hihghlighting = false },
-        indent = { enable = true },
-        sync_install = false,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = { "php" },
+        },
+        indent = {
+          enable = false
+        },
 
         incremental_selection = {
           enable = true,
@@ -33,6 +37,7 @@ return {
           },
         },
 
+        sync_install = false,
         ensure_installed = {
           "blade",
           "css",
@@ -44,7 +49,6 @@ return {
           "markdown",
           "markdown_inline",
           "php",
-          "php_only",
           "regex",
           "scss",
           "tsx",

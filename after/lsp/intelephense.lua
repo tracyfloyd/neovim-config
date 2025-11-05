@@ -9,11 +9,19 @@ end
 return {
   cmd = { "intelephense", "--stdio" },
   filetypes = {
-    "blade",
     "php",
+    "blade",
   },
   init_options = {
     licenceKey = get_intelephense_license(),
   },
- }
+  settings = {
+    intelephense = {
+      format = {
+        braces = "k&r",
+      }
+    }
+  }
+}
+
 
