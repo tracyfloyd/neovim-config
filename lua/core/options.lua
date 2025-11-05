@@ -14,7 +14,6 @@ vim.opt.scrolloff = 10 -- Minimum number of screen lines to keep above and below
 --opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 vim.opt.splitright = true -- Split vertical window to the right
-
 vim.opt.splitbelow = true -- Split horizontal window to the bottom
 
 --vim.opt.swapfile = false -- Turn off swapfile
