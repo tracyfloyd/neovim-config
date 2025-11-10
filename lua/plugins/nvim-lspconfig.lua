@@ -8,6 +8,9 @@ return {
 
     dependencies = {
       {
+        -- mason.nvim
+        -- Package Manager to install and manage LSP servers, DAP servers, linters, and formatters.
+        -- @link https://github.com/mason-org/mason.nvim
         'mason-org/mason.nvim',
         opts = {
           ui = {
@@ -21,6 +24,9 @@ return {
       },
 
       {
+        -- mason-lspconfig.nvim
+        -- Bridges `mason.nvim` with the nvim-lspconfig  making it easier to use both plugins together.
+        -- @link https://github.com/mason-org/mason-lspconfig.nvim
         'mason-org/mason-lspconfig.nvim',
         opts = {
           ensure_installed = {}, -- explicitly set to an empty table (Installs via mason-tool-installer)
@@ -28,6 +34,8 @@ return {
       },
 
       {
+        -- mason-tool-installer
+        -- @link https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
         'WhoIsSethDaniel/mason-tool-installer.nvim',
         opts = {
           ensure_installed = {
@@ -88,7 +96,7 @@ return {
           vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts) -- in visual mode will apply to selection
 
           opts.desc = 'Smart rename'
-          vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+          vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
 
           opts.desc = 'Show buffer diagnostics'
           vim.keymap.set('n', '<leader>D', '<cmd>Telescope diagnostics bufnr=0<CR>', opts)
@@ -150,7 +158,7 @@ return {
   -- nvim-cmp
   -- Code Completion Engine
   -- @link https://github.com/hrsh7th/nvim-cmp
-  { -- nvim-cmp
+  {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
@@ -304,7 +312,7 @@ return {
   },
 
   -- cmp-nvim-lsp
-  -- Support for Neovim's built-in language server client
+  -- Adds Neovim's built-in language server client as a completion source for nvim-cmp.
   -- @link https://github.com/hrsh7th/cmp-nvim-lsp
   {
     'hrsh7th/cmp-nvim-lsp',
