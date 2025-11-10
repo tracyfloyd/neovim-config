@@ -22,8 +22,14 @@ return {
 
       {
         'mason-org/mason-lspconfig.nvim',
+        opts = {},
+      },
+
+      {
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
         opts = {
           ensure_installed = {
+            -- LSP
             'antlersls',
             'ts_ls',
             'html',
@@ -32,17 +38,13 @@ return {
             'lua_ls',
             'graphql',
             'emmet_ls',
-          },
-        },
-      },
 
-      {
-        'WhoIsSethDaniel/mason-tool-installer.nvim',
-        opts = {
-          ensure_installed = {
-            'prettier', -- prettier formatter
-            'stylua', -- lua formatter
+            -- Linters
             'eslint_d',
+
+            -- Formatters
+            'prettier',
+            'stylua',
           },
         },
       },
