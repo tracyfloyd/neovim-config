@@ -14,91 +14,90 @@ local colors = {
 }
 
 local bubbles_theme = {
-    normal = {
-        a = { fg = colors.black, bg = colors.violet },
-        b = { fg = colors.white, bg = colors.grey },
-        c = { fg = colors.white },
-    },
+  normal = {
+    a = { fg = colors.black, bg = colors.violet },
+    b = { fg = colors.white, bg = colors.grey },
+    c = { fg = colors.white },
+  },
 
-    insert = { a = { fg = colors.black, bg = colors.blue } },
-    visual = { a = { fg = colors.black, bg = colors.cyan } },
-    replace = { a = { fg = colors.black, bg = colors.red } },
+  insert = { a = { fg = colors.black, bg = colors.blue } },
+  visual = { a = { fg = colors.black, bg = colors.cyan } },
+  replace = { a = { fg = colors.black, bg = colors.red } },
 
-    inactive = {
-        a = { fg = colors.white, bg = colors.black },
-        b = { fg = colors.white, bg = colors.black },
-        c = { fg = colors.white },
-    },
+  inactive = {
+    a = { fg = colors.white, bg = colors.black },
+    b = { fg = colors.white, bg = colors.black },
+    c = { fg = colors.white },
+  },
 }
 
 -- Function to get the current mode indicator as a single character
 local function mode()
-    -- Map of modes to their respective shorthand indicators
-    local mode_map = {
-        n = "N", -- Normal mode
-        i = "I", -- Insert mode
-        v = "V", -- Visual mode
-        [""] = "V", -- Visual block mode
-        V = "V", -- Visual line mode
-        c = "C", -- Command-line mode
-        no = "N", -- NInsert mode
-        s = "S", -- Select mode
-        S = "S", -- Select line mode
-        ic = "I", -- Insert mode (completion)
-        R = "R", -- Replace mode
-        Rv = "R", -- Virtual Replace mode
-        cv = "C", -- Command-line mode
-        ce = "C", -- Ex mode
-        r = "R", -- Prompt mode
-        rm = "M", -- More mode
-        ["r?"] = "?", -- Confirm mode
-        ["!"] = "!", -- Shell mode
-        t = "T", -- Terminal mode
-    }
-    -- Return the mode shorthand or [UNKNOWN] if no match
-    return mode_map[vim.fn.mode()] or "[UNKNOWN]"
+  -- Map of modes to their respective shorthand indicators
+  local mode_map = {
+    n = 'N', -- Normal mode
+    i = 'I', -- Insert mode
+    v = 'V', -- Visual mode
+    [''] = 'V', -- Visual block mode
+    V = 'V', -- Visual line mode
+    c = 'C', -- Command-line mode
+    no = 'N', -- NInsert mode
+    s = 'S', -- Select mode
+    S = 'S', -- Select line mode
+    ic = 'I', -- Insert mode (completion)
+    R = 'R', -- Replace mode
+    Rv = 'R', -- Virtual Replace mode
+    cv = 'C', -- Command-line mode
+    ce = 'C', -- Ex mode
+    r = 'R', -- Prompt mode
+    rm = 'M', -- More mode
+    ['r?'] = '?', -- Confirm mode
+    ['!'] = '!', -- Shell mode
+    t = 'T', -- Terminal mode
+  }
+  -- Return the mode shorthand or [UNKNOWN] if no match
+  return mode_map[vim.fn.mode()] or '[UNKNOWN]'
 end
 
 -- Setup lazy.nvim
-require("lazy").setup({
-    "nvim-lua/plenary.nvim",
-    spec = {
-        -- Import plugins
-        { import = "plugins" },
+require('lazy').setup({
+  'nvim-lua/plenary.nvim',
+  spec = {
+    {
+      import = 'plugins',
     },
-    -- change_detection = { notify = false }
+  },
+  -- change_detection = { notify = false }
 })
 
-require("config.keymaps")
+require('config.keymaps')
 
--- require("config.lualine-bubbles")
-
-require("lualine").setup({
-    options = {
-        theme = bubbles_theme,
-        component_separators = "",
-        section_separators = { left = "", right = "" },
+require('lualine').setup({
+  options = {
+    theme = bubbles_theme,
+    component_separators = '',
+    section_separators = { left = '', right = '' },
+  },
+  sections = {
+    lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+    lualine_b = { 'filename', 'branch' },
+    lualine_c = {
+      '%=', --[[ add your center components here in place of this comment ]]
     },
-    sections = {
-        lualine_a = { { "mode", separator = { left = "" }, right_padding = 2 } },
-        lualine_b = { "filename", "branch" },
-        lualine_c = {
-            "%=", --[[ add your center components here in place of this comment ]]
-        },
-        lualine_x = {},
-        lualine_y = { "filetype", "progress" },
-        lualine_z = {
-            { "location", separator = { right = "" }, left_padding = 2 },
-        },
+    lualine_x = {},
+    lualine_y = { 'filetype', 'progress' },
+    lualine_z = {
+      { 'location', separator = { right = '' }, left_padding = 2 },
     },
-    inactive_sections = {
-        lualine_a = { "filename" },
-        lualine_b = {},
-        lualine_c = {},
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = { "location" },
-    },
-    tabline = {},
-    extensions = {},
+  },
+  inactive_sections = {
+    lualine_a = { 'filename' },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { 'location' },
+  },
+  tabline = {},
+  extensions = {},
 })

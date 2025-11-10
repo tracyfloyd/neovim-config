@@ -11,7 +11,7 @@ vim.opt.scrolloff = 10 -- Minimum number of screen lines to keep above and below
 
 --vim.opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
 
---opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+vim.opt.clipboard:append('unnamedplus') -- use system clipboard as default register
 
 vim.opt.splitright = true -- Split vertical window to the right
 vim.opt.splitbelow = true -- Split horizontal window to the bottom
@@ -35,7 +35,7 @@ vim.opt.smartindent = true -- Do smart autoindenting when starting a new line
 vim.opt.smarttab = true -- Make deleting "tabbed spaces" easier
 vim.opt.softtabstop = 4 -- Spaces applied when pressing Tab
 vim.opt.tabstop = 4 -- Spaces shown per Tab
-vim.opt.wrap = true -- Disable line wrapping
+vim.opt.wrap = true -- Enable line wrapping
 
 -- Search =====================================================================
 vim.opt.smartcase = true
@@ -48,19 +48,16 @@ vim.opt.list = true -- Show whitespace characters
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Show whitespace characters as
 vim.opt.showmode = false -- Don't show the mode, since it's already in the status line
 vim.opt.signcolumn = 'yes:2' -- Reserve a space in the gutter to avoid layout shift
-vim.opt.termguicolors = true -- Turn on termguicolors for nightfly colorscheme to work
+vim.opt.termguicolors = true
 vim.opt.winborder = 'rounded' -- Enable rounded corners in floating windows
+-- vim.opt.cmdheight = 0
 
 -- Code Folding ===============================================================
 vim.opt.foldcolumn = '1'
 vim.opt.foldenable = true
--- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevelstart = 99
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = 'expr'
--- vim.opt.foldnestmax = 4
--- vim.opt.foldtext = ""
---
 
 -- from https://github.com/jessarcher/dotfiles/blob/master/nvim/lua/user/options.lua
 vim.opt.updatetime = 100 -- Decrease update time

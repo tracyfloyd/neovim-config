@@ -37,7 +37,7 @@ return {
           -- print(node:type())
           print(vim.bo.filetype)
           print(language_tree._lang)
-          print('----')
+          -- print('----')
           if vim.bo.filetype == 'blade' then
             if language_tree._lang == 'html' then
               return '{{-- %s --}}'
