@@ -8,5 +8,5 @@ return {
     scope = {
       show_start = false,
     },
-  }
+  },
 }

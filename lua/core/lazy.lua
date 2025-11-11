@@ -16,7 +16,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load lazy.nvim
-require('lazy').setup({ import = 'plugins' }, {
+require('lazy').setup({
+  spec = {
+    { import = 'plugins' },
+    { import = 'plugins.code-intel' },
+  },
   install = {
     missing = true,
     colorscheme = { 'habamax' },
