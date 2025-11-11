@@ -1,3 +1,4 @@
+-- TODO: Clean this up
 return {
   -- Autopairs
   'windwp/nvim-autopairs',

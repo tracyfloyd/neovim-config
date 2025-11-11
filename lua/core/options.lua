@@ -18,7 +18,7 @@ vim.opt.splitbelow = true -- Split horizontal window to the bottom
 
 --vim.opt.swapfile = false -- Turn off swapfile
 
-vim.opt.undofile = true -- Store undos between sessions
+vim.opt.undofile = false -- Store undos between sessions
 
 vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 

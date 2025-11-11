@@ -7,19 +7,17 @@
 --
 -- @link https://github.com/NvChad/nvim-colorizer.lua
 
-
 return {
-    'NvChad/nvim-colorizer.lua',
-    ft = { 'css', 'scss', 'javascript' },
-    opts = {
-        filetypes = { '*' },
-        user_default_options = {
-            names = false,
-            mode = 'virtualtext',
-            virtualtext = '●',
-            RRGGBBAA = true,
-            css_fn = true,
-        }
-    }
+  'NvChad/nvim-colorizer.lua',
+  ft = { 'css', 'scss', 'javascript' },
+  opts = {
+    filetypes = { '*' },
+    user_default_options = {
+      names = false,
+      mode = 'virtualtext',
+      virtualtext = '●',
+      RRGGBBAA = true,
+      css_fn = true,
+    },
+  },
 }
-
