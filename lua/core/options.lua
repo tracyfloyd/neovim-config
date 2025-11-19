@@ -36,7 +36,7 @@ vim.opt.smartindent = true -- Do smart autoindenting when starting a new line
 vim.opt.smarttab = true -- Make deleting "tabbed spaces" easier
 vim.opt.softtabstop = 4 -- Spaces applied when pressing Tab
 vim.opt.tabstop = 4 -- Spaces shown per Tab
-vim.opt.wrap = true -- Enable line wrapping
+vim.opt.wrap = false -- Enable line wrapping
 
 -- Search =====================================================================
 vim.opt.smartcase = true

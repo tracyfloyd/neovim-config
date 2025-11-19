@@ -24,11 +24,15 @@ return {
   opts = {
     -- formatters by filetype
     formatters_by_ft = {
+      css = { 'prettierd', 'prettier', stop_after_first = true },
+      scss = { 'prettierd', 'prettier', stop_after_first = true },
+
       lua = { 'stylua' },
       php = { 'pint' },
-      javascript = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
-      typescript = { 'eslint_d', stop_after_first = true },
-      typescriptreact = { 'eslint_d', stop_after_first = true },
+
+      javascript = { 'prettierd', 'prettier', stop_after_first = true },
+      typescript = { 'prettierd', 'prettier', stop_after_first = true },
+      typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
     },
     format_on_save = {
       -- These options will be passed to conform.format()

@@ -3,9 +3,5 @@ return {
   cmd = { 'svelteserver', '--stdio' },
   filetypes = {
     'svelte',
-    'typescript',
-    'javascript',
-    'html',
-    'css',
   },
 }

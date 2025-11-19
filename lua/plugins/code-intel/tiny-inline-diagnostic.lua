@@ -9,6 +9,9 @@ return {
   config = function()
     require('tiny-inline-diagnostic').setup({
       preset = 'powerline',
+      show_source = {
+        enabled = true,
+      },
     })
     vim.diagnostic.config({ virtual_text = false }) -- Disable default virtual text
   end,
