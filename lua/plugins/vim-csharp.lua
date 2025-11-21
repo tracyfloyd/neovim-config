@@ -1,3 +1,3 @@
 return {
-  "OrangeT/vim-csharp"
+  'OrangeT/vim-csharp',
 }

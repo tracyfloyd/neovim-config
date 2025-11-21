@@ -34,6 +34,9 @@ return {
 
       local opts = {}
 
+      opts.desc = 'Telescope - Buffer file name search'
+      vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope buffers<cr>', opts)
+
       opts.desc = 'Telescope - Fuzzy find files in cwd'
       vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opts)
 
@@ -55,14 +58,11 @@ return {
       opts.desc = 'Telescope - Document diagnostics'
       vim.keymap.set('n', '<leader>fd', '<cmd>Telescope lsp_document_diagnostics<cr>', opts)
 
-      opts.desc = 'Telescope - Buffer file name search'
-      vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope buffers<cr>', opts)
-
       opts.desc = 'Telescope - Current buffer fuzzy search'
       vim.keymap.set('n', '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', opts)
 
       opts.desc = 'Telescope - Git files'
-      vim.keymap.set('n', '<C-p>', '<cmd>Telescope git_files<cr>', opts)
+      vim.keymap.set('n', '<leader>fg', '<cmd>Telescope git_files<cr>', opts)
 
       opts.desc = 'Telescope - Help'
       vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', {})

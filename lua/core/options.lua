@@ -94,6 +94,7 @@ map('n', 'O', "O<Esc>", { desc = "Append empty line" })
 map('n', 'o', "o<Esc>", { desc = "Prepend empty line" })
 
 -- When I delete something, I don’t want it to copy, so I disable that functionality.
+-- Instead should look to mapping SHIFT X to delete - and leave x as the default cut?
 map({"n", "v"}, "x", '"_x')
 map({"n", "v"}, "X", '"_X')
 ]]
