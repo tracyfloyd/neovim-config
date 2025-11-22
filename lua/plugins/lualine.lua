@@ -49,12 +49,13 @@ local colors = {
   red = '#ff5189',
   violet = '#d183e8',
   grey = '#303030',
+  dark_grey = '#0f0f19',
 }
 
 local bubbles_theme = {
   normal = {
     a = { fg = colors.black, bg = colors.violet },
-    b = { fg = colors.white, bg = colors.grey },
+    b = { fg = colors.white, bg = colors.dark_grey },
     c = { fg = colors.white },
   },
 
@@ -98,7 +99,7 @@ return {
     -- },
 
     sections = {
-      lualine_a = { { mode, separator = { left = '' }, right_padding = 2 } },
+      lualine_a = { { mode, separator = { left = '' }, right_padding = 2 } },
       lualine_b = { 'filename', 'branch' },
       lualine_c = {
         '%=', --[[ add your center components here in place of this comment ]]
@@ -106,7 +107,7 @@ return {
       lualine_x = {},
       lualine_y = { 'filetype', 'progress' },
       lualine_z = {
-        { 'location', separator = { right = '' }, left_padding = 2 },
+        { 'location', separator = { right = '' }, left_padding = 2 },
       },
     },
     inactive_sections = {

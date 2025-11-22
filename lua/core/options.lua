@@ -47,7 +47,7 @@ vim.opt.background = 'dark' -- Colorschemes that can be light or dark will be ma
 vim.opt.cursorline = true -- Highlight the current cursor line
 vim.opt.cursorlineopt = 'screenline'
 vim.opt.cursorcolumn = true
-vim.opt.list = true -- Show whitespace characters
+vim.opt.list = true -- Show white-space characters
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Show whitespace characters as
 vim.opt.showmode = false -- Don't show the mode, since it's already in the status line
 vim.opt.signcolumn = 'yes:2' -- Reserve a space in the gutter to avoid layout shift
@@ -55,7 +55,7 @@ vim.opt.termguicolors = true
 vim.opt.winborder = 'rounded' -- Enable rounded corners in floating windows
 -- Set up the highlight groups
 vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#45475b', bg = '#ffffff' })
--- this command sets ver split border... need to maek this automatic   :hi WinSeparator guifg=#45475b
+-- this command sets ver split border... need to make this automatic   :hi WinSeparator guifg=#45475b
 -- vim.opt.cmdheight = 0 -- Hide command bar unless is being used
 
 -- Code Folding ===============================================================
