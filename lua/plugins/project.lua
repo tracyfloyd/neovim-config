@@ -1,13 +1,12 @@
-
 -- @link https://github.com/ahmedkhalf/project.nvim
 
 return {
-  "ahmedkhalf/project.nvim",
+  'ahmedkhalf/project.nvim',
   init = function()
-    require("project_nvim").setup {
-      patterns = { "wp-config.php", ".git", "composer.json", "package.json" },
-    }
+    require('project_nvim').setup({
+      detection_methods = { 'lsp', 'pattern' },
+      patterns = { 'wp-config.php', '*.sln', '.git' },
+    })
     require('telescope').load_extension('projects')
-    --require('telescope').extensions.projects.projects{}
-  end
+  end,
 }
