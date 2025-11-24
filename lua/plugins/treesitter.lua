@@ -70,7 +70,7 @@ return {
       'gitcommit',
       'gitignore',
       'graphql',
-      'html',
+      'superhtml',
       'http',
       'ini',
       'javascript',

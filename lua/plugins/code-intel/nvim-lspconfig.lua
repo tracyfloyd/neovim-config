@@ -37,22 +37,17 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       opts = {
         ensure_installed = {
-          -- LSP
           'antlersls',
-          'ts_ls',
-          'html',
           'cssls',
-          'svelte',
-          'lua_ls',
-          'graphql',
           'emmet_ls',
-
-          -- Linters
           'eslint_d',
-
-          -- Formatters
+          'graphql',
+          'lua_ls',
           'prettier',
           'stylua',
+          'superhtml',
+          'svelte',
+          'ts_ls',
         },
       },
     },

@@ -1,8 +1,8 @@
 return {
-  filetypes = {
-    "blade",
-    "html",
-    "php",
-    "templ",
-  },
+  -- filetypes = {
+  --   "blade",
+  --   "html",
+  --   "php",
+  --   "templ",
+  -- },
 }
