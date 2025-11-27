@@ -39,7 +39,7 @@ return {
         ensure_installed = {
           'antlersls',
           'cssls',
-          'emmet_ls',
+          'emmet_language_server',
           'eslint_d',
           'graphql',
           'lua_ls',
