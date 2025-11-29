@@ -4,6 +4,7 @@ return {
   filetypes = {
     'htm',
     'html',
+    'php',
     'shtml',
   },
 }

@@ -59,11 +59,14 @@ vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#45475b', bg = '#ffffff' })
 -- vim.opt.cmdheight = 0 -- Hide command bar unless is being used
 
 -- Code Folding ===============================================================
-vim.opt.foldcolumn = '1'
-vim.opt.foldenable = true
+vim.opt.foldcolumn = '0'
+vim.opt.foldenable = true -- set to false to disable folding everything on startup if needed
 vim.opt.foldlevelstart = 99
 vim.opt.foldlevel = 99
-vim.opt.foldmethod = 'expr'
+-- vim.opt.foldmethod = 'expr'
+-- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldtext = ''
+vim.opt.fillchars:append({ fold = ' ' })
 
 vim.opt.updatetime = 100 -- Decrease update time
 vim.opt.redrawtime = 10000 -- Allow more time for loading syntax on large files
