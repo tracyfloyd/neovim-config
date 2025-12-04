@@ -7,7 +7,7 @@ vim.opt.mouse = 'a' -- Enable mouse mode, can be useful for resizing splits for 
 
 vim.opt.inccommand = 'split' -- Preview substitutions as you type
 
-vim.opt.scrolloff = 10 -- Minimum number of screen lines to keep above and below the cursor
+-- vim.opt.scrolloff = 10 -- Minimum number of screen lines to keep above and below the cursor
 
 --vim.opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
 
