@@ -1,10 +1,12 @@
 ---@type vim.lsp.Config
 return {
-  cmd = { 'superhtml', 'lsp' },
+  cmd = { 'vscode-html-language-server', '--stdio' },
   filetypes = {
+    'cshtml',
     'htm',
     'html',
     'php',
     'shtml',
+    'templ',
   },
 }
