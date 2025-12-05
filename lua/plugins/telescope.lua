@@ -43,6 +43,9 @@ return {
       opts.desc = 'Telescope - Fuzzy find recent files'
       vim.keymap.set('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', opts)
 
+      opts.desc = 'Telescope - Current buffer fuzzy search'
+      vim.keymap.set('n', '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', opts)
+
       opts.desc = 'Telescope - Show previous search state'
       vim.keymap.set('n', '<leader>fr', '<cmd>Telescope resume<cr>', opts)
 
@@ -58,21 +61,19 @@ return {
       opts.desc = 'Telescope - Document diagnostics'
       vim.keymap.set('n', '<leader>fd', '<cmd>Telescope lsp_document_diagnostics<cr>', opts)
 
-      opts.desc = 'Telescope - Current buffer fuzzy search'
-      vim.keymap.set('n', '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', opts)
-
       opts.desc = 'Telescope - Git files'
       vim.keymap.set('n', '<leader>fg', '<cmd>Telescope git_files<cr>', opts)
 
       opts.desc = 'Telescope - Help'
-      vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', {})
+      vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opts)
 
-      opts.desc = 'Telescope - Keymaps'
+      opts.desc = 'Telescope - Find Keymaps'
       vim.keymap.set('n', '<leader>fk', '<cmd>Telescope keymaps<cr>', opts)
 
-      opts.desc = 'Telescope - LSP References'
-      vim.keymap.set('n', '<leader>fl', '<cmd>Telescope lsp_references<cr>', opts)
-      --keymap.set("n", "<leader>ft", "<cmd>Telescope treesitter<cr>", { desc = "Telescope - Treesitter" })
+      -- opts.desc = 'Telescope - LSP References'
+      -- vim.keymap.set('n', '<leader>fl', '<cmd>Telescope lsp_references<cr>', opts)
+      opts.desc = 'Telescope - Lists Function names, variables, ... using Treesitter'
+      vim.keymap.set('n', '<leader>fl', '<cmd>Telescope treesitter<cr>', opts)
 
       opts.desc = 'Telescope - Find in Neovim config'
       vim.keymap.set('n', '<leader>fn', function()

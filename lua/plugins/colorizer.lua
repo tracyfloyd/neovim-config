@@ -1,23 +1,26 @@
 -- colorizer.lua
 --
--- Highlights various color notations.
---
--- Lazy loading: The plugin gets only loaded on certain file types where the
---               color notations are actually used (CSS, Python, Javascript).
+-- A high-performance color highlighter
 --
 -- @link https://github.com/NvChad/nvim-colorizer.lua
 
 return {
-  'NvChad/nvim-colorizer.lua',
-  ft = { 'css', 'scss', 'javascript' },
+  'catgoose/nvim-colorizer.lua',
+  event = 'BufReadPre',
+  filetypes = { '*' },
   opts = {
     filetypes = { '*' },
     user_default_options = {
       names = false,
-      mode = 'virtualtext',
-      virtualtext = '●',
-      RRGGBBAA = true,
+      css = true,
       css_fn = true,
+      mode = 'background', -- 'background'|'foreground'|'virtualtext'
+      sass = {
+        enable = true,
+        parsers = {
+          'css',
+        },
+      },
     },
   },
 }

@@ -1,6 +1,10 @@
--- TODO: Clean this up
+-- Autopairs
+--
+-- A super powerful autopair plugin for Neovim that supports multiple characters.
+--
+-- @link https://github.com/windwp/nvim-autopairs
+
 return {
-  -- Autopairs
   'windwp/nvim-autopairs',
 
   event = 'InsertEnter',
@@ -8,7 +12,10 @@ return {
     'hrsh7th/nvim-cmp',
   },
   config = function()
-    require('nvim-autopairs').setup({})
+    require('nvim-autopairs').setup({
+      enable_check_bracket_line = false,
+    })
+
     -- If you want to automatically add `(` after selecting a function or method
     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
     local cmp = require('cmp')
