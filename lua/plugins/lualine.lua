@@ -69,7 +69,6 @@ return {
       },
       lualine_y = {
         { 'lsp_status' },
-        { 'filetype', icon_only = true },
       },
       lualine_z = {
         { 'progress' },
