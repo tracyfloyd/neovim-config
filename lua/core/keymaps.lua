@@ -14,3 +14,5 @@ vim.keymap.set('n', '-', '<cmd>Oil --float<CR>', { desc = "Oil - Open current fi
 vim.keymap.set('n', 'gl', function()
   vim.diagnostic.open_float()
 end, { desc = 'Open Diagnostics in Float' })
+
+vim.keymap.set('n', '<Leader>cp', ':let @+=expand("%:p")<CR>', { desc = 'Copy filepath of current buffer to clipboard', noremap = true, silent = true })
