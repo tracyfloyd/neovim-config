@@ -1,6 +1,9 @@
 -- nvim-lspconfig
+--
 -- A collection of LSP server configurations for Neovim.
+--
 -- @link https://github.com/neovim/nvim-lspconfig
+
 return {
   'neovim/nvim-lspconfig',
 
@@ -38,7 +41,7 @@ return {
       opts = {
         ensure_installed = {
           'cssls',
-          'emmet_language_server',
+          -- 'emmet_language_server',
           'eslint_d',
           'graphql',
           'html',
