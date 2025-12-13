@@ -44,6 +44,7 @@ vim.opt.ignorecase = true
 
 -- Appearance =================================================================
 vim.opt.background = 'dark' -- Colorschemes that can be light or dark will be made dark
+vim.opt.cmdheight = 0 -- Hide comamnd line unless its being used
 vim.opt.cursorline = true -- Highlight the current cursor line
 vim.opt.cursorlineopt = 'screenline'
 vim.opt.cursorcolumn = true
