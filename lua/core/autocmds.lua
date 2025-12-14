@@ -30,3 +30,25 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     end
   end,
 })
+
+-- -- Function to apply dimming to inactive windows
+-- local function dim_inactive_windows()
+--   -- Link NormalNC (non-current window normal text) to a dimmer highlight group
+--   -- 'Comment' is a good choice for a dimmer, built-in color
+--   vim.api.nvim_set_hl(0, 'NormalNC', { link = 'Comment' })
+-- end
+--
+-- -- Function to restore normal highlights for the active window
+-- local function restore_active_window()
+--   -- Remove the link for Normal, restoring its default highlight
+--   vim.api.nvim_set_hl(0, 'NormalNC', {})
+-- end
+--
+-- -- Autocmds to manage highlights on focus events
+-- vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
+--   callback = restore_active_window,
+-- })
+--
+-- vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
+--   callback = dim_inactive_windows,
+-- })

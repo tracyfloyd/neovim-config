@@ -8,7 +8,8 @@
 
 return {
 
-  'catppuccin/nvim', -- https://github.com/catppuccin/nvim
+  -- @link https://github.com/catppuccin/nvim
+  'catppuccin/nvim',
   name = 'catppuccin',
   lazy = false,
   priority = 1000,
@@ -16,10 +17,21 @@ return {
     require('catppuccin').setup({
       flavour = 'mocha', -- latte, frappe, macchiato, mocha
       dim_inactive = {
-        enabled = true, -- dims the background color of inactive window
+        enabled = false, -- dims the background color of inactive window
         shade = 'dark',
-        percentage = 0.25, -- percentage of the shade to apply to the inactive window
+        percentage = 0.15, -- percentage of the shade to apply to the inactive window
       },
+      custom_highlights = function(colors)
+        return {
+          NormalNC = {
+            fg = colors.overlay2,
+            bg = '#181826',
+          },
+          WinSeparator = {
+            fg = '#45475b',
+          },
+        }
+      end,
       integrations = {
         cmp = true,
         gitsigns = true,
