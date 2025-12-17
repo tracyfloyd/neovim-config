@@ -23,10 +23,10 @@ return {
       },
       custom_highlights = function(colors)
         return {
-          NormalNC = {
-            fg = colors.overlay2,
-            bg = '#181826',
-          },
+          -- NormalNC = {
+          -- fg = colors.overlay2,
+          -- bg = '#181826',
+          -- },
           WinSeparator = {
             fg = '#45475b',
           },

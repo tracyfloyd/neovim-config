@@ -44,11 +44,11 @@ vim.opt.ignorecase = true
 
 -- Appearance =================================================================
 vim.opt.background = 'dark' -- Colorschemes that can be light or dark will be made dark
-vim.opt.cmdheight = 0 -- Hide comamnd line unless its being used
+-- vim.opt.cmdheight = 0 -- Hide comamnd line unless its being used - do not enable (messes with Lualine)
 vim.opt.cursorline = true -- Highlight the current cursor line
 vim.opt.cursorlineopt = 'screenline'
 vim.opt.cursorcolumn = true
-vim.opt.laststatus = 3
+vim.opt.laststatus = 3 -- Enable a single, persistent status line at the bottom of the screen for all splits
 vim.opt.list = true -- Show white-space characters
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Show whitespace characters as
 vim.opt.showmode = false -- Don't show the mode, since it's already in the status line

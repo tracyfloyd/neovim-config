@@ -75,5 +75,10 @@ return {
         { 'location', padding = { left = 0, right = 1 } },
       },
     },
+    -- winbar = {
+    --   lualine_a = { 'mode' },
+    --   lualine_b = { 'branch', 'diff' },
+    --   lualine_c = { 'filename' }, -- Per-split filename in winbar
+    -- },
   },
 }
