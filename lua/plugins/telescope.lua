@@ -34,48 +34,45 @@ return {
 
       local opts = {}
 
-      opts.desc = 'Telescope - Buffer file name search'
+      opts.desc = 'Telescope: Buffer file name search'
       vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope buffers<cr>', opts)
 
-      opts.desc = 'Telescope - Fuzzy find files in cwd'
+      opts.desc = 'Telescope: Fuzzy find files in cwd'
       vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opts)
 
-      opts.desc = 'Telescope - Fuzzy find recent files'
+      opts.desc = 'Telescope: Fuzzy find recent files'
       vim.keymap.set('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', opts)
 
-      opts.desc = 'Telescope - Current buffer fuzzy search'
+      opts.desc = 'Telescope: Current buffer fuzzy search'
       vim.keymap.set('n', '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', opts)
 
-      opts.desc = 'Telescope - Show previous search state'
+      opts.desc = 'Telescope: Show previous search state'
       vim.keymap.set('n', '<leader>fr', '<cmd>Telescope resume<cr>', opts)
 
-      opts.desc = 'Telescope - Find string in cwd'
+      opts.desc = 'Telescope: Find string in cwd'
       vim.keymap.set('n', '<leader>fs', '<cmd>Telescope live_grep<cr>', opts)
 
-      opts.desc = 'Telescope - Find string under cursor in cwd'
+      opts.desc = 'Telescope: Find string under cursor in cwd'
       vim.keymap.set('n', '<leader>fc', '<cmd>Telescope grep_string<cr>', opts)
 
-      opts.desc = 'Telescope - Find todos'
+      opts.desc = 'Telescope: Find todos'
       vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', opts)
 
-      opts.desc = 'Telescope - Document diagnostics'
-      vim.keymap.set('n', '<leader>fd', '<cmd>Telescope lsp_document_diagnostics<cr>', opts)
-
-      opts.desc = 'Telescope - Git files'
+      opts.desc = 'Telescope: Git files'
       vim.keymap.set('n', '<leader>fg', '<cmd>Telescope git_files<cr>', opts)
 
-      opts.desc = 'Telescope - Help'
+      opts.desc = 'Telescope: Help'
       vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opts)
 
-      opts.desc = 'Telescope - Find Keymaps'
+      opts.desc = 'Telescope: Find Keymaps'
       vim.keymap.set('n', '<leader>fk', '<cmd>Telescope keymaps<cr>', opts)
 
-      -- opts.desc = 'Telescope - LSP References'
+      -- opts.desc = 'Telescope: LSP References'
       -- vim.keymap.set('n', '<leader>fl', '<cmd>Telescope lsp_references<cr>', opts)
-      opts.desc = 'Telescope - Lists Function names, variables, ... using Treesitter'
+      opts.desc = 'Telescope: Lists Function names, variables, ... using Treesitter'
       vim.keymap.set('n', '<leader>fl', '<cmd>Telescope treesitter<cr>', opts)
 
-      opts.desc = 'Telescope - Find in Neovim config'
+      opts.desc = 'Telescope: Find in Neovim config'
       vim.keymap.set('n', '<leader>fn', function()
         require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') })
       end, opts)
