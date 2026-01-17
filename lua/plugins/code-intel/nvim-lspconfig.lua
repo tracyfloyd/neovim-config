@@ -9,55 +9,16 @@ return {
 
   dependencies = {
     {
-      -- mason.nvim
-      -- Package Manager to install and manage LSP servers, DAP servers, linters, and formatters.
-      -- @link https://github.com/mason-org/mason.nvim
       'mason-org/mason.nvim',
-      opts = {
-        ui = {
-          icons = {
-            package_installed = '✓',
-            package_pending = '➜',
-            package_uninstalled = '✗',
-          },
-        },
-      },
     },
-
     {
-      -- mason-lspconfig.nvim
-      -- Bridges `mason.nvim` with the nvim-lspconfig  making it easier to use both plugins together.
-      -- @link https://github.com/mason-org/mason-lspconfig.nvim
       'mason-org/mason-lspconfig.nvim',
-      opts = {
-        ensure_installed = {}, -- explicitly set to an empty table (Installs via mason-tool-installer)
-      },
     },
-
     {
-      -- mason-tool-installer
-      -- @link https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      opts = {
-        ensure_installed = {
-          'cssls',
-          -- 'emmet_language_server',
-          'eslint_d',
-          'graphql',
-          'html',
-          'lua_ls',
-          'prettier',
-          'stylua',
-          'svelte',
-          'ts_ls',
-        },
-      },
     },
-
-    -- Useful status updates for LSP
     {
       'j-hui/fidget.nvim',
-      opts = {},
     },
   },
 
