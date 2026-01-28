@@ -54,7 +54,6 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Show whitespa
 vim.opt.showmode = false -- Don't show the mode, since it's already in the status line
 vim.opt.signcolumn = 'yes:2' -- Reserve a space in the gutter to avoid layout shift
 vim.opt.shortmess:append('F') -- Prevent showing filetype in the command line when opening a file
-
 vim.opt.termguicolors = true
 vim.opt.winborder = 'rounded' -- Enable rounded corners in floating windows
 
