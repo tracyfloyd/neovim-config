@@ -4,12 +4,10 @@
 --
 -- @link https://github.com/MagicDuck/grug-far.nvim
 
-
-return
-{
-    'MagicDuck/grug-far.nvim',
-    -- config = function()
-    --   require('grug-far').setup({
-    --   });
-    -- end
+return {
+  'MagicDuck/grug-far.nvim',
+  -- config = function()
+  --   require('grug-far').setup({
+  --   });
+  -- end
 }

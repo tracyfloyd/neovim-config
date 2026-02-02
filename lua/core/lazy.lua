@@ -23,7 +23,7 @@ require('lazy').setup({
   },
   install = {
     missing = true,
-    colorscheme = { 'habamax' },
+    colorscheme = { 'catppuccin' },
   },
   checker = {
     enabled = true,
@@ -42,7 +42,7 @@ require('lazy').setup({
         'gzip',
         'tarPlugin',
         'tohtml',
-        'tutor',
+        -- 'tutor',
         'zipPlugin',
       },
     },
