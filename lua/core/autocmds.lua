@@ -16,6 +16,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Set filetype to razor for .cshtml files
+vim.api.nvim_create_autocmd('BufRead', {
+  group = vim.api.nvim_create_augroup('detect_cshtml', { clear = true }),
+  desc = 'Set filetype for .cshtml files',
+  pattern = { '.cshtml' },
+  callback = function()
+    vim.cmd('set filetype=razor')
+  end,
+})
+
 -- Use treesitter for folding if it has parser for filetype
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   callback = function()

@@ -13,8 +13,8 @@ return {
         },
       },
       registries = {
-        'github:mason-org/mason-registry',
-        'github:Crashdummyy/mason-registry',
+        'github:mason-org/mason-registry', -- Added for https://github.com/seblyng/roslyn.nvim
+        'github:Crashdummyy/mason-registry', -- Added for https://github.com/seblyng/roslyn.nvim
       },
     })
   end,
