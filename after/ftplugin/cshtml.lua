@@ -1,2 +1,4 @@
-vim.opt_local.foldmethod = 'expr'
-vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+local set = vim.opt_local
+
+set.foldmethod = 'expr'
+set.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
