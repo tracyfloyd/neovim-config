@@ -9,6 +9,20 @@ return {
 
   dependencies = {
     {
+      'folke/lazydev.nvim',
+      ft = 'lua',
+      opts = {
+        library = {
+          -- See the configuration section for more details
+          -- Load luvit types when the `vim.uv` word is found
+          { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        },
+      },
+    },
+    {
+      'j-hui/fidget.nvim',
+    },
+    {
       'mason-org/mason.nvim',
     },
     {
@@ -17,12 +31,11 @@ return {
     {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
     },
-    {
-      'j-hui/fidget.nvim',
-    },
   },
 
   config = function()
+    -- vim.lsp.inlay_hint.enable(true)
+
     -- Runs when an LSP attaches to a buffer.
     -- When a file is opened that is associated withan LSP, this function
     -- will be executed to configure the current buffer.
@@ -78,8 +91,6 @@ return {
         end, opts) -- jump to next diagnostic in buffer
       end,
     })
-
-    -- vim.lsp.inlay_hint.enable(true)
 
     -- Diagnostic Config
     -- See :help vim.diagnostic.Opts
