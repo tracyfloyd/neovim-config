@@ -65,14 +65,14 @@ return {
 
       -- Right Side
       lualine_x = {
-        { 'diagnostics' },
+        { 'diagnostics' }, -- Lists number of Errors, Warnings
       },
       lualine_y = {
-        { 'lsp_status' },
+        { 'lsp_status' }, -- Current LSP(s) loaded
       },
       lualine_z = {
-        { 'progress' },
-        { 'location', padding = { left = 0, right = 1 } },
+        { 'progress' }, -- Percentage to end of current buffer
+        { 'location', padding = { left = 0, right = 1 } }, -- LineNumber:ColumnNumber
       },
     },
     -- winbar = {
