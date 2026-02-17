@@ -63,11 +63,11 @@ return {
         vim.keymap.set('n', '<leader>rs', ':LspRestart<CR>', opts) -- mapping to restart lsp if necessary
 
         -- Diagnostics
+        opts.desc = 'LSP: Show line diagnostics in float'
+        vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
+
         opts.desc = 'LSP/Telescope: Show buffer diagnostics'
         vim.keymap.set('n', '<leader>D', '<cmd>Telescope diagnostics bufnr=0<CR>', opts)
-
-        opts.desc = 'LSP: Show line diagnostics'
-        vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
 
         opts.desc = 'LSP: Go to previous diagnostic'
         vim.keymap.set('n', '[d', function()
