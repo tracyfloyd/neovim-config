@@ -7,7 +7,7 @@ vim.g.have_nerd_font = true
 -- Appearance
 vim.opt.background = 'dark' -- Colorschemes that can be light or dark will be made dark
 -- vim.opt.cmdheight = 0 -- Hide command line unless being used - disabled as it messes with Lualine
-vim.opt.colorcolumn = '100' -- Show column at 100 characters
+-- vim.opt.colorcolumn = '100' -- Show column at 100 characters
 vim.opt.completeopt = 'menuone,noinsert,noselect' -- Completion options
 vim.opt.cursorcolumn = true -- Highlight the screen column of the cursor
 vim.opt.cursorline = true -- Highlight the current cursor line

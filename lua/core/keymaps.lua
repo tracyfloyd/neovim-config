@@ -20,8 +20,8 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 vim.keymap.set('n', 'Y', 'y$', { desc = 'Yank to end of line' })
 
 -- Stay in Normal mode after creating a new line above or below the current one
-vim.keymap.set('n', 'O', 'O<Esc>', { desc = 'Append empty line' })
-vim.keymap.set('n', 'o', 'o<Esc>', { desc = 'Prepend empty line' })
+-- vim.keymap.set('n', 'O', 'O<Esc>', { desc = 'Append empty line' })
+-- vim.keymap.set('n', 'o', 'o<Esc>', { desc = 'Prepend empty line' })
 --
 -- Maintain selection when indenting in Visual mode
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent left and reselect' })
@@ -80,8 +80,8 @@ vim.keymap.set('n', '<leader>sh', ':split<CR>', { desc = 'Split window horizonta
 -- Misc
 
 -- Don't copy when deleting
-vim.keymap.set({ 'n', 'v' }, 'x', '"_x', { desc = 'Delete selection without copying' })
-vim.keymap.set({ 'n', 'v' }, 'X', '"_X', { desc = 'Delete line without copying' })
+-- vim.keymap.set({ 'n', 'v' }, 'x', '"_x', { desc = 'Delete selection without copying' })
+-- vim.keymap.set({ 'n', 'v' }, 'X', '"_X', { desc = 'Delete line without copying' })
 
 -- ======================================================================================
 -- Ideas to explore
