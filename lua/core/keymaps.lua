@@ -1,6 +1,22 @@
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Go to file listing" }) -- Disabled due to Oil.nvim
 vim.keymap.set('n', '-', '<cmd>Oil --float<CR>', { desc = "Oil - Open current file's parent directory" })
 
+-- Clear search highlights
+vim.keymap.set('n', '<leader>c', ':nohlsearch<CR>', { desc = 'Clear search highlights' })
+
+-- Paste without yanking
+vim.keymap.set('x', '<leader>p', '"_dP', { desc = 'Paste without yanking' })
+
+-- Delete without yanking
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = 'Delete without yanking' })
+
+-- Join lines and keep cursor position (better J behavior)
+-- vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines and keep cursor position' })
+
+-- Add new line (without entering Insert mode)``
+vim.keymap.set('n', 'oo', 'o<Esc>k', { desc = 'Add new line under (without entering Insert mode)' })
+vim.keymap.set('n', 'OO', 'O<Esc>j', { desc = 'Add new line over (without entering Insert mode)' })
+
 -- Center screen when jumping
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Next search result (centered)' })
 vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Previous search result (centered)' })
@@ -19,10 +35,6 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 -- Yank to end of line
 vim.keymap.set('n', 'Y', 'y$', { desc = 'Yank to end of line' })
 
--- Stay in Normal mode after creating a new line above or below the current one
--- vim.keymap.set('n', 'O', 'O<Esc>', { desc = 'Append empty line' })
--- vim.keymap.set('n', 'o', 'o<Esc>', { desc = 'Prepend empty line' })
---
 -- Maintain selection when indenting in Visual mode
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent left and reselect' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })
@@ -78,10 +90,6 @@ vim.keymap.set('n', '<leader>sh', ':split<CR>', { desc = 'Split window horizonta
 
 -- ======================================================================================
 -- Misc
-
--- Don't copy when deleting
--- vim.keymap.set({ 'n', 'v' }, 'x', '"_x', { desc = 'Delete selection without copying' })
--- vim.keymap.set({ 'n', 'v' }, 'X', '"_X', { desc = 'Delete line without copying' })
 
 -- ======================================================================================
 -- Ideas to explore

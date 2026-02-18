@@ -26,7 +26,7 @@ vim.opt.pumblend = 10 -- Popup menu transparency
 vim.opt.pumheight = 10 -- Popup Menu Height: Set the max-popup height to 10 items.
 vim.opt.relativenumber = true -- Relative line numbers
 vim.opt.scrolloff = 10 -- Lines to keep above/below cursor
-vim.opt.showmatch = true -- Highlight martching brackets
+vim.opt.showmatch = true -- Highlight matching brackets
 vim.opt.showmode = false -- Don't show the mode, since it's already in the status line
 vim.opt.shortmess:append('F') -- Prevent showing filetype in the command line when opening a file
 vim.opt.sidescrolloff = 8 -- Columns to keep left/right of cursor
@@ -51,7 +51,7 @@ vim.opt.wrap = false -- Enable line wrapping
 
 -- ======================================================================================
 -- Search
-vim.opt.hlsearch = false -- Don't Highlight search results
+-- vim.opt.hlsearch = false -- Don't Highlight search results
 vim.opt.ignorecase = true -- Case insensitive search
 vim.opt.incsearch = true -- Show matches as you type
 vim.opt.smartcase = true -- Case sensitive search if uppercase used in search term
@@ -76,7 +76,7 @@ vim.opt.maxmempattern = 20000 -- Maximum amount of memory (in Kbyte) to use for 
 vim.opt.mousemoveevent = true -- Allow hovering in bufferline
 vim.opt.redrawtime = 10000 -- Allow more time for loading syntax on large files
 vim.opt.swapfile = false -- Don't create swap files
-vim.opt.timeoutlen = 500 -- Timeout Length: This is the time Neovim waits for the completion of a key sequence.
+vim.opt.timeoutlen = 200 -- Timeout Length: This is the time Neovim waits for the completion of a key sequence.
 vim.opt.ttimeoutlen = 0 -- Key code timeout
 vim.opt.updatetime = 300 -- Faster completion
 vim.opt.writebackup = false -- Don't create backup before writing
