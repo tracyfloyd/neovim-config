@@ -91,21 +91,22 @@ vim.opt.undofile = true                           -- Store undos between session
 
 -- ======================================================================================
 -- Behavior
-vim.opt.autochdir = false                                                  -- Don't auto change directory
-vim.opt.backspace = 'indent,eol,start'                                     -- allow backspace on indent, end of line or insert mode start position
-vim.opt.clipboard:append('unnamedplus')                                    -- use system clipboard as default register
-vim.opt.encoding = 'UTF-8'                                                 -- Set encoding
-vim.opt.errorbells = false                                                 -- No error bells
+vim.opt.autochdir = false                         -- Don't auto change directory
+vim.opt.backspace = 'indent,eol,start'            -- allow backspace on indent, end of line or insert mode start position
+vim.opt.clipboard:append('unnamedplus')           -- use system clipboard as default register
+vim.opt.encoding = 'UTF-8'                        -- Set encoding
+vim.opt.errorbells = false                        -- No error bells
 -- vim.opt.hidden = true                                                      -- Allow hidden buffers
-vim.opt.inccommand = 'split'                                               -- Preview substitutions as you type
-vim.opt.iskeyword:append('-')                                              -- Treat dash as part of word
-vim.opt.modifiable = true                                                  -- Allow buffer modifications
-vim.opt.mouse = 'a'                                                        -- Enable mouse mode
-vim.opt.path:append('**')                                                  -- Include subdirectories in search
-vim.opt.selection = 'exclusive'                                            -- Selection behavior
+vim.opt.inccommand = 'split'                      -- Preview substitutions as you type
+vim.opt.iskeyword:append('-')                     -- Treat dash as part of word
+vim.opt.modifiable = true                         -- Allow buffer modifications
+vim.opt.mouse = 'a'                               -- Enable mouse mode
+vim.opt.path:append('**')                         -- Include subdirectories in search
+vim.opt.selection = 'exclusive'                   -- Selection behavior
 vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
-vim.opt.splitbelow = true                                                  -- Split horizontal window to the bottom
-vim.opt.splitright = true                                                  -- Split vertical window to the right
-vim.opt.wildmenu = true                                                    -- Enable enhanced command-line completion
-vim.opt.wildmode = 'longest:full,full'                                     -- Completion mode
-vim.opt.wildignore:append({ '*.o', '*.obj', '*.pyc', '*.class', '*.jar' }) -- Add to completion matching ignore list
+vim.opt.splitbelow = true                         -- Split horizontal window to the bottom
+vim.opt.splitright = true                         -- Split vertical window to the right
+vim.opt.wildmenu = true                           -- Enable enhanced command-line completion
+vim.opt.wildmode = 'longest:full,full'            -- Completion mode
+vim.opt.wildignore:append({ '*.class', '*.git' }) -- Add to completion matching ignore list
+vim.opt.wildignorecase = true                     -- When set case is ignored when completing file names and directories.
