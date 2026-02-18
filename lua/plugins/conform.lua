@@ -26,7 +26,6 @@ return {
       css = { 'prettierd', 'prettier', stop_after_first = true },
       scss = { 'prettierd', 'prettier', stop_after_first = true },
 
-      lua = { 'stylua' },
       php = { 'pint' },
 
       javascript = { 'prettierd', 'prettier', stop_after_first = true },
@@ -35,8 +34,8 @@ return {
     },
     format_on_save = {
       -- These options will be passed to conform.format()
-      timeout_ms = 1000,
-      -- lsp_format = "fallback",
+      lsp_format = 'fallback',
+      timeout_ms = 500,
     },
   },
 }
