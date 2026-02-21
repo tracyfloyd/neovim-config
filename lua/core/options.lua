@@ -102,7 +102,6 @@ vim.opt.iskeyword:append('-')                     -- Treat dash as part of word
 vim.opt.modifiable = true                         -- Allow buffer modifications
 vim.opt.mouse = 'a'                               -- Enable mouse mode
 vim.opt.path:append('**')                         -- Include subdirectories in search
-vim.opt.selection = 'exclusive'                   -- Selection behavior
 vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 vim.opt.splitbelow = true                         -- Split horizontal window to the bottom
 vim.opt.splitright = true                         -- Split vertical window to the right
