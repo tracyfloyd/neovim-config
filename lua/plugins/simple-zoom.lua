@@ -9,6 +9,6 @@ return {
     hide_tabline = false,
   },
   keys = {
-    { '<Leader>z', '<Cmd>SimpleZoomToggle<CR>', mode = { 'n' }, desc = 'Zoom toggle' },
+    { '<C-w>z', '<Cmd>SimpleZoomToggle<CR>', mode = { 'n' }, desc = 'Zoom toggle' },
   },
 }
