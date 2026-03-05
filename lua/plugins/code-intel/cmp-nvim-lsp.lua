@@ -4,13 +4,14 @@
 
 return {
   'hrsh7th/cmp-nvim-lsp',
+  enabled = false,
   event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     -- When files are renamed, update references in code (if LSP supports it)
     { 'antosha417/nvim-lsp-file-operations', config = true },
 
     -- Configure Lua LSP for working on Neovim config
-    { 'folke/lazydev.nvim', opts = {} },
+    { 'folke/lazydev.nvim',                  opts = {} },
   },
   config = function()
     -- import cmp-nvim-lsp plugin

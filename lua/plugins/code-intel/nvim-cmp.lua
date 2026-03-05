@@ -6,18 +6,19 @@
 
 return {
   'hrsh7th/nvim-cmp',
+  enabled = false,
   event = 'InsertEnter',
   dependencies = {
     'hrsh7th/cmp-buffer', -- Source for text in current buffer
-    'hrsh7th/cmp-path', -- Source for file system paths
-    'L3MON4D3/LuaSnip', -- Snippet engine
+    'hrsh7th/cmp-path',   -- Source for file system paths
+    'L3MON4D3/LuaSnip',   -- Snippet engine
     {
       'L3MON4D3/LuaSnip', -- Snippet engine
       build = 'make install_jsregexp',
     },
-    'saadparwaiz1/cmp_luasnip', -- Source for snippet engine snippets
+    'saadparwaiz1/cmp_luasnip',     -- Source for snippet engine snippets
     'rafamadriz/friendly-snippets', -- Useful snippets for various languages
-    'onsails/lspkind.nvim', -- vs-code like pictograms
+    'onsails/lspkind.nvim',         -- vs-code like pictograms
   },
 
   config = function()
@@ -65,8 +66,8 @@ return {
         { name = 'nvim_lsp_signature_help' },
         { name = 'easy-dotnet' },
         { name = 'luasnip' }, -- snippets
-        { name = 'buffer' }, -- text within current buffer
-        { name = 'path' }, -- file system paths
+        { name = 'buffer' },  -- text within current buffer
+        { name = 'path' },    -- file system paths
       },
 
       window = {
@@ -107,15 +108,15 @@ return {
 
         format = lspkind.cmp_format({
           mode = 'symbol_text', -- options: "text", "text_symbol", "symbol_text", "symbol"
-          preset = 'default', -- option: "default", "material", "devicons"
+          preset = 'default',   -- option: "default", "material", "devicons"
           maxwidth = {
             -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
             -- can also be a function to dynamically calculate max width such as
             -- menu = function() return math.floor(0.45 * vim.o.columns) end,
-            menu = 50, -- leading text (labelDetails)
-            abbr = 50, -- actual suggestion item
+            menu = 50,              -- leading text (labelDetails)
+            abbr = 50,              -- actual suggestion item
           },
-          ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+          ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
           show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 
           -- The function below will be called before any actual modifications from lspkind
@@ -133,7 +134,7 @@ return {
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(), -- show completion suggestions
-        ['<C-e>'] = cmp.mapping.abort(), -- close completion window
+        ['<C-e>'] = cmp.mapping.abort(),        -- close completion window
 
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         --['<CR>'] = cmp.mapping.confirm({

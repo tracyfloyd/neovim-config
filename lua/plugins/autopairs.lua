@@ -6,10 +6,12 @@
 
 return {
   'windwp/nvim-autopairs',
+  enabled = false,
 
   event = 'InsertEnter',
   dependencies = {
-    'hrsh7th/nvim-cmp',
+    -- 'hrsh7th/nvim-cmp',
+    'saghen/blink.cmp',
   },
   config = function()
     require('nvim-autopairs').setup({

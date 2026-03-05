@@ -8,21 +8,16 @@ return {
   'neovim/nvim-lspconfig',
 
   dependencies = {
-    {
-      'j-hui/fidget.nvim',
-    },
-    {
-      'mason-org/mason.nvim',
-    },
-    {
-      'mason-org/mason-lspconfig.nvim',
-    },
-    {
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-    },
+    { 'saghen/blink.cmp' },
+    { 'j-hui/fidget.nvim' },
+    { 'mason-org/mason.nvim' },
+    { 'mason-org/mason-lspconfig.nvim' },
+    { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
   },
 
   config = function()
+    local capabilities = require('blink.cmp').get_lsp_capabilities()
+    -- require('lspconfig').lua_ls.setup { capabilities = capabilities }
     -- vim.lsp.inlay_hint.enable(true)
 
     -- Runs when an LSP attaches to a buffer.
