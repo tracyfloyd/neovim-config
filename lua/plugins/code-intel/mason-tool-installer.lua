@@ -14,7 +14,7 @@ return {
         'prettier',
         'roslyn',
         'stylua',
-        'svelte',
+        -- 'svelte',
         'ts_ls',
       },
     })

@@ -1,5 +1,5 @@
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Go to file listing" }) -- Disabled due to Oil.nvim
-vim.keymap.set('n', '-', '<cmd>Oil --float<CR>', { desc = "Oil - Open current file's parent directory" })
+vim.keymap.set('n', '-', '<cmd>Oil --float<CR>', { desc = "Oil: Open current file's parent directory" })
 
 -- Clear search highlights
 vim.keymap.set('n', '<leader>c', ':nohlsearch<CR>', { desc = 'Clear search highlights' })
@@ -80,6 +80,10 @@ vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to bottom window' })
 vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to top window' })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 
+-- Quickfix (M = Option key)
+vim.keymap.set('n', '<M-j>', '<cmd>cprev<CR>', { desc = 'Move to previous item in Quickfix List' })
+vim.keymap.set('n', '<M-k>', '<cmd>cnext<CR>', { desc = 'Move to next item in Quickfix List' })
+
 -- Splitting & Resizing
 vim.keymap.set('n', '<C-w><Left>', ':vertical leftabove split<CR>', { desc = 'Open vertical split to left' })
 vim.keymap.set('n', '<C-w><Right>', ':vertical rightbelow split<CR>', { desc = 'Open vertical split to right' })
@@ -91,6 +95,21 @@ vim.keymap.set('n', '<leader>sh', ':split<CR>', { desc = 'Split window horizonta
 -- vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', { desc = 'Decrease window height' })
 -- vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { desc = 'Decrease window width' })
 -- vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { desc = 'Increase window width' })
+
+-- Terminal
+local channel_id = 0
+vim.keymap.set('n', '<leader>st', function()
+  vim.cmd.vnew()
+  vim.cmd.term()
+  vim.cmd.wincmd('J')
+  vim.api.nvim_win_set_height(0, 15)
+
+  channel_id = vim.bo.channel
+end, { desc = 'Open a small terminal at bottom' })
+
+vim.keymap.set('n', '<leader>stt', function()
+  vim.fn.chansend(channel_id, { 'git status\r\n' })
+end, { desc = 'Testing terminal command shorcut' })
 
 -- ======================================================================================
 -- Misc

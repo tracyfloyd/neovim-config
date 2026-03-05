@@ -17,65 +17,95 @@ return {
 
       telescope.setup({
         pickers = {
+          -- find_files = {
+          --   theme = 'ivy',
+          -- },
+          -- help_tags = {
+          --   theme = 'ivy',
+          -- },
+          -- Set keymaps when interactive with picker list of buffers
           buffers = {
             mappings = {
-              i = { -- Insert mode
+              i = {                                                      -- Insert mode
                 ['<C-d>'] = actions.delete_buffer + actions.move_to_top, -- Remove an item from the buffer list
-                ['<C-k>'] = actions.move_selection_previous, -- Move to previous result
-                ['<C-j>'] = actions.move_selection_next, -- Move to next result
+                ['<C-k>'] = actions.move_selection_previous,             -- Move to previous result
+                ['<C-j>'] = actions.move_selection_next,                 -- Move to next result
                 ['<C-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
               },
             },
           },
         },
+        extensions = {
+          fzf = {},
+        },
       })
 
       telescope.load_extension('fzf')
 
-      local opts = {}
+      -- Keymaps to find files ==========================================================
+      vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {
+        desc = 'Telescope: Find files (in cwd)',
+      })
 
-      opts.desc = 'Telescope: Buffer file name search'
-      vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope buffers<cr>', opts)
+      -- <leader>fg   Telescope: multigrep text (in cwd),
+      require('telescope.multigrep').setup()
 
-      opts.desc = 'Telescope: Fuzzy find files in cwd'
-      vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opts)
+      vim.keymap.set('n', '<leader>fs', require('telescope.builtin').live_grep, {
+        desc = 'Telescope: grep text (in cwd)',
+      })
 
-      opts.desc = 'Telescope: Fuzzy find recent files'
-      vim.keymap.set('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', opts)
+      vim.keymap.set('n', '<leader>fc', require('telescope.builtin').grep_string, {
+        desc = 'Telescope: grep text under cursor (in cwd)',
+      })
 
-      opts.desc = 'Telescope: Current buffer fuzzy search'
-      vim.keymap.set('n', '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', opts)
+      vim.keymap.set('n', '<leader>fo', require('telescope.builtin').oldfiles, {
+        desc = 'Telescope: Find files (recent)',
+      })
 
-      opts.desc = 'Telescope: Show previous search state'
-      vim.keymap.set('n', '<leader>fr', '<cmd>Telescope resume<cr>', opts)
+      vim.keymap.set('n', '<leader><leader>', require('telescope.builtin').buffers, {
+        desc = 'Telescope: Find buffers',
+      })
 
-      opts.desc = 'Telescope: Find string in cwd'
-      vim.keymap.set('n', '<leader>fs', '<cmd>Telescope live_grep<cr>', opts)
+      -- Keymaps to find in current file ================================================
+      vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, {
+        desc = 'Telescope: Find text (in current buffer)',
+      })
 
-      opts.desc = 'Telescope: Find string under cursor in cwd'
-      vim.keymap.set('n', '<leader>fc', '<cmd>Telescope grep_string<cr>', opts)
+      -- vim.keymap.set('n', '<leader>fl', require('telescope.builtin').lsp_references, {
+      -- desc = 'Telescope: LSP References'
+      -- })
+      vim.keymap.set('n', '<leader>fl', require('telescope.builtin').treesitter, {
+        desc = 'Telescope: Find function names, variables, etc. (in current buffer)',
+      })
 
-      opts.desc = 'Telescope: Find todos'
-      vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', opts)
+      -- Other keymaps ==================================================================
+      vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, {
+        desc = 'Telescope: Show previous search state',
+      })
 
-      opts.desc = 'Telescope: Git files'
-      vim.keymap.set('n', '<leader>fg', '<cmd>Telescope git_files<cr>', opts)
+      vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {
+        desc = 'Telescope: Search help',
+      })
 
-      opts.desc = 'Telescope: Help'
-      vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opts)
+      vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', {
+        desc = 'Telescope: Find todos',
+      })
 
-      opts.desc = 'Telescope: Find Keymaps'
-      vim.keymap.set('n', '<leader>fk', '<cmd>Telescope keymaps<cr>', opts)
+      -- vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, {
+      --   desc = 'Telescope: Git files',
+      -- })
 
-      -- opts.desc = 'Telescope: LSP References'
-      -- vim.keymap.set('n', '<leader>fl', '<cmd>Telescope lsp_references<cr>', opts)
-      opts.desc = 'Telescope: Lists Function names, variables, ... using Treesitter'
-      vim.keymap.set('n', '<leader>fl', '<cmd>Telescope treesitter<cr>', opts)
+      vim.keymap.set('n', '<leader>fk', require('telescope.builtin').keymaps, {
+        desc = 'Telescope: Find Keymaps',
+      })
 
-      opts.desc = 'Telescope: Find in Neovim config'
       vim.keymap.set('n', '<leader>fn', function()
-        require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') })
-      end, opts)
+        require('telescope.builtin').find_files({
+          cwd = vim.fn.stdpath('config'),
+        })
+      end, {
+        desc = 'Telescope: Find in Neovim config',
+      })
     end,
   },
 }

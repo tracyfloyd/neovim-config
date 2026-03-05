@@ -11,13 +11,23 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   command = ':%s/\\s\\+$//e',
 })
 
--- Highlight on yank
+-- Highlight when yanking text
 -- See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking text',
   group = augroup,
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+-- Nvim terminal customizations
+vim.api.nvim_create_autocmd('TermOpen', {
+  desc = 'Customize Nvim Terminal',
+  group = augroup,
+  callback = function()
+    vim.opt.number = false
+    vim.opt.relativenumber = false
   end,
 })
 
