@@ -85,10 +85,10 @@ vim.keymap.set('n', '<M-j>', '<cmd>cprev<CR>', { desc = 'Move to previous item i
 vim.keymap.set('n', '<M-k>', '<cmd>cnext<CR>', { desc = 'Move to next item in Quickfix List' })
 
 -- Splitting & Resizing
-vim.keymap.set('n', '<C-w><Left>', ':vertical leftabove split<CR>', { desc = 'Open vertical split to left' })
-vim.keymap.set('n', '<C-w><Right>', ':vertical rightbelow split<CR>', { desc = 'Open vertical split to right' })
-vim.keymap.set('n', '<C-w><Up>', ':horizontal aboveleft split<CR>', { desc = 'Open horizontal split above' })
-vim.keymap.set('n', '<C-w><Down>', ':horizontal belowright split<CR>', { desc = 'Open horizontal split below' })
+vim.keymap.set({ 'n', 'v' }, '<C-w><Left>', ':vertical leftabove split<CR>', { desc = 'Open vertical split to left' })
+vim.keymap.set({ 'n', 'v' }, '<C-w><Right>', ':vertical rightbelow split<CR>', { desc = 'Open vertical split to right' })
+vim.keymap.set({ 'n', 'v' }, '<C-w><Up>', ':horizontal aboveleft split<CR>', { desc = 'Open horizontal split above' })
+vim.keymap.set({ 'n', 'v' }, '<C-w><Down>', ':horizontal belowright split<CR>', { desc = 'Open horizontal split below' })
 -- vim.keymap.set('n', '<leader>sv', ':vsplit<CR>', { desc = 'Split window vertically' })
 vim.keymap.set('n', '<leader>sh', ':split<CR>', { desc = 'Split window horizontally' })
 -- vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', { desc = 'Increase window height' })
