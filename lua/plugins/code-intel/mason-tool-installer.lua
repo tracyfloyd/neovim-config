@@ -6,9 +6,9 @@ return {
     require('mason-tool-installer').setup({
       ensure_installed = {
         'cssls',
-        -- 'emmet_language_server',
+        'emmet_language_server',
         'eslint_d',
-        'graphql',
+        -- 'graphql',
         'html',
         'lua_ls',
         'prettier',
