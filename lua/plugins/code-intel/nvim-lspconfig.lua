@@ -16,13 +16,19 @@ return {
   },
 
   config = function()
-    local capabilities = require('blink.cmp').get_lsp_capabilities()
+    -- local capabilities = require('blink.cmp').get_lsp_capabilities()
+    if vim.fn.has('nvim-0.11') == 1 and vim.lsp.config then
+      vim.lsp.config('*', {
+        capabilities = require('blink.cmp').get_lsp_capabilities(),
+      })
+    end
+
     -- require('lspconfig').lua_ls.setup { capabilities = capabilities }
-    -- vim.lsp.inlay_hint.enable(true)
+    vim.lsp.inlay_hint.enable(true)
 
     -- Runs when an LSP attaches to a buffer.
-    -- When a file is opened that is associated withan LSP, this function
-    -- will be executed to configure the current buffer.
+    -- When a file is opened and associated with an LSP, this
+    -- function will be executed to configure the current buffer.
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
