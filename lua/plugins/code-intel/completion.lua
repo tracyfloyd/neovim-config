@@ -8,6 +8,7 @@ return {
     'saghen/blink.cmp',
     dependencies = { 'rafamadriz/friendly-snippets' },
     version = '1.*',
+    enabled = true,
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
