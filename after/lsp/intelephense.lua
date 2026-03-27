@@ -19,7 +19,13 @@ return {
     intelephense = {
       format = {
         braces = "k&r",
-      }
+      },
+      typehints = {
+        enabled = true,
+        includeClassNameInPrehints = false,
+        includeFunctionParameterNameInPrehints = true,
+        includeFunctionReturnTypeInPrehints = true,
+      },
     }
   }
 }
