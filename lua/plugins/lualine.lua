@@ -46,7 +46,7 @@ return {
 
   opts = {
     options = {
-      theme = 'catppuccin',
+      theme = 'catppuccin-nvim',
       icons_enabled = true,
     },
 

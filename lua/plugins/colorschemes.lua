@@ -10,7 +10,7 @@ return {
 
   -- @link https://github.com/catppuccin/nvim
   'catppuccin/nvim',
-  name = 'catppuccin',
+  name = 'catppuccin-nvim',
   lazy = false,
   priority = 1000,
   config = function()
@@ -54,7 +54,7 @@ return {
         which_key = true,
       },
     })
-    vim.cmd.colorscheme('catppuccin')
+    vim.cmd.colorscheme('catppuccin-nvim')
   end,
 
   --[[

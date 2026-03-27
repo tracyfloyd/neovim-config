@@ -4,7 +4,7 @@
 
 return {
   'stevearc/conform.nvim',
-
+  enabled = true,
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
   keys = {
@@ -23,14 +23,14 @@ return {
   opts = {
     -- formatters by filetype
     formatters_by_ft = {
-      css = { 'prettierd', 'prettier', stop_after_first = true },
-      scss = { 'prettierd', 'prettier', stop_after_first = true },
+      css = { 'prettierd', stop_after_first = true },
+      scss = { 'prettierd', stop_after_first = true },
 
       php = { 'pint' },
 
-      javascript = { 'prettierd', 'prettier', stop_after_first = true },
-      typescript = { 'prettierd', 'prettier', stop_after_first = true },
-      typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+      javascript = { 'prettierd', stop_after_first = true },
+      typescript = { 'prettierd', stop_after_first = true },
+      typescriptreact = { 'prettierd', stop_after_first = true },
     },
     format_on_save = {
       -- These options will be passed to conform.format()
