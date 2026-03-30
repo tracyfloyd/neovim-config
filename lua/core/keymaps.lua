@@ -1,17 +1,26 @@
+-- Better movement in wrapped text
+vim.keymap.set('n', 'j', function()
+  return vim.v.count == 0 and 'gj' or 'j'
+end, { expr = true, silent = true, desc = 'Down (text wrap aware)' })
+vim.keymap.set('n', 'k', function()
+  return vim.v.count == 0 and 'gk' or 'k'
+end, { expr = true, silent = true, desc = 'Up (text wrap aware)' })
+
+-- Go to file listing
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Go to file listing" }) -- Disabled due to Oil.nvim
 vim.keymap.set('n', '-', '<cmd>Oil --float<CR>', { desc = "Oil: Open current file's parent directory" })
 
 -- Clear search highlights
 vim.keymap.set('n', '<leader>c', ':nohlsearch<CR>', { desc = 'Clear search highlights' })
 
--- Paste without yanking
+-- Paste over selection without yanking
 vim.keymap.set('x', '<leader>p', '"_dP', { desc = 'Paste without yanking' })
 
--- Delete without yanking
-vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = 'Delete without yanking' })
+-- Delete selection without yanking
+vim.keymap.set({ 'n', 'v' }, '<leader>x', '"_d', { desc = 'Delete without yanking' })
 
 -- Join lines and keep cursor position (better J behavior)
--- vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines and keep cursor position' })
+vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines and keep cursor position' })
 
 -- Add new line (without entering Insert mode)``
 vim.keymap.set('n', 'oo', 'o<Esc>k', { desc = 'Add new line under (without entering Insert mode)' })
@@ -29,8 +38,8 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Half page up (centered)' })
 -- Move selected lines up/down
 vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { desc = 'Move line up' })
 vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { desc = 'Move line down' })
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 --
 -- Yank to end of line
 vim.keymap.set('n', 'Y', 'y$', { desc = 'Yank to end of line' })
@@ -71,6 +80,11 @@ vim.keymap.set('n', '<leader>rr', function()
   end
 end, { desc = 'Rename current file' })
 
+-- Toggle diagnostics
+vim.keymap.set('n', '<leader>td', function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, { desc = 'Toggle diagnostics' })
+
 -- ======================================================================================
 -- Windows & Splits
 
@@ -80,9 +94,9 @@ vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to bottom window' })
 vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to top window' })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 
--- Quickfix (M = Option key)
-vim.keymap.set('n', '<M-j>', '<cmd>cprev<CR>', { desc = 'Move to previous item in Quickfix List' })
-vim.keymap.set('n', '<M-k>', '<cmd>cnext<CR>', { desc = 'Move to next item in Quickfix List' })
+-- Quickfix (M = Option key) 🟥 TODO: This conflicts with line movement above - find other option
+-- vim.keymap.set('n', '<M-j>', '<cmd>cprev<CR>', { desc = 'Move to previous item in Quickfix List' })
+-- vim.keymap.set('n', '<M-k>', '<cmd>cnext<CR>', { desc = 'Move to next item in Quickfix List' })
 
 -- Splitting & Resizing
 vim.keymap.set({ 'n', 'v' }, '<C-w><Left>', ':vertical leftabove split<CR>', { desc = 'Open vertical split to left' })

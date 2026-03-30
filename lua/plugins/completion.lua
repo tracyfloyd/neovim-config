@@ -6,9 +6,16 @@
 return {
   {
     'saghen/blink.cmp',
-    dependencies = { 'rafamadriz/friendly-snippets' },
     version = '1.*',
     enabled = true,
+
+    dependencies = {
+      {
+        'L3MON4D3/LuaSnip',
+        version = 'v2.*',
+      },
+      'rafamadriz/friendly-snippets',
+    },
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -18,20 +25,29 @@ return {
       -- C-n/C-p or Up/Down: Select next/previous item
       -- C-e: Hide menu
       -- C-k: Toggle signature help (if signature.enabled = true)
-      keymap = { preset = 'default' },
-      signature = {
-        enabled = true,
+      keymap = {
+        preset = 'default',
+        ['<C-l>'] = { 'snippet_forward', 'fallback' },
+        ['<C-h>'] = { 'snippet_backward', 'fallback' },
       },
-
-      appearance = {
-        -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-        -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = 'mono',
-      },
+      signature = { enabled = true },
+      snippets = { preset = 'luasnip' },
+      appearance = { nerd_font_variant = 'mono' },
       fuzzy = { implementation = 'prefer_rust_with_warning' },
       sources = {
-        default = { 'lsp', 'easy-dotnet', 'path' },
+        default = { 'snippets', 'lsp', 'easy-dotnet', 'path', 'buffer' },
         providers = {
+          path = {
+            opts = {
+              -- Always use the CWD rather than the current
+              -- buffer's parent directory
+              get_cwd = function(_)
+                return vim.fn.getcwd()
+              end,
+              show_hidden_files_by_default = true,
+              trailing_slash = false,
+            },
+          },
           ['easy-dotnet'] = {
             name = 'easy-dotnet',
             enabled = true,
