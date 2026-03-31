@@ -1,8 +1,17 @@
 ---@type vim.lsp.Config
-vim.lsp.config('ts_ls', {
-  root_dir = function(fname)
-    return vim.fs.root(fname, { 'tsconfig.json', 'package.json', 'node_modules' })
-  end,
+return {
+  cmd = { 'typescript-language-server', '--stdio' },
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescriptreact',
+  },
+  root_markers = {
+    'tsconfig.json',
+    'package.json',
+    'node_modules',
+  },
   settings = {
     typescript = {
       inlayHints = {
@@ -25,4 +34,4 @@ vim.lsp.config('ts_ls', {
       },
     },
   },
-})
+}
