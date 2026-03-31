@@ -59,14 +59,13 @@ vim.opt.smartcase = true -- Case sensitive search if uppercase used in search te
 -- ======================================================================================
 -- Code Folding
 vim.opt.fillchars:append({ fold = ' ' })
-vim.opt.foldcolumn = '0'
+vim.opt.foldcolumn = '1'
 vim.opt.foldenable = true -- set to false to disable folding everything on startup if needed
-vim.opt.foldlevelstart = 99
-vim.opt.foldlevel = 99 -- Start with all folds open
-vim.opt.foldmethod = 'expr' -- Use expressions for folding
--- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Use treesitter for folding
-vim.opt.foldtext = ''
+-- vim.opt.foldlevelstart = 99
+-- vim.opt.foldlevel = 99 -- Start with all folds open
+-- vim.opt.foldmethod = 'syntax' -- Use expressions for folding
+-- vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Use treesitter for folding
+vim.opt.foldtext = '' -- The first line of the fold will be shown and be syntax highlighted
 
 -- ======================================================================================
 -- File Handling & Performance
