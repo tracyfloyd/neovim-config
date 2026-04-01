@@ -130,7 +130,7 @@ return {
           'eslint_d',
           'html',
           'lua_ls',
-          'prettier',
+          'prettierd',
           'roslyn',
           'stylua',
           'ts_ls',
