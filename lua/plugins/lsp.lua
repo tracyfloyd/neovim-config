@@ -98,10 +98,6 @@ return {
             package_uninstalled = '✗',
           },
         },
-        registries = {
-          'github:mason-org/mason-registry', -- Added for https://github.com/seblyng/roslyn.nvim
-          'github:Crashdummyy/mason-registry', -- Added for https://github.com/seblyng/roslyn.nvim
-        },
       })
     end,
   },
@@ -131,7 +127,6 @@ return {
           'html',
           'lua_ls',
           'prettierd',
-          'roslyn',
           'stylua',
           'ts_ls',
         },

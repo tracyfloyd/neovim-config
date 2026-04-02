@@ -60,7 +60,7 @@ vim.opt.smartcase = true -- Case sensitive search if uppercase used in search te
 -- Code Folding
 vim.opt.fillchars:append({ fold = ' ' })
 vim.opt.foldcolumn = '1'
-vim.opt.foldenable = true -- set to false to disable folding everything on startup if needed
+vim.opt.foldenable = false
 -- vim.opt.foldlevelstart = 99
 -- vim.opt.foldlevel = 99 -- Start with all folds open
 -- vim.opt.foldmethod = 'syntax' -- Use expressions for folding
