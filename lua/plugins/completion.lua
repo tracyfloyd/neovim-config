@@ -35,7 +35,7 @@ return {
       appearance = { nerd_font_variant = 'mono' },
       fuzzy = { implementation = 'prefer_rust_with_warning' },
       sources = {
-        default = { 'snippets', 'lsp', 'easy-dotnet', 'path', 'buffer' },
+        default = { 'snippets', 'lsp', 'path', 'buffer' },
         providers = {
           path = {
             opts = {

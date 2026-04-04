@@ -132,6 +132,8 @@ vim.keymap.set('n', '<leader>h', function()
   vim.notify(vim.lsp.inlay_hint.is_enabled() and 'Inlay Hints Enabled' or 'Inlay Hints Disabled')
 end)
 
+vim.keymap.set('n', '<leader>tt', ':Twilight<CR>', { desc = 'Toggle Twilight' })
+
 -- ======================================================================================
 -- Ideas to explore
 
