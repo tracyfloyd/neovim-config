@@ -1,15 +1,15 @@
---TODO: Clean this up
+-- AutoSession
+-- Automatically reopen the files and windows you had open. It's like you never left!
+-- @link https://github.com/rmagatti/auto-session
 return {
   'rmagatti/auto-session',
-  config = function()
-    local auto_session = require('auto-session')
+  lazy = false,
 
-    auto_session.setup({
-      auto_restore = false,
-      suppressed_dirs = { '~/', '~/Downloads', '~/Documents', '~/Desktop/' },
-    })
-
-    vim.keymap.set('n', '<leader>wr', '<cmd>AutoSession restore<CR>', { desc = 'Restore session for cwd' }) -- restore last workspace session for current directory
-    vim.keymap.set('n', '<leader>ws', '<cmd>AutoSession save<CR>', { desc = 'Save session for auto session root dir' }) -- save workspace session for current working directory
-  end,
+  ---enables autocomplete for opts
+  ---@module "auto-session"
+  ---@type AutoSession.Config
+  opts = {
+    suppressed_dirs = { '~/', '~/Downloads', '~/Documents', '~/Desktop/' },
+    -- log_level = 'debug',
+  },
 }

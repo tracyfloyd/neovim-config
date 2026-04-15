@@ -66,7 +66,8 @@ vim.opt.foldenable = false
 -- vim.opt.foldmethod = 'syntax' -- Use expressions for folding
 -- vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Use treesitter for folding
 vim.opt.foldtext = '' -- The first line of the fold will be shown and be syntax highlighted
-
+vim.opt.sessionoptions:remove('folds')
+--
 -- ======================================================================================
 -- File Handling & Performance
 vim.opt.autoread = true -- Auto reload files changed outside of Neovim

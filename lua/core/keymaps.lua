@@ -85,6 +85,15 @@ vim.keymap.set('n', '<leader>td', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, { desc = 'Toggle diagnostics' })
 
+-- Toggle inlay hints
+vim.keymap.set('n', '<leader>th', function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  vim.notify(vim.lsp.inlay_hint.is_enabled() and 'Inlay Hints Enabled' or 'Inlay Hints Disabled')
+end, { desc = 'Toggle inlay hints' })
+
+-- Toggle Twilight
+vim.keymap.set('n', '<leader>tt', ':Twilight<CR>', { desc = 'Toggle Twilight' })
+
 -- ======================================================================================
 -- Windows & Splits
 
@@ -124,15 +133,6 @@ end, { desc = 'Open a small terminal at bottom' })
 vim.keymap.set('n', '<leader>stt', function()
   vim.fn.chansend(channel_id, { 'git status\r\n' })
 end, { desc = 'Testing terminal command shorcut' })
-
--- ======================================================================================
--- Misc
-vim.keymap.set('n', '<leader>h', function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-  vim.notify(vim.lsp.inlay_hint.is_enabled() and 'Inlay Hints Enabled' or 'Inlay Hints Disabled')
-end)
-
-vim.keymap.set('n', '<leader>tt', ':Twilight<CR>', { desc = 'Toggle Twilight' })
 
 -- ======================================================================================
 -- Ideas to explore
