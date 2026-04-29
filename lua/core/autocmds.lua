@@ -46,6 +46,12 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end,
 })
 
+-- Refresh folds when entering a buffer.
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  pattern = { '*' },
+  command = 'normal! zx',
+})
+
 -- ======================================================================================
 -- LSP
 
