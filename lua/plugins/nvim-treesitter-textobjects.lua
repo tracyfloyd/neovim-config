@@ -1,106 +1,25 @@
--- nvim-treesitter
---
--- Easy to use interface to tree-sitter for code parsing (used for highlighting
--- and other things).
---
--- Lazy loading: The plugin is loaded on the `BufRead` event to be available
---               as soon as possible when needed.
---
--- @link https://github.com/nvim-treesitter/nvim-treesitter
-
--- Syntax highlighting
+-- Treesitter Text Objects
+-- Syntax aware text-objects, select, move, swap, and peek support
+-- @link https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 
 return {
-  'nvim-treesitter/nvim-treesitter',
-  event = 'VeryLazy',
-  -- build = ':TSUpdate',
-  build = function()
-    require('nvim-treesitter.install').update({ with_sync = true })
-  end,
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      opts = {
-        languages = {
-          php_only = '// %s',
-          php = '// %s',
-        },
-      },
-    },
-  },
-  main = 'nvim-treesitter.configs',
-  opts = {
-    ensure_installed = {
-      'bash',
-      'blade',
-      'comment',
-      'c_sharp',
-      'css',
-      'csv',
-      'diff',
-      'dockerfile',
-      'git_config',
-      'git_rebase',
-      'gitattributes',
-      'gitcommit',
-      'gitignore',
-      'superhtml',
-      'http',
-      'ini',
-      'javascript',
-      'jsdoc',
-      'json',
-      'jsonc',
-      'lua',
-      'markdown',
-      'nginx',
-      'php',
-      'php_only',
-      'phpdoc',
-      'razor',
-      'regex',
-      'scss',
-      'sql',
-      'tsx',
-      'typescript',
-      'vim',
-      'xml',
-      'yaml',
-    },
-    auto_install = true,
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-      disable = { 'yaml' },
-    },
-    rainbow = {
-      enable = true,
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = '<Enter>', -- set to `false` to disable one of the mappings
-        node_incremental = '<Enter>',
-        scope_incremental = false,
-        node_decremental = '<Backspace>',
-      },
-    },
+  'nvim-treesitter/nvim-treesitter-textobjects',
+  enabled = true,
 
-    textobjects = {
+  branch = 'main',
+
+  init = function()
+    -- Disable entire built-in ftplugin mappings to avoid conflicts.
+    -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
+    vim.g.no_plugin_maps = true
+  end,
+
+  config = function()
+    require("nvim-treesitter-textobjects").setup {
       select = {
         enable = true,
         lookahead = true,
         include_surrounding_whitespace = true,
-
-        -- Default mode for keymaps is 'v', but this can be changed is needed via section_modes below
-        selection_modes = {
-          -- ['@parameter.outer'] = 'v', -- charwise
-          -- ['@function.outer'] = 'V', -- linewise
-          -- ['@class.outer'] = '<c-v>', -- blockwise
-        },
 
         keymaps = {
           -- Function
@@ -221,28 +140,7 @@ return {
             ['[d'] = '@conditional.outer',
           },
         },
-      },
-    },
-  },
-  config = function(_, opts)
-    local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-
-    parser_config.blade = {
-      install_info = {
-        url = 'https://github.com/EmranMR/tree-sitter-blade',
-        files = { 'src/parser.c' },
-        branch = 'main',
-      },
-      filetype = 'blade',
+      }
     }
-
-    vim.filetype.add({
-      pattern = {
-        ['.*%.blade%.php'] = 'blade',
-        ['.*%.cshtml'] = 'razor',
-      },
-    })
-
-    require('nvim-treesitter.configs').setup(opts)
   end,
 }

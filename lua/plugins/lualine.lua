@@ -1,7 +1,5 @@
--- lualine.nvim
---
--- Show a customizable status line.
---
+-- Lualine
+-- Customizable status line.
 -- @link https://github.com/nvim-lualine/lualine.nvim
 
 -- Function to get the current mode indicator as a single character
@@ -35,50 +33,52 @@ end
 -- Set up lualine.nvim
 return {
   'nvim-lualine/lualine.nvim',
+  enabled = true,
+
   event = 'VeryLazy',
+
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
 
-  -- opts = function(_, opts)
-  --   opts.sections.lualine_c[4] = { "filename", path = 1 }
-  -- end,
-
-  opts = {
-    options = {
-      theme = 'catppuccin-nvim',
-      icons_enabled = true,
-    },
-
-    sections = {
-      -- Left Side
-      lualine_a = {
-        { mode, separator = { left = '' } },
-      },
-      lualine_b = {
-        { 'branch' },
-        { 'diff' },
-      },
-      lualine_c = {
-        { 'filename', path = 4 },
+  config = function()
+    require('lualine').setup({
+      options = {
+        theme = 'catppuccin-nvim',
+        icons_enabled = true,
       },
 
-      -- Right Side
-      lualine_x = {
-        { 'diagnostics' }, -- Lists number of Errors, Warnings
+      sections = {
+        -- Left Side
+        lualine_a = {
+          { mode, separator = { left = '' } },
+        },
+        lualine_b = {
+          { 'branch' },
+          { 'diff' },
+        },
+        lualine_c = {
+          { 'filename', path = 4 },
+        },
+
+        -- Right Side
+        lualine_x = {
+          { 'diagnostics' }, -- Lists number of Errors, Warnings
+        },
+        lualine_y = {
+          { 'lsp_status' }, -- Current LSP(s) loaded
+        },
+        lualine_z = {
+          { 'progress' }, -- Percentage to end of current buffer
+          { 'location', padding = { left = 0, right = 1 } }, -- LineNumber:ColumnNumber
+        },
       },
-      lualine_y = {
-        { 'lsp_status' }, -- Current LSP(s) loaded
-      },
-      lualine_z = {
-        { 'progress' }, -- Percentage to end of current buffer
-        { 'location', padding = { left = 0, right = 1 } }, -- LineNumber:ColumnNumber
-      },
-    },
-    -- winbar = {
-    --   lualine_a = { 'mode' },
-    --   lualine_b = { 'branch', 'diff' },
-    --   lualine_c = { 'filename' }, -- Per-split filename in winbar
-    -- },
-  },
+      -- winbar = {
+      --   lualine_a = { 'mode' },
+      --   lualine_b = { 'branch', 'diff' },
+      --   lualine_c = { 'filename' }, -- Per-split filename in winbar
+      -- },
+    })
+  end,
+
 }

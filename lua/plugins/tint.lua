@@ -1,11 +1,11 @@
--- tint.nvim
---
+-- Tint
 -- Tint inactive windows in Neovim using window-local highlight namespaces.
---
 -- @link https://github.com/levouh/tint.nvim
 
 return {
   'levouh/tint.nvim',
+  enabled = true,
+
   config = function()
     require('tint').setup({
       tint = -55, -- Darken colors, use a positive value to brighten

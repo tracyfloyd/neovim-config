@@ -5,27 +5,31 @@
 return {
   'afonsofrancof/worktrees.nvim',
   event = 'VeryLazy',
-  opts = {
-    -- Specify where to create worktrees relative to git common dir
-    -- The common dir is the .git dir in a normal repo or the root dir of a bare repo
-    base_path = './worktrees', -- Parent directory of common dir
 
-    -- Template for worktree folder names (string or function(branch) -> path)
-    -- This is only used if you don't specify the folder name when creating the worktree
-    path_template = '{branch}', -- Default: use branch name
+  config = function()
+    require('worktrees').setup({
+      -- Specify where to create worktrees relative to git common dir
+      -- The common dir is the .git dir in a normal repo or the root dir of a bare repo
+      base_path = './worktrees', -- Parent directory of common dir
 
-    -- Command names (optional)
-    commands = {
-      create = 'WorktreeCreate',
-      delete = 'WorktreeDelete',
-      switch = 'WorktreeSwitch',
-    },
+      -- Template for worktree folder names (string or function(branch) -> path)
+      -- This is only used if you don't specify the folder name when creating the worktree
+      path_template = '{branch}', -- Default: use branch name
 
-    -- Key mappings for interactive UI (optional)
-    mappings = {
-      create = '<leader>wtc',
-      delete = '<leader>wtd',
-      switch = '<leader>wts',
-    },
-  },
+      -- Command names (optional)
+      commands = {
+        create = 'WorktreeCreate',
+        delete = 'WorktreeDelete',
+        switch = 'WorktreeSwitch',
+      },
+
+      -- Key mappings for interactive UI (optional)
+      mappings = {
+        create = '<leader>wtc',
+        delete = '<leader>wtd',
+        switch = '<leader>wts',
+      },
+    });
+  end
+
 }

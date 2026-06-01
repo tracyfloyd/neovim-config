@@ -1,13 +1,12 @@
--- multiple-cursors.nvim
---
 -- Multiple cursors
---
 -- @link https://github.com/mg979/vim-visual-multi
 
 return {
   'brenton-leighton/multiple-cursors.nvim',
+  enabled = true,
+
   version = '*', -- Use the latest tagged version
-  opts = {}, -- This causes the plugin setup function to be called
+
   keys = {
     { '<C-j>', '<Cmd>MultipleCursorsAddDown<CR>', mode = { 'n', 'x' }, desc = 'Add cursor and move down' },
     { '<C-k>', '<Cmd>MultipleCursorsAddUp<CR>', mode = { 'n', 'x' }, desc = 'Add cursor and move up' },
@@ -27,4 +26,8 @@ return {
 
     { '<Leader>l', '<Cmd>MultipleCursorsLock<CR>', mode = { 'n', 'x' }, desc = 'Lock virtual cursors' },
   },
+
+  config = function()
+    require('multiple-cursors').setup({})
+  end,
 }

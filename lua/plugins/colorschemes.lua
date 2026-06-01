@@ -1,18 +1,15 @@
--- colorschemes
---
+-- Color Schemes
 -- Color schemes for Neovim.
---
--- Lazy loading: The colorscheme is not lazy loaded and has priority 1000 set
---               so it can be available right after start. This is suggested
---               in the lazy.nvim readme.
+-- @link https://github.com/catppuccin/nvim
 
 return {
-
-  -- @link https://github.com/catppuccin/nvim
   'catppuccin/nvim',
+  enabled = true,
+
   name = 'catppuccin-nvim',
   lazy = false,
   priority = 1000,
+
   config = function()
     require('catppuccin').setup({
       flavour = 'mocha', -- latte, frappe, macchiato, mocha

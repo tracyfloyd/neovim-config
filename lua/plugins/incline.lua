@@ -1,12 +1,13 @@
--- incline
---
+-- Incline
 -- Lightweight floating statuslines
---
 -- @link https://github.com/b0o/incline.nvim
 
 return {
   'b0o/incline.nvim',
-  -- enabled = false,
+  enabled = true,
+
+  event = 'VeryLazy',
+
   config = function()
     require('incline').setup({
       window = {
@@ -14,6 +15,4 @@ return {
       },
     })
   end,
-  -- Optional: Lazy load Incline
-  event = 'VeryLazy',
 }

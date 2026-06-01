@@ -1,5 +1,4 @@
 return {
-
   {
     -- Nvim LSP Config
     -- A collection of LSP server configurations for Neovim.
@@ -12,6 +11,7 @@ return {
       { 'mason-org/mason-lspconfig.nvim' },
       { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
     },
+
     config = function()
       -- local capabilities = require('blink.cmp').get_lsp_capabilities()
       if vim.fn.has('nvim-0.11') == 1 and vim.lsp.config then

@@ -1,6 +1,10 @@
+-- Fugitive
+-- GIT tooling inside Neovim
+-- @link https://github.com/tpope/vim-fugitive
+
 return {
-	-- Fugitive (GIT tools)
 	"tpope/vim-fugitive",
+	enabled = true,
 
 	config = function()
 		vim.keymap.set("n", "<leader>gs", vim.cmd.Git)

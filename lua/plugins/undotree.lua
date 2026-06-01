@@ -1,5 +1,8 @@
+-- Undotree
+-- Undo history vislualizer
+-- @link https://github.com/mbbill/undotree
+
 return {
-	-- Undotree (Undo history vislualizer)
 	"mbbill/undotree",
 
 	config = function()

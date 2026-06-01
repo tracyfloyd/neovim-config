@@ -1,10 +1,12 @@
--- statuscol
+-- Statuscol
 -- Control the left status column
 -- @link https://github.com/luukvbaal/statuscol.nvim
 
 return {
   {
     'luukvbaal/statuscol.nvim',
+    enabled = true,
+
     opts = function()
       local builtin = require('statuscol.builtin')
       return {
@@ -21,6 +23,7 @@ return {
           },
         },
       }
-    end,
+      end,
+
   },
 }

@@ -1,7 +1,11 @@
+-- Neo Scroll
 -- Add smooth scrolling to avoid jarring jumps
+-- @link https://github.com/karb94/neoscroll.nvim
 
 return {
   'karb94/neoscroll.nvim',
+  enabled = true,
+
   config = function ()
     local neoscroll = require('neoscroll')
     neoscroll.setup({

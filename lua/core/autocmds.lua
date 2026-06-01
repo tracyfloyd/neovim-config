@@ -32,25 +32,25 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 -- Use treesitter for folding if it has parser for filetype
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  callback = function()
-    -- check if treesitter has parser
-    if require('nvim-treesitter.parsers').has_parser() then
-      -- use treesitter folding
-      vim.opt.foldmethod = 'expr'
-      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-    else
-      -- use alternative foldmethod
-      vim.opt.foldmethod = 'syntax'
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'FileType' }, {
+--   callback = function()
+--     -- check if treesitter has parser
+--     if require('nvim-treesitter.parsers').has_parser() then
+--       -- use treesitter folding
+--       vim.opt.foldmethod = 'expr'
+--       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+--     else
+--       -- use alternative foldmethod
+--       vim.opt.foldmethod = 'syntax'
+--     end
+--   end,
+-- })
 
 -- Refresh folds when entering a buffer.
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-  pattern = { '*' },
-  command = 'normal! zx',
-})
+-- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+--   pattern = { '*' },
+--   command = 'normal! zx',
+-- })
 
 -- ======================================================================================
 -- LSP
@@ -155,13 +155,13 @@ vim.api.nvim_create_autocmd('BufRead', {
 -- Window Management
 
 -- Auto-resize splits when window is resized
-vim.api.nvim_create_autocmd('VimResized', {
-  desc = 'Auto-resize splits when window is resized',
-  group = augroup,
-  callback = function()
-    vim.cmd('tabdo wincmd =')
-  end,
-})
+-- vim.api.nvim_create_autocmd('VimResized', {
+--   desc = 'Auto-resize splits when window is resized',
+--   group = augroup,
+--   callback = function()
+--     vim.cmd('tabdo wincmd =')
+--   end,
+-- })
 
 -- ======================================================================================
 -- Adjust wrapping behavior for markdown and text files
