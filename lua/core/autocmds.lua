@@ -54,6 +54,12 @@ vim.api.nvim_create_autocmd('TermOpen', {
 
 -- ======================================================================================
 -- LSP
+-- vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+--   pattern = { '*.cshtml', '*.razor' },
+--   callback = function()
+--     vim.bo.filetype = 'razor'
+--   end,
+-- })
 
 -- Runs when an LSP attaches to a buffer.
 -- When a file is opened and associated with an LSP, this function
