@@ -124,7 +124,7 @@ return {
           'cssls',
           'emmet_language_server',
           'eslint_d',
-          'html',
+          'html-lsp',
           'lua_ls',
           'prettierd',
           'stylua',
