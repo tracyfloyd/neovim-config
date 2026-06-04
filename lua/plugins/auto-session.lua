@@ -4,7 +4,7 @@
 
 return {
   'rmagatti/auto-session',
-  enabled = false,
+  enabled = true,
 
   lazy = false,
 
@@ -14,6 +14,9 @@ return {
   config = function()
     require('auto-session').setup({
       suppressed_dirs = { '~/', '~/Downloads', '~/Documents', '~/Desktop/' },
+      -- Close oil buffers before saving the session — they're URL-backed
+      -- (oil://…) and trigger an "Invalid buffer id" error on restore.
+      close_filetypes_on_save = { 'checkhealth', 'oil' },
       -- log_level = 'debug',
     })
   end,

@@ -20,6 +20,25 @@ return {
         })
       end
 
+      -- nvim-lspconfig's bundled lsp/emmet_language_server.lua wins over the
+      -- user's via rtp ordering. Programmatic vim.lsp.config calls take
+      -- precedence, so set filetypes here to pick up razor (.cshtml).
+      vim.lsp.config('emmet_language_server', {
+        filetypes = {
+          'astro',
+          'css',
+          'html',
+          'htmlangular',
+          'javascriptreact',
+          'razor',
+          'sass',
+          'scss',
+          'svelte',
+          'typescriptreact',
+          'vue',
+        },
+      })
+
       -- require('lspconfig').lua_ls.setup { capabilities = capabilities }
       vim.lsp.inlay_hint.enable(true)
 
