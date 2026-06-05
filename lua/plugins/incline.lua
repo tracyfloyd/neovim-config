@@ -23,12 +23,16 @@ return {
         end
         local ft_icon, ft_color = require('nvim-web-devicons').get_icon_color(filename)
         local modified = vim.bo[props.buf].modified
+        local fg = props.focused and '#cdd6f4' or '#6c7086'
+        local icon_bg = props.focused and ft_color or '#45475a'
+        local icon_fg = props.focused and '#1c1c19' or '#6c7086'
         return {
-          ft_icon and { ' ', ft_icon, ' ', guibg = ft_color, guifg = '#1c1c19' } or '',
+          ft_icon and { ' ', ft_icon, ' ', guibg = icon_bg, guifg = icon_fg } or '',
           ' ',
-          { filename, gui = modified and 'bold,italic' or 'bold' },
+          { filename, guifg = fg, gui = modified and 'bold,italic' or 'bold' },
+          modified and { ' ●', guifg = '#d6991d' } or '',
           ' ',
-          guibg = '#44406e',
+          guibg = '#181825',
         }
       end,
     })
