@@ -1,7 +1,8 @@
 {
   "LuaSnip": { "branch": "master", "commit": "642b0c595e11608b4c18219e93b88d7637af27bc" },
   "auto-session": { "branch": "main", "commit": "3e145ee9af42eb6764908a1a481f53fe7f0bdbe5" },
-  "blink.cmp": { "branch": "main", "commit": "d2c4d170ad51e5116da7b19f2426f3b6e318161d" },
+  "blade-nav.nvim": { "branch": "main", "commit": "7ac80b57dbeae975a795fe7ce94ad168dfda7ffa" },
+  "blink.cmp": { "branch": "main", "commit": "3db7326f54b73df4789e0fd6274bedda33975fea" },
   "blink.lib": { "branch": "main", "commit": "b127d48bf8e9ac9cf41f6e0fbead317503f76558" },
   "catppuccin-nvim": { "branch": "main", "commit": "0303a7208dba448c459767486a38a6ec05c4216b" },
   "conform.nvim": { "branch": "master", "commit": "619363c30309d29ffa631e67c8183f2a72caa373" },
@@ -39,7 +40,7 @@
   "tint.nvim": { "branch": "master", "commit": "586e87f00c8b0f5e857cefe10839e41f3e8c6d01" },
   "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "680762989e8b05a72e90769959d0fb9a557e6917" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
-  "tree-sitter-manager.nvim": { "branch": "main", "commit": "bb66b815aff01e87b2e26be995116be8d2f91474" },
+  "tree-sitter-manager.nvim": { "branch": "main", "commit": "97cfa91a6790d07008e5c9a37a605423f4467abc" },
   "ts-comments.nvim": { "branch": "main", "commit": "123a9fb12e7229342f807ec9e6de478b1102b041" },
   "twilight.nvim": { "branch": "main", "commit": "664e752f4a219801265cc3fc18782b457b58c1e1" },
   "undotree": { "branch": "master", "commit": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d" },

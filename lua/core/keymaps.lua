@@ -134,6 +134,56 @@ vim.keymap.set('n', '<leader>stt', function()
   vim.fn.chansend(channel_id, { 'git status\r\n' })
 end, { desc = 'Testing terminal command shorcut' })
 
+-- Treesitter incremental selection (Neovim 0.12+ native via vim.treesitter._select)
+local function ts_has_parser()
+  return vim.treesitter.get_parser(nil, nil, { error = false }) ~= nil
+end
+
+local function feed(keys)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), 'n', false)
+end
+
+vim.keymap.set('n', '<CR>', function()
+  if vim.bo.buftype ~= '' or not ts_has_parser() then
+    feed('<CR>')
+    return
+  end
+  feed('v')
+  vim.schedule(function()
+    require('vim.treesitter._select').select_parent(1)
+  end)
+end, { desc = 'Treesitter: init/expand selection' })
+
+vim.keymap.set('x', '<CR>', function()
+  require('vim.treesitter._select').select_parent(vim.v.count1)
+end, { desc = 'Treesitter: expand to parent node' })
+
+vim.keymap.set('x', '<BS>', function()
+  require('vim.treesitter._select').select_child(vim.v.count1)
+end, { desc = 'Treesitter: shrink to child node' })
+
+local scope_types = {
+  function_declaration = true, function_definition = true, function_item = true,
+  method_declaration   = true, method_definition   = true,
+  arrow_function       = true, lambda_expression   = true,
+  class_declaration    = true, class_definition    = true,
+  if_statement         = true, for_statement       = true, while_statement = true,
+  block                = true, compound_statement  = true,
+}
+vim.keymap.set('x', '<Tab>', function()
+  local node = vim.treesitter.get_node()
+  if not node then return end
+  local depth = 0
+  while node do
+    depth = depth + 1
+    node = node:parent()
+    if node and scope_types[node:type()] then break end
+  end
+  if node then
+    require('vim.treesitter._select').select_parent(depth)
+  end
+end, { desc = 'Treesitter: expand to enclosing scope' })
+
 -- ======================================================================================
 -- Ideas to explore
 
