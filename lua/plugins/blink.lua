@@ -47,6 +47,10 @@ return {
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
         providers = {
+          -- ['blade-nav'] = {
+          --   name = 'blade-nav',
+          --   module = 'blade-nav.integrations.blink',
+          -- },
           path = {
             opts = {
               -- Always use the CWD rather than the current
