@@ -4,10 +4,8 @@ local t = ls.text_node
 local i = ls.insert_node
 local extras = require('luasnip.extras')
 local rep = extras.rep
-local fmt = require('luasnip.extras.fmt').fmt
 
-ls.add_snippets('typescriptreact', {
-
+return {
   -- react use state
   s('rus', {
     t('const [ '),
@@ -27,7 +25,7 @@ ls.add_snippets('typescriptreact', {
   s('ruf', {
     t('useEffect(() => {'),
     i(1),
-    t('}}),['),
+    t('},['),
     i(2),
     t('])'),
   }),
@@ -43,4 +41,4 @@ ls.add_snippets('typescriptreact', {
     t('return()})export default '),
     rep(1),
   }),
-})
+}
