@@ -168,23 +168,20 @@ vim.api.nvim_create_autocmd('BufRead', {
 })
 
 -- Workaround for upstream razor query bug: "at_await" node doesn't exist in tree-sitter-razor.
--- Defer until a razor file is actually opened so non-razor sessions don't pay the cost.
+-- Applied eagerly at startup so it covers entry points (e.g. Telescope previews) that start
+-- the razor highlighter directly with an explicit language, bypassing FileType autocmds.
 -- Remove once nvim-treesitter ships a fixed razor/highlights.scm.
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'razor',
-  once = true,
-  callback = function()
-    local files = vim.api.nvim_get_runtime_file('queries/razor/highlights.scm', false)
-    if files[1] then
-      local fd = io.open(files[1], 'r')
-      if fd then
-        local content = fd:read('*a')
-        fd:close()
-        vim.treesitter.query.set('razor', 'highlights', (content:gsub('\n[^\n]*"at_await"[^\n]*', '')))
-      end
+pcall(function()
+  local files = vim.api.nvim_get_runtime_file('queries/razor/highlights.scm', false)
+  if files[1] then
+    local fd = io.open(files[1], 'r')
+    if fd then
+      local content = fd:read('*a')
+      fd:close()
+      vim.treesitter.query.set('razor', 'highlights', (content:gsub('\n[^\n]*"at_await"[^\n]*', '')))
     end
-  end,
-})
+  end
+end)
 
 -- ======================================================================================
 -- Window Management
