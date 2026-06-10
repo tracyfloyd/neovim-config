@@ -2,6 +2,8 @@
 -- Pulled from https://www.youtube.com/watch?v=skW3clVG5Fo
 -- https://github.com/radleylewis/nvim-lite/blob/master/init.lua
 
+local augroup = vim.api.nvim_create_augroup('Terminal', { clear = true })
+
 -- Auto-close terminal when process exits
 vim.api.nvim_create_autocmd('TermClose', {
   desc = 'Auto-close terminal when process exits',

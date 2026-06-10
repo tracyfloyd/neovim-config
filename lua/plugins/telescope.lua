@@ -49,8 +49,9 @@ return {
         desc = 'Telescope: Find files (in cwd)',
       })
 
-      -- <leader>fg   Telescope: multigrep text (in cwd),
-      require('telescope.multigrep').setup()
+      vim.keymap.set('n', '<leader>fg', require('telescope.multigrep'), {
+        desc = 'Telescope: multigrep (search + glob filter)',
+      })
 
       vim.keymap.set('n', '<leader>fs', require('telescope.builtin').live_grep, {
         desc = 'Telescope: grep text (in cwd)',
@@ -92,10 +93,6 @@ return {
       vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', {
         desc = 'Telescope: Find todos',
       })
-
-      -- vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, {
-      --   desc = 'Telescope: Git files',
-      -- })
 
       vim.keymap.set('n', '<leader>fk', require('telescope.builtin').keymaps, {
         desc = 'Telescope: Find Keymaps',

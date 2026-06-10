@@ -4,6 +4,7 @@ local t = ls.text_node
 local i = ls.insert_node
 local extras = require('luasnip.extras')
 local rep = extras.rep
+local fmt = require('luasnip.extras.fmt').fmt
 
 return {
   -- react use state
@@ -30,15 +31,21 @@ return {
     t('])'),
   }),
 
-  -- react functional components
-  s('rfc', {
-    t('const '),
-    i(1),
-    t(' = ('),
+  -- react functional component
+  s('rfc', fmt([[
+const {} = ({}) => {{
+  return (
+    <div>
+      {}
+    </div>
+  );
+}};
+
+export default {};
+]], {
+    i(1, 'ComponentName'),
     i(2),
-    t(') => {'),
     i(3),
-    t('return()})export default '),
     rep(1),
-  }),
+  })),
 }

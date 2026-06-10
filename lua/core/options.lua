@@ -41,11 +41,11 @@ vim.opt.autoindent = true -- Copy indent from current line when starting new one
 vim.opt.breakindent = true -- If the line needs to wrap, indent it if needed
 vim.opt.copyindent = true --
 vim.opt.expandtab = true -- Convert tabs to spaces
-vim.opt.shiftwidth = 4 -- Amount to indent with << and >>
+vim.opt.shiftwidth = 2 -- Amount to indent with << and >>
 vim.opt.smartindent = true -- Do smart autoindenting when starting a new line
 vim.opt.smarttab = true -- Make deleting "tabbed spaces" easier
-vim.opt.softtabstop = 4 -- Spaces applied when pressing Tab
-vim.opt.tabstop = 4 -- Spaces shown per Tab
+vim.opt.softtabstop = 2 -- Spaces applied when pressing Tab
+vim.opt.tabstop = 2 -- Spaces shown per Tab
 vim.opt.wrap = false -- Line wrapping
 
 -- ======================================================================================

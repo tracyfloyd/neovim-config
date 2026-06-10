@@ -46,11 +46,15 @@ return {
 
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
+        per_filetype = {
+          blade = { 'blade-nav', 'lsp', 'path', 'snippets', 'buffer' },
+          php   = { 'blade-nav', 'lsp', 'path', 'snippets', 'buffer' },
+        },
         providers = {
-          -- ['blade-nav'] = {
-          --   name = 'blade-nav',
-          --   module = 'blade-nav.integrations.blink',
-          -- },
+          ['blade-nav'] = {
+            name = 'blade-nav',
+            module = 'blade-nav.integrations.blink',
+          },
           path = {
             opts = {
               -- Always use the CWD rather than the current

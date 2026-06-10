@@ -13,12 +13,9 @@ return {
     },
 
     config = function()
-      -- local capabilities = require('blink.cmp').get_lsp_capabilities()
-      if vim.fn.has('nvim-0.11') == 1 and vim.lsp.config then
-        vim.lsp.config('*', {
-          capabilities = require('blink.cmp').get_lsp_capabilities(),
-        })
-      end
+      vim.lsp.config('*', {
+        capabilities = require('blink.cmp').get_lsp_capabilities(),
+      })
 
       -- nvim-lspconfig's bundled lsp/emmet_language_server.lua wins over the
       -- user's via rtp ordering. Programmatic vim.lsp.config calls take
@@ -39,10 +36,7 @@ return {
         },
       })
 
-      -- require('lspconfig').lua_ls.setup { capabilities = capabilities }
       vim.lsp.inlay_hint.enable(true)
-
-      -- TODO: Is this the right place for this Diagnostic Config?
 
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts

@@ -13,7 +13,7 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
 
-  init = function()
+  config = function()
     require('nvim-treesitter').setup({})
     require('nvim-treesitter').install({
       'css',

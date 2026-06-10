@@ -3,5 +3,6 @@
 -- @link https://github.com/RRethy/vim-illuminate
 
 return {
-  "RRethy/vim-illuminate"
+  'RRethy/vim-illuminate',
+  event = { 'BufReadPost', 'BufNewFile' },
 }

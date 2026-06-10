@@ -131,8 +131,12 @@ vim.keymap.set('n', '<leader>st', function()
 end, { desc = 'Open a small terminal at bottom' })
 
 vim.keymap.set('n', '<leader>stt', function()
+  if channel_id == 0 then
+    vim.notify('No terminal open. Use <leader>st first.', vim.log.levels.WARN)
+    return
+  end
   vim.fn.chansend(channel_id, { 'git status\r\n' })
-end, { desc = 'Testing terminal command shorcut' })
+end, { desc = 'Testing terminal command shortcut' })
 
 -- Treesitter incremental selection (Neovim 0.12+ native via vim.treesitter._select)
 local function ts_has_parser()
