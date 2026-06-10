@@ -146,6 +146,7 @@ return {
           'html-lsp',
           'lua_ls',
           'prettierd',
+          'some-sass-language-server',
           'stylua',
           'ts_ls',
         },
