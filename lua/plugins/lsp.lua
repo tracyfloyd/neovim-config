@@ -17,6 +17,28 @@ return {
         capabilities = require('blink.cmp').get_lsp_capabilities(),
       })
 
+      -- Clean noisy LSP markdown in hover/signature/diagnostic floats. In
+      -- nvim 0.11+, vim.lsp.buf.hover bypasses the textDocument/hover handler
+      -- and feeds the assembled contents directly to open_floating_preview,
+      -- so this is the single hook that catches every float.
+      local orig_open = vim.lsp.util.open_floating_preview
+      vim.lsp.util.open_floating_preview = function(contents, syntax, opts)
+        if type(contents) == 'table' and #contents > 0 then
+          local joined = table.concat(contents, '\n')
+          local cleaned = require('core.lsp-markdown').clean(joined)
+          contents = vim.split(cleaned, '\n', { plain = true })
+        end
+        return orig_open(contents, syntax, opts)
+      end
+
+      -- some-sass-language-server duplicates cssls hover output. Suppress its
+      -- hoverProvider so only cssls responds to K on CSS properties.
+      vim.lsp.config('somesass_ls', {
+        on_attach = function(client)
+          client.server_capabilities.hoverProvider = false
+        end,
+      })
+
       -- nvim-lspconfig's bundled lsp/emmet_language_server.lua wins over the
       -- user's via rtp ordering. Programmatic vim.lsp.config calls take
       -- precedence, so set filetypes here to pick up razor (.cshtml).

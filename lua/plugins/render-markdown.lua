@@ -14,6 +14,10 @@ return {
       html = { enabled = false },
       latex = { enabled = false },
       yaml = { enabled = false },
+      completions = {
+        blink = { enabled = true },
+        lsp = { enabled = true },
+      },
     })
   end,
 }

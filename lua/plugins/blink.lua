@@ -37,9 +37,24 @@ return {
       },
 
       -- (Default) Only show the documentation popup when manually triggered
-      completion = { documentation = { auto_show = false } },
+      completion = {
+        documentation = {
+          auto_show = false,
+          -- Clean up noisy LSP markdown (cssls etc.) before rendering.
+          draw = function(opts)
+            local clean = require('core.lsp-markdown').clean
+            local doc = opts.item.documentation
+            if type(doc) == 'string' then
+              doc = clean(doc)
+            elseif type(doc) == 'table' and type(doc.value) == 'string' then
+              doc = { kind = doc.kind, value = clean(doc.value) }
+            end
+            opts.default_implementation({ documentation = doc })
+          end,
+        },
+      },
 
-      signature = { enabled = true },
+      signature = { enabled = false },
       snippets = { preset = 'luasnip' },
       appearance = { nerd_font_variant = 'mono' },
       fuzzy = { implementation = 'rust' },
