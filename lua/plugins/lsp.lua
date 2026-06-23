@@ -157,6 +157,7 @@ return {
       require('mason-tool-installer').setup({
         ensure_installed = {
           'cssls',
+          'css-variables-language-server',
           'emmet_language_server',
           'eslint_d',
           'html-lsp',
