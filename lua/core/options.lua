@@ -12,6 +12,10 @@ vim.opt.cursorcolumn = true -- Highlight the screen column of the cursor
 vim.opt.cursorline = true -- Highlight the current cursor line
 vim.opt.cursorlineopt = 'screenline' --
 -- vim.opt.guicursor = 'n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'
+-- Give Visual/Visual Block modes a purple (mauve) cursor via the VisualCursor
+-- highlight group (defined in plugins/colorschemes.lua). Appended so it wins
+-- over the default `n-v-c-sm:block` entry for the `v`/`ve` modes.
+vim.opt.guicursor:append('v-ve:block-VisualCursor')
 vim.opt.laststatus = 3 -- Enable a single, persistent status line at the bottom of the screen for all splits
 vim.opt.list = true -- Show white-space characters
 vim.opt.listchars = { -- Show whitespace characters as

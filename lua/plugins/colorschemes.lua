@@ -24,6 +24,12 @@ return {
             -- fg = '#45475b',
             fg = '#6E6E76',
           },
+          -- Purple cursor in Visual/Visual Block modes (matches the mauve
+          -- lualine mode indicator). Wired up via `guicursor` in options.lua.
+          VisualCursor = {
+            bg = colors.mauve,
+            fg = colors.base,
+          },
         }
       end,
       integrations = {
