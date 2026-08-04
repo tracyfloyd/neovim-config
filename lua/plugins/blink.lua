@@ -57,7 +57,7 @@ return {
       signature = { enabled = false },
       snippets = { preset = 'luasnip' },
       appearance = { nerd_font_variant = 'mono' },
-      fuzzy = { implementation = 'rust' },
+      fuzzy = { implementation = 'prefer_rust_with_warning' },
 
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
