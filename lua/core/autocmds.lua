@@ -196,6 +196,49 @@ end)
 -- })
 
 -- ======================================================================================
+-- Appearance
+
+-- Purple (mauve) cursor line number in Visual/Visual Block modes, matching the
+-- Visual-mode cursor (VisualCursor) and lualine indicator. CursorLineNr has no
+-- per-mode variant, so swap it on entering Visual and restore it on leaving.
+--
+-- Note: CursorLineNr only reaches the line number when 'cursorlineopt' contains
+-- "number". This config uses "screenline" (no number highlight in normal mode),
+-- so we also add "number" to the window's 'cursorlineopt' while in Visual and
+-- restore the original on exit, leaving normal-mode appearance untouched.
+local visual_cursorlinenr = '#cba6f7' -- catppuccin mocha mauve
+local saved_cursorlinenr
+local saved_cursorlineopt -- nil = we did not modify 'cursorlineopt'
+vim.api.nvim_create_autocmd('ModeChanged', {
+  desc = 'Purple CursorLineNr in Visual modes',
+  group = augroup,
+  callback = function()
+    local in_visual = vim.v.event.new_mode:find('^[vV\22]') ~= nil
+    if in_visual then
+      -- Capture the colorscheme's real CursorLineNr once, right before the
+      -- first override, so the restore below is correct even after a reload.
+      saved_cursorlinenr = saved_cursorlinenr or vim.api.nvim_get_hl(0, { name = 'CursorLineNr', link = false })
+      vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = visual_cursorlinenr })
+
+      local opt = vim.wo.cursorlineopt
+      if saved_cursorlineopt == nil and not opt:find('number') and not opt:find('both') then
+        saved_cursorlineopt = opt
+        vim.wo.cursorlineopt = opt == '' and 'number' or (opt .. ',number')
+      end
+    else
+      if saved_cursorlinenr then
+        vim.api.nvim_set_hl(0, 'CursorLineNr', saved_cursorlinenr)
+        saved_cursorlinenr = nil
+      end
+      if saved_cursorlineopt ~= nil then
+        vim.wo.cursorlineopt = saved_cursorlineopt
+        saved_cursorlineopt = nil
+      end
+    end
+  end,
+})
+
+-- ======================================================================================
 -- Adjust wrapping behavior for markdown and text files
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup,
