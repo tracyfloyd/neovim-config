@@ -1,5 +1,15 @@
 local augroup = vim.api.nvim_create_augroup('UserConfig', {})
 
+-- Legacy .NET projects live on NTFS inside the Parallels "Windows 11" VM and are
+-- mounted on the Mac over SMB at ~/mnt/win. Buffers on that mount need a few
+-- editing defaults relaxed -- see the "Windows VM over SMB" section below.
+local win_mount = vim.fn.expand('~/mnt/win')
+
+local function on_win_mount(bufnr)
+  local name = vim.api.nvim_buf_get_name(bufnr or 0)
+  return name ~= '' and vim.startswith(name, win_mount .. '/')
+end
+
 -- ======================================================================================
 -- Text Editing
 
@@ -8,7 +18,20 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   desc = 'Trim trailing whitespace on save',
   group = augroup,
   pattern = '*',
-  command = ':%s/\\s\\+$//e',
+  callback = function()
+    -- [ \t\r] rather than \s: Vim's \s is space and tab only, never CR. A file with
+    -- mixed endings is read as 'unix', which leaves literal CRs in the buffer text --
+    -- and after/ftplugin/{cs,razor}.lua then force 'dos', appending another CR on
+    -- write. Without the \r here that silently produces \r\r\n.
+    --
+    -- keeppatterns and the save/restore keep the substitution from clobbering the
+    -- cursor, the scroll position and the last-search register on every save.
+    local view = vim.fn.winsaveview()
+    local search = vim.fn.getreg('/')
+    vim.cmd([[keeppatterns %s/[ \t\r]\+$//e]])
+    vim.fn.setreg('/', search)
+    vim.fn.winrestview(view)
+  end,
 })
 
 -- Highlight when yanking text
@@ -41,36 +64,8 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- Use treesitter for folding if it has parser for filetype
--- vim.api.nvim_create_autocmd({ 'FileType' }, {
---   callback = function()
---     -- check if treesitter has parser
---     if require('nvim-treesitter.parsers').has_parser() then
---       -- use treesitter folding
---       vim.opt.foldmethod = 'expr'
---       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
---     else
---       -- use alternative foldmethod
---       vim.opt.foldmethod = 'syntax'
---     end
---   end,
--- })
-
--- Refresh folds when entering a buffer.
--- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
---   pattern = { '*' },
---   command = 'normal! zx',
--- })
-
 -- ======================================================================================
 -- LSP
--- vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
---   pattern = { '*.cshtml', '*.razor' },
---   callback = function()
---     vim.bo.filetype = 'razor'
---   end,
--- })
-
 -- Runs when an LSP attaches to a buffer.
 -- When a file is opened and associated with an LSP, this function
 -- will be executed to configure the current buffer.
@@ -157,16 +152,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
--- Set filetype to razor for .cshtml files
-vim.api.nvim_create_autocmd('BufRead', {
-  desc = 'Set filetype for .cshtml files',
-  group = vim.api.nvim_create_augroup('detect_cshtml', { clear = true }),
-  pattern = { '.cshtml' },
-  callback = function()
-    vim.cmd('set filetype=razor')
-  end,
-})
-
 -- Workaround for upstream razor query bug: "at_await" node doesn't exist in tree-sitter-razor.
 -- Applied eagerly at startup so it covers entry points (e.g. Telescope previews) that start
 -- the razor highlighter directly with an explicit language, bypassing FileType autocmds.
@@ -182,6 +167,44 @@ pcall(function()
     end
   end
 end)
+
+-- ======================================================================================
+-- Windows VM over SMB
+--
+-- MSBuild, IIS and NuGet all still run inside the guest; only editing happens here.
+-- Both autocmds below are scoped to the mount so local work keeps the globals set in
+-- core/options.lua.
+--
+-- Nothing here touches line endings or whitespace. Those are normalized identically
+-- everywhere: after/ftplugin/{cs,razor}.lua pin 'fileformat' to dos, and the trim on
+-- save at the top of this file applies to every buffer regardless of location.
+local win_augroup = vim.api.nvim_create_augroup('WindowsVmMount', { clear = true })
+
+vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
+  desc = 'Windows VM mount: write in place to preserve NTFS ACLs',
+  group = win_augroup,
+  pattern = win_mount .. '/*',
+  callback = function()
+    -- The default 'auto' may save by renaming the original aside and writing a new
+    -- file in its place, which over SMB leaves the replacement with a default ACL.
+    -- That surfaces later as an IIS app-pool permission failure that looks nothing
+    -- like an editor problem. 'yes' writes the original file in place instead.
+    vim.opt_local.backupcopy = 'yes'
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
+  desc = 'Windows VM mount: re-check files rewritten inside the guest',
+  group = win_augroup,
+  callback = function(ev)
+    -- SMB delivers no change notifications, so 'autoread' never fires on its own
+    -- when a build, a NuGet restore or a source-control operation rewrites files
+    -- in the guest. Poll instead, on the events where staleness would be noticed.
+    if on_win_mount(ev.buf) and vim.bo[ev.buf].buftype == '' then
+      pcall(vim.cmd, 'checktime ' .. ev.buf)
+    end
+  end,
+})
 
 -- ======================================================================================
 -- Window Management
