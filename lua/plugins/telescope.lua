@@ -1,6 +1,12 @@
 -- Telescope
 -- @link https://github.com/nvim-telescope/telescope.nvim
 
+-- telescope-fzf-native ships a Makefile; Windows has no `make` by default,
+-- so build it with CMake there instead (requires a C compiler either way).
+-- The VS generator defaults to the x64 platform regardless of host, so pass
+-- -A explicitly or ARM64 hosts end up with an unloadable x64 DLL.
+local fzf_native_build = vim.fn.has('win32') == 1 and ('cmake -S. -Bbuild -A ' .. ({ arm64 = 'ARM64', x86_64 = 'x64' })[vim.uv.os_uname().machine] .. ' -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build') or 'make'
+
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -9,7 +15,7 @@ return {
 
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = fzf_native_build },
       'nvim-tree/nvim-web-devicons',
     },
 
@@ -42,7 +48,12 @@ return {
         },
       })
 
-      telescope.load_extension('fzf')
+      -- fzf-native is a compiled native module; if it hasn't been built yet
+      -- (e.g. no C toolchain installed), skip it instead of erroring on startup.
+      local ok, err = pcall(telescope.load_extension, 'fzf')
+      if not ok then
+        vim.notify('telescope-fzf-native not loaded: ' .. err, vim.log.levels.WARN)
+      end
 
       -- Keymaps to find files ==========================================================
       vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {
