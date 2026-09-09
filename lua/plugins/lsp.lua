@@ -60,6 +60,14 @@ return {
 
       vim.lsp.inlay_hint.enable(true)
 
+      -- nvim 0.12 enables LSP document color by default with style = 'background',
+      -- which recolors color values in place (somesass_ls resolves $var usages
+      -- too). Render a virtual swatch before the value instead. A style string
+      -- that isn't a preset is used as the virtual text verbatim, so the
+      -- trailing space is ours to supply. Keep the glyph matched with
+      -- virtual_symbol in lua/plugins/nvim-highlight-colors.lua.
+      vim.lsp.document_color.enable(true, nil, { style = '● ' })
+
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config({
