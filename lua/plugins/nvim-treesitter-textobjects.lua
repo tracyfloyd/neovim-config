@@ -15,132 +15,102 @@ return {
   end,
 
   config = function()
-    require("nvim-treesitter-textobjects").setup {
+    -- The main branch only accepts these keys. Keymaps are no longer declared
+    -- in setup() the way the master branch did it -- unknown keys are silently
+    -- swallowed -- so they are bound by hand below.
+    require('nvim-treesitter-textobjects').setup({
       select = {
-        enable = true,
         lookahead = true,
         include_surrounding_whitespace = true,
+      },
+      move = {
+        set_jumps = true,
+      },
+    })
 
-        keymaps = {
-          -- Function
-          ['if'] = { query = '@function.inner', desc = 'Select inner part of a function definition' },
-          ['af'] = { query = '@function.outer', desc = 'Select outer part of a function definition' },
-          -- Parameter/Argument
-          ['ia'] = { query = '@parameter.inner', desc = 'Select inner part of a parameter/argument' },
-          ['aa'] = { query = '@parameter.outer', desc = 'Select outer part of a parameter/argument' },
-          -- Loop
-          ['il'] = { query = '@loop.inner', desc = 'Select inner part of a loop' },
-          ['al'] = { query = '@loop.outer', desc = 'Select outer part of a loop' },
-          -- Class
-          ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class' },
-          ['ac'] = { query = '@class.outer', desc = 'Select outer part of a class' },
-          -- Conditional
-          ['ii'] = { query = '@conditional.inner', desc = 'Select inner part of a conditional' },
-          ['ai'] = { query = '@conditional.outer', desc = 'Select outer part of a conditional' },
-          -- Assignment
-          ['i='] = { query = '@assignment.inner', desc = 'Select inner part of an assignment' },
-          ['a='] = { query = '@assignment.outer', desc = 'Select outer part of an assignment' },
-          ['l='] = { query = '@assignment.lhs', desc = 'Select left hand side of an assignment' },
-          ['r='] = { query = '@assignment.rhs', desc = 'Select right hand side of an assignment' },
+    local select = require('nvim-treesitter-textobjects.select')
+    local swap = require('nvim-treesitter-textobjects.swap')
+    local move = require('nvim-treesitter-textobjects.move')
 
-          -- You can also use captures from other query groups like `locals.scm`
-          ['as'] = { query = '@local.scope', query_group = 'locals', desc = 'Select language scope' },
-        },
+    local function map(mode, lhs, rhs, desc)
+      vim.keymap.set(mode, lhs, rhs, { desc = desc, silent = true })
+    end
 
-        swap = {
-          enable = true,
-          swap_next = {
-            ['<leader>na'] = '@parameter.inner', -- swap parameters/argument with next
-            ['<leader>nf'] = '@function.outer', -- swap function with next
-          },
-          swap_previous = {
-            ['<leader>pa'] = '@parameter.inner', -- swap parameters/argument with prev
-            ['<leader>pf'] = '@function.outer', -- swap function with previous
-          },
-        },
-
-        move = {
-          enable = true,
-          set_jumps = true,
-          --[[  Moves from Josean to explore (via https://www.youtube.com/watch?v=CEMPq_r8UYQ)
-          goto_next_start = {
-            ["]f"] = { query = "@call.outer", desc = "Next function call start" },
-            ["]m"] = { query = "@function.outer", desc = "Next method/function def start" },
-            ["]c"] = { query = "@class.outer", desc = "Next class start" },
-            ["]i"] = { query = "@conditional.outer", desc = "Next conditional start" },
-            ["]l"] = { query = "@loop.outer", desc = "Next loop start" },
-            -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-            -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-            ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-            ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-          },
-
-          goto_next_end = {
-            ["]F"] = { query = "@call.outer", desc = "Next function call end" },
-            ["]M"] = { query = "@function.outer", desc = "Next method/function def end" },
-            ["]C"] = { query = "@class.outer", desc = "Next class end" },
-            ["]I"] = { query = "@conditional.outer", desc = "Next conditional end" },
-            ["]L"] = { query = "@loop.outer", desc = "Next loop end" },
-          },
-
-          goto_previous_start = {
-            ["[f"] = { query = "@call.outer", desc = "Prev function call start" },
-            ["[m"] = { query = "@function.outer", desc = "Prev method/function def start" },
-            ["[c"] = { query = "@class.outer", desc = "Prev class start" },
-            ["[i"] = { query = "@conditional.outer", desc = "Prev conditional start" },
-            ["[l"] = { query = "@loop.outer", desc = "Prev loop start" },
-          },
-
-          goto_previous_end = {
-            ["[F"] = { query = "@call.outer", desc = "Prev function call end" },
-            ["[M"] = { query = "@function.outer", desc = "Prev method/function def end" },
-            ["[C"] = { query = "@class.outer", desc = "Prev class end" },
-            ["[I"] = { query = "@conditional.outer", desc = "Prev conditional end" },
-            ["[L"] = { query = "@loop.outer", desc = "Prev loop end" },
-          },
-          --]]
-
-          goto_next_start = {
-            [']m'] = '@function.outer',
-            [']]'] = { query = '@class.outer', desc = 'Next class start' },
-            --
-            -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
-            [']o'] = '@loop.*',
-            -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-            --
-            -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-            -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-            [']s'] = { query = '@local.scope', query_group = 'locals', desc = 'Next scope' },
-            [']z'] = { query = '@fold', query_group = 'folds', desc = 'Next fold' },
-          },
-
-          goto_next_end = {
-            [']M'] = '@function.outer',
-            [']['] = '@class.outer',
-          },
-
-          goto_previous_start = {
-            ['[m'] = '@function.outer',
-            ['[['] = '@class.outer',
-          },
-
-          goto_previous_end = {
-            ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer',
-          },
-
-          -- Below will go to either the start or the end, whichever is closer.
-          -- Use if you want more granular movements
-          -- Make it even more gradual by adding multiple queries and regex.
-          goto_next = {
-            [']d'] = '@conditional.outer',
-          },
-
-          goto_previous = {
-            ['[d'] = '@conditional.outer',
-          },
-        },
-      }
+    -- Select
+    -- The last field of each entry is a query group; 'textobjects' reads
+    -- textobjects.scm, 'locals' reads locals.scm.
+    local selections = {
+      -- Function
+      { 'if', '@function.inner', 'textobjects', 'Select inner part of a function definition' },
+      { 'af', '@function.outer', 'textobjects', 'Select outer part of a function definition' },
+      -- Parameter/Argument
+      { 'ia', '@parameter.inner', 'textobjects', 'Select inner part of a parameter/argument' },
+      { 'aa', '@parameter.outer', 'textobjects', 'Select outer part of a parameter/argument' },
+      -- Loop
+      { 'il', '@loop.inner', 'textobjects', 'Select inner part of a loop' },
+      { 'al', '@loop.outer', 'textobjects', 'Select outer part of a loop' },
+      -- Class
+      { 'ic', '@class.inner', 'textobjects', 'Select inner part of a class' },
+      { 'ac', '@class.outer', 'textobjects', 'Select outer part of a class' },
+      -- Conditional
+      { 'ii', '@conditional.inner', 'textobjects', 'Select inner part of a conditional' },
+      { 'ai', '@conditional.outer', 'textobjects', 'Select outer part of a conditional' },
+      -- Assignment
+      { 'i=', '@assignment.inner', 'textobjects', 'Select inner part of an assignment' },
+      { 'a=', '@assignment.outer', 'textobjects', 'Select outer part of an assignment' },
+      { 'l=', '@assignment.lhs', 'textobjects', 'Select left hand side of an assignment' },
+      { 'r=', '@assignment.rhs', 'textobjects', 'Select right hand side of an assignment' },
+      -- Scope, from the `locals` query group rather than `textobjects`
+      { 'as', '@local.scope', 'locals', 'Select language scope' },
     }
+
+    for _, spec in ipairs(selections) do
+      local lhs, query, group, desc = unpack(spec)
+      map({ 'x', 'o' }, lhs, function()
+        select.select_textobject(query, group)
+      end, desc)
+    end
+
+    -- Swap
+    local swaps = {
+      { '<leader>na', swap.swap_next, '@parameter.inner', 'Swap parameter/argument with next' },
+      { '<leader>nf', swap.swap_next, '@function.outer', 'Swap function with next' },
+      { '<leader>pa', swap.swap_previous, '@parameter.inner', 'Swap parameter/argument with previous' },
+      { '<leader>pf', swap.swap_previous, '@function.outer', 'Swap function with previous' },
+    }
+
+    for _, spec in ipairs(swaps) do
+      local lhs, fn, query, desc = unpack(spec)
+      map('n', lhs, function()
+        fn(query, 'textobjects')
+      end, desc)
+    end
+
+    -- Move
+    -- Unlike the master branch, query strings are matched literally -- lua
+    -- patterns such as '@loop.*' no longer expand, so pass an explicit list.
+    local moves = {
+      { ']m', move.goto_next_start, '@function.outer', 'textobjects', 'Next function start' },
+      { ']]', move.goto_next_start, '@class.outer', 'textobjects', 'Next class start' },
+      { ']o', move.goto_next_start, { '@loop.inner', '@loop.outer' }, 'textobjects', 'Next loop start' },
+      { ']s', move.goto_next_start, '@local.scope', 'locals', 'Next scope' },
+      { ']z', move.goto_next_start, '@fold', 'folds', 'Next fold' },
+      { ']M', move.goto_next_end, '@function.outer', 'textobjects', 'Next function end' },
+      { '][', move.goto_next_end, '@class.outer', 'textobjects', 'Next class end' },
+      { '[m', move.goto_previous_start, '@function.outer', 'textobjects', 'Previous function start' },
+      { '[[', move.goto_previous_start, '@class.outer', 'textobjects', 'Previous class start' },
+      { '[M', move.goto_previous_end, '@function.outer', 'textobjects', 'Previous function end' },
+      { '[]', move.goto_previous_end, '@class.outer', 'textobjects', 'Previous class end' },
+      -- Go to whichever of start/end is closer
+      { ']d', move.goto_next, '@conditional.outer', 'textobjects', 'Next conditional' },
+      { '[d', move.goto_previous, '@conditional.outer', 'textobjects', 'Previous conditional' },
+    }
+
+    for _, spec in ipairs(moves) do
+      local lhs, fn, query, group, desc = unpack(spec)
+      map({ 'n', 'x', 'o' }, lhs, function()
+        fn(query, group)
+      end, desc)
+    end
   end,
 }
