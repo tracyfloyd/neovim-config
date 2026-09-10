@@ -11,7 +11,104 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     enabled = true,
-    version = '*',
+
+    -- No `version` pin: telescope's newest tag is v0.2.2 (Sept 2024), so '*'
+    -- held this two years behind the branch every other plugin tracks.
+    cmd = 'Telescope',
+
+    keys = {
+      -- Find files
+      {
+        '<leader>ff',
+        function()
+          require('telescope.builtin').find_files()
+        end,
+        desc = 'Telescope: Find files (in cwd)',
+      },
+      {
+        '<leader>fg',
+        function()
+          require('telescope.multigrep')()
+        end,
+        desc = 'Telescope: multigrep (search + glob filter)',
+      },
+      {
+        '<leader>fs',
+        function()
+          require('telescope.builtin').live_grep()
+        end,
+        desc = 'Telescope: grep text (in cwd)',
+      },
+      {
+        '<leader>fc',
+        function()
+          require('telescope.builtin').grep_string()
+        end,
+        desc = 'Telescope: grep text under cursor (in cwd)',
+      },
+      {
+        '<leader>fo',
+        function()
+          require('telescope.builtin').oldfiles()
+        end,
+        desc = 'Telescope: Find files (recent)',
+      },
+      {
+        '<leader><leader>',
+        function()
+          require('telescope.builtin').buffers()
+        end,
+        desc = 'Telescope: Find buffers',
+      },
+
+      -- Find in current file
+      {
+        '<leader>/',
+        function()
+          require('telescope.builtin').current_buffer_fuzzy_find()
+        end,
+        desc = 'Telescope: Find text (in current buffer)',
+      },
+      {
+        '<leader>fl',
+        function()
+          require('telescope.builtin').treesitter()
+        end,
+        desc = 'Telescope: Find function names, variables, etc. (in current buffer)',
+      },
+
+      -- Other
+      {
+        '<leader>fr',
+        function()
+          require('telescope.builtin').resume()
+        end,
+        desc = 'Telescope: Show previous search state',
+      },
+      {
+        '<leader>fh',
+        function()
+          require('telescope.builtin').help_tags()
+        end,
+        desc = 'Telescope: Search help',
+      },
+      { '<leader>ft', '<cmd>TodoTelescope<cr>', desc = 'Telescope: Find todos' },
+      {
+        '<leader>fk',
+        function()
+          require('telescope.builtin').keymaps()
+        end,
+        desc = 'Telescope: Find Keymaps',
+      },
+      {
+        '<leader>fn',
+        function()
+          require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') })
+        end,
+        desc = 'Telescope: Find in Neovim config',
+      },
+      -- <leader>fd (buffer diagnostics) is set per-buffer on LspAttach in core/autocmds.lua
+    },
 
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -54,68 +151,6 @@ return {
       if not ok then
         vim.notify('telescope-fzf-native not loaded: ' .. err, vim.log.levels.WARN)
       end
-
-      -- Keymaps to find files ==========================================================
-      vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {
-        desc = 'Telescope: Find files (in cwd)',
-      })
-
-      vim.keymap.set('n', '<leader>fg', require('telescope.multigrep'), {
-        desc = 'Telescope: multigrep (search + glob filter)',
-      })
-
-      vim.keymap.set('n', '<leader>fs', require('telescope.builtin').live_grep, {
-        desc = 'Telescope: grep text (in cwd)',
-      })
-
-      vim.keymap.set('n', '<leader>fc', require('telescope.builtin').grep_string, {
-        desc = 'Telescope: grep text under cursor (in cwd)',
-      })
-
-      vim.keymap.set('n', '<leader>fo', require('telescope.builtin').oldfiles, {
-        desc = 'Telescope: Find files (recent)',
-      })
-
-      vim.keymap.set('n', '<leader><leader>', require('telescope.builtin').buffers, {
-        desc = 'Telescope: Find buffers',
-      })
-
-      -- Keymaps to find in current file ================================================
-      vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, {
-        desc = 'Telescope: Find text (in current buffer)',
-      })
-
-      -- vim.keymap.set('n', '<leader>fl', require('telescope.builtin').lsp_references, {
-      -- desc = 'Telescope: LSP References'
-      -- })
-      vim.keymap.set('n', '<leader>fl', require('telescope.builtin').treesitter, {
-        desc = 'Telescope: Find function names, variables, etc. (in current buffer)',
-      })
-
-      -- Other keymaps ==================================================================
-      vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, {
-        desc = 'Telescope: Show previous search state',
-      })
-
-      vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {
-        desc = 'Telescope: Search help',
-      })
-
-      vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', {
-        desc = 'Telescope: Find todos',
-      })
-
-      vim.keymap.set('n', '<leader>fk', require('telescope.builtin').keymaps, {
-        desc = 'Telescope: Find Keymaps',
-      })
-
-      vim.keymap.set('n', '<leader>fn', function()
-        require('telescope.builtin').find_files({
-          cwd = vim.fn.stdpath('config'),
-        })
-      end, {
-        desc = 'Telescope: Find in Neovim config',
-      })
     end,
   },
 }
