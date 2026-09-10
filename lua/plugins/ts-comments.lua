@@ -3,12 +3,12 @@
 -- @link https://github.com/folke/ts-comments.nvim
 
 return {
-    "folke/ts-comments.nvim",
-    enabled = true,
+  'folke/ts-comments.nvim',
+  enabled = true,
 
-    event = "VeryLazy",
+  event = 'VeryLazy',
 
-    config = function()
-      require('ts-comments').setup({})
-    end,
+  config = function()
+    require('ts-comments').setup({})
+  end,
 }

@@ -29,7 +29,6 @@ return {
         delete = '<leader>wtd',
         switch = '<leader>wts',
       },
-    });
-  end
-
+    })
+  end,
 }

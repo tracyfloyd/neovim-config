@@ -32,7 +32,10 @@ return {
   }),
 
   -- react functional component
-  s('rfc', fmt([[
+  s(
+    'rfc',
+    fmt(
+      [[
 const {} = ({}) => {{
   return (
     <div>
@@ -42,10 +45,13 @@ const {} = ({}) => {{
 }};
 
 export default {};
-]], {
-    i(1, 'ComponentName'),
-    i(2),
-    i(3),
-    rep(1),
-  })),
+]],
+      {
+        i(1, 'ComponentName'),
+        i(2),
+        i(3),
+        rep(1),
+      }
+    )
+  ),
 }

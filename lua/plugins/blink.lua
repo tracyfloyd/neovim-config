@@ -63,7 +63,7 @@ return {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
         per_filetype = {
           blade = { 'blade-nav', 'lsp', 'path', 'snippets', 'buffer' },
-          php   = { 'blade-nav', 'lsp', 'path', 'snippets', 'buffer' },
+          php = { 'blade-nav', 'lsp', 'path', 'snippets', 'buffer' },
         },
         providers = {
           ['blade-nav'] = {
