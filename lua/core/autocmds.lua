@@ -35,12 +35,12 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 -- Highlight when yanking text
--- See `:help vim.highlight.on_yank()`
+-- See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking text',
   group = augroup,
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -49,8 +49,11 @@ vim.api.nvim_create_autocmd('TermOpen', {
   desc = 'Customize Nvim Terminal',
   group = augroup,
   callback = function()
-    vim.opt.number = false
-    vim.opt.relativenumber = false
+    -- opt_local, not opt: 'number' and 'relativenumber' are window-local, and
+    -- setting them globally here turns line numbers off for every window
+    -- opened afterwards, not just the terminal.
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
   end,
 })
 
@@ -72,53 +75,30 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf, silent = true }
+    -- See `:help vim.lsp.*` for documentation on any of the below functions.
+    --
+    -- No <leader>d diagnostic float here: nvim binds <C-W>d to "show
+    -- diagnostics under the cursor" by default, and <leader>d belongs to
+    -- multiple-cursors. ]d/[d live in core/keymaps.lua so they work in buffers
+    -- with no LSP attached too.
+    local maps = {
+      { 'n', 'K', vim.lsp.buf.hover, 'LSP: Show documentation for what is under cursor' },
+      { 'n', 'gd', vim.lsp.buf.definition, 'LSP: Show definition' },
+      { 'n', 'gD', vim.lsp.buf.declaration, 'LSP: Go to declaration' },
+      -- In visual mode the code action applies to the selection
+      { { 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, 'LSP: Show available code actions' },
+      { 'n', '<leader>cr', vim.lsp.buf.rename, 'LSP: Smart rename' },
+      { 'n', '<leader>rs', '<cmd>LspRestart<CR>', 'LSP: Restart LSP' },
+      { 'n', 'gR', '<cmd>Telescope lsp_references<CR>', 'LSP/Telescope: Show references' },
+      { 'n', 'gi', '<cmd>Telescope lsp_implementations<CR>', 'LSP/Telescope: Show implementations' },
+      { 'n', 'gt', '<cmd>Telescope lsp_type_definitions<CR>', 'LSP/Telescope: Show type definitions' },
+      { 'n', '<leader>fd', '<cmd>Telescope diagnostics bufnr=0<CR>', 'LSP/Telescope: Show buffer diagnostics' },
+    }
 
-    -- set keybinds
-    opts.desc = 'LSP: Show documentation for what is under cursor'
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
-    opts.desc = 'LSP: Show definition'
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-
-    opts.desc = 'LSP: Show available code actions'
-    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts) -- in visual mode will apply to selection
-
-    opts.desc = 'LSP/Telescope: Show references'
-    vim.keymap.set('n', 'gR', '<cmd>Telescope lsp_references<CR>', opts) -- show definition, references
-
-    opts.desc = 'LSP/Telescope: Show implementations'
-    vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts)
-
-    opts.desc = 'LSP/Telescope: Show type definitions'
-    vim.keymap.set('n', 'gt', '<cmd>Telescope lsp_type_definitions<CR>', opts)
-
-    opts.desc = 'LSP: Go to declaration'
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-
-    opts.desc = 'LSP: Smart rename'
-    vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
-
-    opts.desc = 'LSP: Restart LSP'
-    vim.keymap.set('n', '<leader>rs', ':LspRestart<CR>', opts) -- mapping to restart lsp if necessary
-
-    -- Diagnostics
-    opts.desc = 'LSP: Show line diagnostics in float'
-    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
-
-    opts.desc = 'LSP/Telescope: Show buffer diagnostics'
-    vim.keymap.set('n', '<leader>D', '<cmd>Telescope diagnostics bufnr=0<CR>', opts)
-
-    opts.desc = 'LSP: Go to previous diagnostic'
-    vim.keymap.set('n', '[d', function()
-      vim.diagnostic.jump({ count = -1, float = true })
-    end, opts) -- jump to previous diagnostic in buffer
-
-    opts.desc = 'LSP: Go to next diagnostic'
-    vim.keymap.set('n', ']d', function()
-      vim.diagnostic.jump({ count = 1, float = true })
-    end, opts) -- jump to next diagnostic in buffer
+    for _, m in ipairs(maps) do
+      local mode, lhs, rhs, desc = unpack(m)
+      vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, silent = true, desc = desc })
+    end
   end,
 })
 
@@ -151,22 +131,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end
   end,
 })
-
--- Workaround for upstream razor query bug: "at_await" node doesn't exist in tree-sitter-razor.
--- Applied eagerly at startup so it covers entry points (e.g. Telescope previews) that start
--- the razor highlighter directly with an explicit language, bypassing FileType autocmds.
--- Remove once nvim-treesitter ships a fixed razor/highlights.scm.
-pcall(function()
-  local files = vim.api.nvim_get_runtime_file('queries/razor/highlights.scm', false)
-  if files[1] then
-    local fd = io.open(files[1], 'r')
-    if fd then
-      local content = fd:read('*a')
-      fd:close()
-      vim.treesitter.query.set('razor', 'highlights', (content:gsub('\n[^\n]*"at_await"[^\n]*', '')))
-    end
-  end
-end)
 
 -- ======================================================================================
 -- Windows VM over SMB

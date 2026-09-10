@@ -70,7 +70,6 @@ vim.opt.foldenable = false
 -- vim.opt.foldmethod = 'syntax' -- Use expressions for folding
 -- vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Use treesitter for folding
 vim.opt.foldtext = '' -- The first line of the fold will be shown and be syntax highlighted
-vim.opt.sessionoptions:remove('folds')
 --
 -- ======================================================================================
 -- File Handling & Performance
@@ -101,7 +100,6 @@ vim.opt.backspace = 'indent,eol,start' -- allow backspace on indent, end of line
 vim.opt.clipboard:append('unnamedplus') -- use system clipboard as default register
 vim.opt.completeopt = 'menuone,noinsert,noselect' -- Completion options
 vim.opt.diffopt:append('linematch:60') -- Improve diff display
-vim.opt.encoding = 'UTF-8' -- Set encoding
 vim.opt.errorbells = false -- No error bells
 -- vim.opt.hidden = true -- Allow hidden buffers
 vim.opt.inccommand = 'split' -- Preview substitutions as you type
@@ -109,7 +107,10 @@ vim.opt.iskeyword:append('-') -- Treat dash as part of word
 vim.opt.modifiable = true -- Allow buffer modifications
 vim.opt.mouse = 'a' -- Enable mouse mode
 vim.opt.selection = 'inclusive' -- include last character in selection
-vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+-- No 'folds': persisted folds restore against stale line numbers. This single
+-- assignment is the only place sessionoptions is set -- a `:remove('folds')`
+-- elsewhere in this file would just be overwritten by it.
+vim.opt.sessionoptions = 'blank,buffers,curdir,help,tabpages,winsize,winpos,terminal,localoptions'
 vim.opt.splitbelow = true -- Split horizontal window to the bottom
 vim.opt.splitright = true -- Split vertical window to the right
 vim.opt.wildmenu = true -- Enable enhanced command-line completion
