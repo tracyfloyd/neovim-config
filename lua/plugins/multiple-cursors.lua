@@ -8,8 +8,9 @@ return {
   version = '*', -- Use the latest tagged version
 
   keys = {
-    { '<C-j>', '<Cmd>MultipleCursorsAddDown<CR>', mode = { 'n', 'x' }, desc = 'Add cursor and move down' },
-    { '<C-k>', '<Cmd>MultipleCursorsAddUp<CR>', mode = { 'n', 'x' }, desc = 'Add cursor and move up' },
+    -- <C-j>/<C-k> are not used here: core/keymaps.lua binds them to window
+    -- navigation and, being required after lazy.setup, wins -- these entries
+    -- never fired. <C-Up>/<C-Down> below cover the same two actions.
 
     { '<C-Up>', '<Cmd>MultipleCursorsAddUp<CR>', mode = { 'n', 'i', 'x' }, desc = 'Add cursor and move up' },
     { '<C-Down>', '<Cmd>MultipleCursorsAddDown<CR>', mode = { 'n', 'i', 'x' }, desc = 'Add cursor and move down' },

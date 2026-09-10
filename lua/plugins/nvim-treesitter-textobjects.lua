@@ -75,8 +75,9 @@ return {
     local swaps = {
       { '<leader>na', swap.swap_next, '@parameter.inner', 'Swap parameter/argument with next' },
       { '<leader>nf', swap.swap_next, '@function.outer', 'Swap function with next' },
-      { '<leader>pa', swap.swap_previous, '@parameter.inner', 'Swap parameter/argument with previous' },
-      { '<leader>pf', swap.swap_previous, '@function.outer', 'Swap function with previous' },
+      -- Capitalised: <leader>pa is taken by "copy absolute filepath" in core/keymaps.lua.
+      { '<leader>Pa', swap.swap_previous, '@parameter.inner', 'Swap parameter/argument with previous' },
+      { '<leader>Pf', swap.swap_previous, '@function.outer', 'Swap function with previous' },
     }
 
     for _, spec in ipairs(swaps) do
@@ -93,7 +94,10 @@ return {
       { ']m', move.goto_next_start, '@function.outer', 'textobjects', 'Next function start' },
       { ']]', move.goto_next_start, '@class.outer', 'textobjects', 'Next class start' },
       { ']o', move.goto_next_start, { '@loop.inner', '@loop.outer' }, 'textobjects', 'Next loop start' },
-      { ']s', move.goto_next_start, '@local.scope', 'locals', 'Next scope' },
+      -- No ]s: that is Vim's next-misspelling motion, and spell is enabled in
+      -- markdown/text/gitcommit (core/autocmds.lua). `as` still selects a scope.
+      -- ]z shadows Vim's fold motion, which is inert here anyway ('foldenable'
+      -- is false in core/options.lua).
       { ']z', move.goto_next_start, '@fold', 'folds', 'Next fold' },
       { ']M', move.goto_next_end, '@function.outer', 'textobjects', 'Next function end' },
       { '][', move.goto_next_end, '@class.outer', 'textobjects', 'Next class end' },
@@ -101,9 +105,10 @@ return {
       { '[[', move.goto_previous_start, '@class.outer', 'textobjects', 'Previous class start' },
       { '[M', move.goto_previous_end, '@function.outer', 'textobjects', 'Previous function end' },
       { '[]', move.goto_previous_end, '@class.outer', 'textobjects', 'Previous class end' },
-      -- Go to whichever of start/end is closer
-      { ']d', move.goto_next, '@conditional.outer', 'textobjects', 'Next conditional' },
-      { '[d', move.goto_previous, '@conditional.outer', 'textobjects', 'Previous conditional' },
+      -- Go to whichever of start/end is closer. ]d/[d would be shadowed by the
+      -- buffer-local diagnostic jumps in core/autocmds.lua, so use ]k/[k.
+      { ']k', move.goto_next, '@conditional.outer', 'textobjects', 'Next conditional' },
+      { '[k', move.goto_previous, '@conditional.outer', 'textobjects', 'Previous conditional' },
     }
 
     for _, spec in ipairs(moves) do

@@ -10,8 +10,9 @@ end, { expr = true, silent = true, desc = 'Up (text wrap aware)' })
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Go to file listing" }) -- Disabled due to Oil.nvim
 vim.keymap.set('n', '-', '<cmd>Oil --float<CR>', { desc = "Oil: Open current file's parent directory" })
 
--- Clear search highlights
-vim.keymap.set('n', '<leader>c', ':nohlsearch<CR>', { desc = 'Clear search highlights' })
+-- Clear search highlights. On <Esc> rather than <leader>c so that <leader>c
+-- stays a pure "code" prefix for <leader>c{a,f,r} with no timeout on either side.
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search highlights' })
 
 -- Paste over selection without yanking
 vim.keymap.set('x', '<leader>p', '"_dP', { desc = 'Paste without yanking' })
@@ -29,12 +30,17 @@ vim.keymap.set('n', 'OO', 'O<Esc>j', { desc = 'Add new line over (without enteri
 -- Center screen when jumping
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Next search result (centered)' })
 vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Previous search result (centered)' })
-vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Half page down (centered)' })
-vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Half page up (centered)' })
+-- <C-d>/<C-u> are deliberately absent: neoscroll owns them (as it does
+-- <C-b>/<C-f>), and mapping them here silently overwrote its smooth-scroll
+-- versions. Neoscroll scrolls with move_cursor, which keeps the cursor at the
+-- same screen position -- roughly what the trailing zz was doing.
 
 -- ======================================================================================
 -- Line Management
 
+-- Move selected lines up/down. These keep the typed ':' rather than <cmd>:
+-- the visual pair needs the '<,'> range that ':' inserts, and both feed
+-- normal-mode keys (== / gv=gv) after the command.
 -- Move selected lines up/down
 vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { desc = 'Move line up' })
 vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { desc = 'Move line down' })
@@ -51,9 +57,9 @@ vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })
 -- ======================================================================================
 -- Buffers & Files
 
-vim.keymap.set('n', '<leader>bo', ':%bd|e#|bd#<CR>', { desc = 'Close all buffers except current' })
-vim.keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = 'Next buffer' })
-vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>bo', '<cmd>%bd|e#|bd#<CR>', { desc = 'Close all buffers except current' })
+vim.keymap.set('n', '<leader>bn', '<cmd>bnext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<leader>bp', '<cmd>bprevious<CR>', { desc = 'Previous buffer' })
 
 -- Copy current file's absolute path to clipboard
 vim.keymap.set('n', '<leader>pa', function()
@@ -80,6 +86,17 @@ vim.keymap.set('n', '<leader>rr', function()
   end
 end, { desc = 'Rename current file' })
 
+-- Diagnostic navigation. Global rather than LspAttach-scoped so it also covers
+-- diagnostics from non-LSP producers, and count-aware (3]d) like the built-in
+-- defaults these override, while keeping the float on landing.
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump({ count = vim.v.count1, float = true })
+end, { desc = 'Go to next diagnostic' })
+
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump({ count = -vim.v.count1, float = true })
+end, { desc = 'Go to previous diagnostic' })
+
 -- Toggle diagnostics
 vim.keymap.set('n', '<leader>td', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
@@ -91,8 +108,8 @@ vim.keymap.set('n', '<leader>th', function()
   vim.notify(vim.lsp.inlay_hint.is_enabled() and 'Inlay Hints Enabled' or 'Inlay Hints Disabled')
 end, { desc = 'Toggle inlay hints' })
 
--- Toggle Twilight
-vim.keymap.set('n', '<leader>tt', ':Twilight<CR>', { desc = 'Toggle Twilight' })
+-- <leader>tt toggles Twilight; defined in plugins/twilight.lua, which has to
+-- guard the toggle against a plugin bug on buffers with no treesitter parser.
 
 -- ======================================================================================
 -- Windows & Splits
@@ -108,35 +125,24 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 -- vim.keymap.set('n', '<M-k>', '<cmd>cnext<CR>', { desc = 'Move to next item in Quickfix List' })
 
 -- Splitting & Resizing
-vim.keymap.set({ 'n', 'v' }, '<C-w><Left>', ':vertical leftabove split<CR>', { desc = 'Open vertical split to left' })
-vim.keymap.set({ 'n', 'v' }, '<C-w><Right>', ':vertical rightbelow split<CR>', { desc = 'Open vertical split to right' })
-vim.keymap.set({ 'n', 'v' }, '<C-w><Up>', ':horizontal aboveleft split<CR>', { desc = 'Open horizontal split above' })
-vim.keymap.set({ 'n', 'v' }, '<C-w><Down>', ':horizontal belowright split<CR>', { desc = 'Open horizontal split below' })
--- vim.keymap.set('n', '<leader>sv', ':vsplit<CR>', { desc = 'Split window vertically' })
-vim.keymap.set('n', '<leader>sh', ':split<CR>', { desc = 'Split window horizontally' })
--- vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', { desc = 'Increase window height' })
--- vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', { desc = 'Decrease window height' })
--- vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { desc = 'Decrease window width' })
--- vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { desc = 'Increase window width' })
+vim.keymap.set({ 'n', 'v' }, '<C-w><Left>', '<cmd>vertical leftabove split<CR>', { desc = 'Open vertical split to left' })
+vim.keymap.set({ 'n', 'v' }, '<C-w><Right>', '<cmd>vertical rightbelow split<CR>', { desc = 'Open vertical split to right' })
+vim.keymap.set({ 'n', 'v' }, '<C-w><Up>', '<cmd>horizontal aboveleft split<CR>', { desc = 'Open horizontal split above' })
+vim.keymap.set({ 'n', 'v' }, '<C-w><Down>', '<cmd>horizontal belowright split<CR>', { desc = 'Open horizontal split below' })
+-- vim.keymap.set('n', '<leader>sv', '<cmd>vsplit<CR>', { desc = 'Split window vertically' })
+vim.keymap.set('n', '<leader>sh', '<cmd>split<CR>', { desc = 'Split window horizontally' })
+-- vim.keymap.set('n', '<C-Up>', '<cmd>resize +2<CR>', { desc = 'Increase window height' })
+-- vim.keymap.set('n', '<C-Down>', '<cmd>resize -2<CR>', { desc = 'Decrease window height' })
+-- vim.keymap.set('n', '<C-Left>', '<cmd>vertical resize -2<CR>', { desc = 'Decrease window width' })
+-- vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<CR>', { desc = 'Increase window width' })
 
 -- Terminal
-local channel_id = 0
 vim.keymap.set('n', '<leader>st', function()
   vim.cmd.vnew()
   vim.cmd.term()
   vim.cmd.wincmd('J')
   vim.api.nvim_win_set_height(0, 15)
-
-  channel_id = vim.bo.channel
 end, { desc = 'Open a small terminal at bottom' })
-
-vim.keymap.set('n', '<leader>stt', function()
-  if channel_id == 0 then
-    vim.notify('No terminal open. Use <leader>st first.', vim.log.levels.WARN)
-    return
-  end
-  vim.fn.chansend(channel_id, { 'git status\r\n' })
-end, { desc = 'Testing terminal command shortcut' })
 
 -- Treesitter incremental selection (Neovim 0.12+ native via vim.treesitter._select)
 local function ts_has_parser()
@@ -167,21 +173,33 @@ vim.keymap.set('x', '<BS>', function()
 end, { desc = 'Treesitter: shrink to child node' })
 
 local scope_types = {
-  function_declaration = true, function_definition = true, function_item = true,
-  method_declaration   = true, method_definition   = true,
-  arrow_function       = true, lambda_expression   = true,
-  class_declaration    = true, class_definition    = true,
-  if_statement         = true, for_statement       = true, while_statement = true,
-  block                = true, compound_statement  = true,
+  function_declaration = true,
+  function_definition = true,
+  function_item = true,
+  method_declaration = true,
+  method_definition = true,
+  arrow_function = true,
+  lambda_expression = true,
+  class_declaration = true,
+  class_definition = true,
+  if_statement = true,
+  for_statement = true,
+  while_statement = true,
+  block = true,
+  compound_statement = true,
 }
 vim.keymap.set('x', '<Tab>', function()
   local node = vim.treesitter.get_node()
-  if not node then return end
+  if not node then
+    return
+  end
   local depth = 0
   while node do
     depth = depth + 1
     node = node:parent()
-    if node and scope_types[node:type()] then break end
+    if node and scope_types[node:type()] then
+      break
+    end
   end
   if node then
     require('vim.treesitter._select').select_parent(depth)
