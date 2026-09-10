@@ -4,6 +4,12 @@ return {
     -- A collection of LSP server configurations for Neovim.
     -- @link https://github.com/neovim/nvim-lspconfig
     'neovim/nvim-lspconfig',
+
+    -- Nothing here is needed until a real file is open. Everything in
+    -- `dependencies` loads with it, in order, so blink is still available when
+    -- vim.lsp.config('*') asks it for capabilities below.
+    event = { 'BufReadPre', 'BufNewFile' },
+
     dependencies = {
       { 'saghen/blink.cmp' },
       { 'j-hui/fidget.nvim' },
@@ -122,6 +128,7 @@ return {
   -- @link https://github.com/mason-org/mason-lspconfig.nvim
   {
     'j-hui/fidget.nvim',
+    lazy = true, -- loaded by nvim-lspconfig
     config = function()
       require('fidget').setup({})
     end,
@@ -132,6 +139,7 @@ return {
     -- Package Manager to install and manage LSP servers, DAP servers, linters, and formatters.
     -- @link https://github.com/mason-org/mason.nvim
     'mason-org/mason.nvim',
+    cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog', 'MasonUpdate' },
     config = function()
       require('mason').setup({
         ui = {
@@ -150,6 +158,7 @@ return {
     -- Bridges `mason.nvim` with the nvim-lspconfig  making it easier to use both plugins together.
     -- @link https://github.com/mason-org/mason-lspconfig.nvim
     'mason-org/mason-lspconfig.nvim',
+    lazy = true, -- loaded by nvim-lspconfig
     config = function()
       require('mason-lspconfig').setup({
         ensure_installed = {}, -- explicitly set to an empty table (Installs via mason-tool-installer)
@@ -161,6 +170,7 @@ return {
     -- Mason Tool Installer
     -- @link https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
     'WhoIsSethDaniel/mason-tool-installer.nvim',
+    lazy = true, -- loaded by nvim-lspconfig; tools install on first file open
     config = function()
       require('mason-tool-installer').setup({
         ensure_installed = {

@@ -6,6 +6,8 @@ return {
   'karb94/neoscroll.nvim',
   enabled = true,
 
+  event = 'VeryLazy',
+
   config = function()
     local neoscroll = require('neoscroll')
 

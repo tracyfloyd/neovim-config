@@ -6,6 +6,8 @@ return {
   'brenoprata10/nvim-highlight-colors',
   enabled = true,
 
+  event = { 'BufReadPost', 'BufNewFile' },
+
   config = function()
     require('nvim-highlight-colors').setup({
       render = 'virtual', -- 'background'|'foreground'|'virtual'

@@ -7,6 +7,8 @@ return {
     'saghen/blink.cmp',
     enabled = true,
 
+    lazy = true, -- loaded by nvim-lspconfig, which needs its LSP capabilities
+
     dependencies = {
       'saghen/blink.lib',
       {

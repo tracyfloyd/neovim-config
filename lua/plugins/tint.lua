@@ -6,6 +6,8 @@ return {
   'levouh/tint.nvim',
   enabled = true,
 
+  event = 'VeryLazy',
+
   config = function()
     require('tint').setup({
       tint = -55, -- Darken colors, use a positive value to brighten
