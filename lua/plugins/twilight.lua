@@ -6,6 +6,25 @@ return {
   'folke/twilight.nvim',
   enabled = true,
 
+  keys = {
+    {
+      '<leader>tt',
+      function()
+        -- twilight gates its treesitter path on `pcall(vim.treesitter.get_parser, buf)`
+        -- (view.lua:167), but since nvim 0.11 get_parser returns nil instead of
+        -- raising when the buffer has no parser -- so the pcall succeeds, and
+        -- view.lua:102 then indexes that nil and throws E5108. Decide per buffer
+        -- here instead. Dimming still works without treesitter, just line-based.
+        local ok, cfg = pcall(require, 'twilight.config')
+        if ok and cfg.options then
+          cfg.options.treesitter = vim.treesitter.get_parser(0, nil, { error = false }) ~= nil
+        end
+        vim.cmd('Twilight')
+      end,
+      desc = 'Toggle Twilight',
+    },
+  },
+
   config = function()
     require('twilight').setup({
       dimming = {
@@ -28,5 +47,4 @@ return {
       exclude = {}, -- exclude these filetypes
     })
   end,
-
 }
