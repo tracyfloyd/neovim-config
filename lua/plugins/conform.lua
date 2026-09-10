@@ -27,6 +27,15 @@ return {
       formatters_by_ft = {
         css = { 'prettierd', stop_after_first = true },
         scss = { 'prettierd', stop_after_first = true },
+        html = { 'prettierd', stop_after_first = true },
+
+        json = { 'prettierd', stop_after_first = true },
+        yaml = { 'prettierd', stop_after_first = true },
+        -- prettier defaults to proseWrap: preserve, so this reflows syntax but
+        -- not prose. Drop it if it still fights your markdown.
+        markdown = { 'prettierd', stop_after_first = true },
+
+        lua = { 'stylua' },
 
         php = { 'pint' },
 

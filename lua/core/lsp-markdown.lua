@@ -6,17 +6,12 @@
 local M = {}
 
 function M.clean(text)
-  if type(text) ~= 'string' then return text end
-  return text
-    :gsub('&lt;', '<')
-    :gsub('&gt;', '>')
-    :gsub('&amp;', '&')
-    :gsub('&quot;', '"')
-    :gsub('&#39;', "'")
-    :gsub('\\([%-%.%:/+=!%?,;~^%[%]%(%){}])', '%1')
-    :gsub('!%[[^%]]*%]%(data:[^%)]*%)', '')
-    :gsub('<img[^>]*>', '')
-    :gsub('\n\n\n+', '\n\n')
+  if type(text) ~= 'string' then
+    return text
+  end
+  -- Parenthesised: gsub returns (string, count) and the count must not leak
+  -- out as a second return value.
+  return (text:gsub('&lt;', '<'):gsub('&gt;', '>'):gsub('&amp;', '&'):gsub('&quot;', '"'):gsub('&#39;', "'"):gsub('\\([%-%.%:/+=!%?,;~^%[%]%(%){}])', '%1'):gsub('!%[[^%]]*%]%(data:[^%)]*%)', ''):gsub('<img[^>]*>', ''):gsub('\n\n\n+', '\n\n'))
 end
 
 return M
