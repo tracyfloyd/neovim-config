@@ -44,11 +44,20 @@ return {
           },
         }
       end,
+      -- Auto-detection calls vim.pack.get() on nvim 0.12+, which initialises
+      -- vim.pack and leaves an empty site/pack/core/opt behind that both
+      -- :checkhealth lazy and :checkhealth vim.pack then complain about. The
+      -- list below is exhaustive, so nothing is lost by turning it off --
+      -- blink_cmp, fidget and illuminate are the three it used to add.
+      auto_integrations = false,
       integrations = {
+        blink_cmp = true,
         cmp = true,
+        fidget = true,
         gitsigns = true,
         grug_far = true,
         harpoon = true,
+        illuminate = true,
         indent_blankline = {
           enabled = true,
           scope_color = '', -- catppuccin color (eg. `lavender`) Default: text
