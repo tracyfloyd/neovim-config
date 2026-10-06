@@ -10,6 +10,24 @@ local function on_win_mount(bufnr)
   return name ~= '' and vim.startswith(name, win_mount .. '/')
 end
 
+-- oil, fugitive and grug-far all back their buffers with a URI rather than a path
+-- (oil:///Users/..., fugitive://...). Write-time autocmds that treat the buffer name
+-- as a filesystem path have to skip those: 'mkdir -p' on an oil URI creates a literal
+-- "oil:" directory tree under the cwd, which macOS then displays as "oil/".
+--
+-- The scheme match is the arm that catches oil: despite oil setting 'acwrite' in
+-- view.lua, its buffers report buftype="" by the time BufWritePre fires, so a buftype
+-- check alone does not stop this. The buftype check still earns its place for the
+-- special buffers that do set it (quickfix, help, terminal, nofile scratch buffers).
+local function is_real_file_buf(bufnr)
+  bufnr = bufnr or 0
+  if vim.bo[bufnr].buftype ~= '' then
+    return false
+  end
+  local name = vim.api.nvim_buf_get_name(bufnr)
+  return not name:match('^%a[%w+.-]*://')
+end
+
 -- ======================================================================================
 -- Text Editing
 
@@ -18,7 +36,10 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   desc = 'Trim trailing whitespace on save',
   group = augroup,
   pattern = '*',
-  callback = function()
+  callback = function(ev)
+    if not is_real_file_buf(ev.buf) then
+      return
+    end
     -- [ \t\r] rather than \s: Vim's \s is space and tab only, never CR. A file with
     -- mixed endings is read as 'unix', which leaves literal CRs in the buffer text --
     -- and after/ftplugin/{cs,razor}.lua then force 'dos', appending another CR on
@@ -124,7 +145,10 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 vim.api.nvim_create_autocmd('BufWritePre', {
   desc = 'Create directories when saving files',
   group = augroup,
-  callback = function()
+  callback = function(ev)
+    if not is_real_file_buf(ev.buf) then
+      return
+    end
     local dir = vim.fn.expand('<afile>:p:h')
     if vim.fn.isdirectory(dir) == 0 then
       vim.fn.mkdir(dir, 'p')
